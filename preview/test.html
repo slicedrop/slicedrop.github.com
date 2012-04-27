@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- 
+
+(c) Daniel Haehn 2012
+
+ -->
+<html lang="en">
+  <head>
+    <title>SliceDrop</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Daniel Haehn, FNNDSC, Children's Hospital Boston">
+
+    <link rel="stylesheet" href="css/main.css" media="screen">
+    <link rel="stylesheet" href="css/main_print.css" media="print">
+    
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>    
+    <script src="http://code.jquery.com/ui/1.8.19/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/xtk_edge.js"></script>    
+
+    <script src="js/main.js"></script>    
+    
+  </head>
+<body id="body">
+
+  <div id="r" style="background-color: #000; width:100%;height:100%">
+	
+	  <div id="body-container">
+	    <div id="menuBar"><div id="logotext"><span style="color:#000;">Slice</span>Drop<span style="color:#616161;">.com</span></div><div id="status"><img src="gfx/loading.gif"></div></div>
+	    <div id="logo"><img src='gfx/slicedrop.png'></div>
+	    <div id="browser-warning">
+	      <img align="left" src="gfx/warning.png" />Chrome 8 or Firefox 3.6.8 are Required &nbsp;&nbsp; <span style="font-size: 80%;">(at least for now)</span>
+	    </div>
+	    <div id="centered">
+	      <h1>Drag'n'Drop..</h1>
+	      
+	      <img src="gfx/fibers.png" class="showcase">
+	      <img src="gfx/dicom.png" class="showcase">
+	      <img src="gfx/surface.png" class="showcase">
+	      <br>
+				<table width="700" id="showcaseTable">
+					<tr>
+						<td width="33%" align="center">Fibers<br>(.trk)</td>
+						<td width="33%" align="center">Volumes<br>(.nrrd / .mgh
+							/ .mgz)</td>
+						<td width="33%" align="center">Models<br>(.stl / .vtk /
+							FreeSurfer)</td>
+					</tr>
+				</table>
+
+			</div>
+      
+			
+			
+	  </div>
+	    
+  </div>
+
+  <div id="drop-box-overlay">
+    <h1>Drop files anywhere...</h1>
+  </div>
+   
+</body>
+</html>
