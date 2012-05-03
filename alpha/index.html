@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +5,20 @@
 <title>Slice:Drop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Slice:Drop - View and share 3D scientific imaging data using an easy interface.">
+	content="Slice:Drop - Instantly view scientific and medical imaging data in 3D.
+        Then, share it - confidentially or for everybody.">
 <meta name="author" content="Daniel Haehn">
 
-<!-- Le styles -->
+<!-- Der styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/login.css" rel="stylesheet">
+<link href="css/signin.css" rel="stylesheet">
 <link href="css/thumbnails.css" rel="stylesheet">
 
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!-- Die HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<![endif]-->
 
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="ico/favicon.ico">
@@ -30,6 +30,12 @@
 	href="ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="ico/apple-touch-icon-57-precomposed.png">
+
+<!-- Das javascript -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
 </head>
 
 <body>
@@ -37,39 +43,41 @@
 	<div class="container">
 
 		<img src="gfx/slicedrop.png">
-		<div style="float: right">
-			<a class="btn btn-medium"
-				style="margin-bottom: 5px; width: 155px; text-align: left;"><i
-				class="icon-twitter"></i> Sign in with Twitter</a><br> <a
-				class="btn btn-medium"
-				style="margin-bottom: 10px; width: 155px; text-align: left;"><i
-				class="icon-facebook"></i> Sign in with Facebook</a>
+		<div class="signin-panel">
+			<a class="btn btn-medium signin-btn"><i class="icon-twitter"></i>
+				Sign in with Twitter</a><br> <a class="btn btn-medium signin-btn"><i
+				class="icon-facebook"></i> Sign in with Facebook</a><br> <a
+				class="btn btn-medium signin-btn"><i class="icon-google"></i>
+				Sign in with Google</a>
 		</div>
 
 		<div class="hero-unit">
 			<p>Instantly view scientific and medical imaging data in 3D.
 				Then, share it - confidentially or for everybody.</p>
 			<p>
-				<a class="btn btn-medium">Learn more &raquo;</a>
+				<a class="btn btn-medium" data-toggle="modal" href="#learnMore" >Learn more &raquo;</a>
 			</p>
 		</div>
 
-		<div style="width:660px;margin-left: auto; margin-right: auto;text-align:center;">
-		<h3>Drag and drop files here or <a class="btn btn-inverse btn-medium" style="vertical-align:top;">Select files</a></h3><br><br>
+		<div class="dropzone">
+			<span>Drop files here or </span><a class="btn btn-inverse btn-large"
+				style="vertical-align: super;">Select files</a><br> <br>
 			<ul class="thumbnails">
-				<li style="width: 200px">
+				<li>
 					<div class="thumbnail">
 						<img src="gfx/fibers.png" alt=""> Fibers<br>(.trk)
 					</div>
 				</li>
-				<li style="width: 200px">
+				<li>
 					<div class="thumbnail">
-						<img src="gfx/dicom.png" alt=""> Volumes<br>(.mgh / .mgz / .nrrd)
+						<img src="gfx/dicom.png" alt=""> Volumes<br>(.mgh /
+						.mgz / .nrrd)
 					</div>
 				</li>
-				<li style="width: 200px">
+				<li>
 					<div class="thumbnail">
-						<img src="gfx/surface.png" alt=""> Models<br>(.vtk / .stl / FreeSurfer)
+						<img src="gfx/surface.png" alt=""> Models<br>(.vtk /
+						.stl / FreeSurfer)
 					</div>
 				</li>
 			</ul>
@@ -77,6 +85,16 @@
 
 	</div>
 	<!-- /container -->
+
+	<div class="modal hide fade" id="learnMore" style="display: none; ">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3>&nbsp;</h3>
+		</div>
+		<div class="modal-body">
+			<p>Learn more..</p>
+		</div>
+	</div>
 
 </body>
 </html>
