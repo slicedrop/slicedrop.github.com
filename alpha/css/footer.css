@@ -1,0 +1,15 @@
+.footer {
+	border-top: 1px solid #e5e5e5;
+	margin-top: 200px;
+}
+
+.paddingated {
+	padding-top: 10px;
+	padding-left: 10px;
+	font-size: 11px;
+}
+
+.marginated {
+	margin-top: 10px;
+	margin-left: 10px;
+}
