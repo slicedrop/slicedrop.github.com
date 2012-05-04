@@ -15,6 +15,7 @@
 <link href="css/signin.css" rel="stylesheet">
 <link href="css/thumbnails.css" rel="stylesheet">
 <link href="css/footer.css" rel="stylesheet">
+<link href="css/dragndrop.css" rel="stylesheet">
 
 <!-- Die HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -36,16 +37,21 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap-modal.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/xtk_edge.js"></script>
+<script src="js/main.js"></script>
+
 
 </head>
 
-<body>
+<body id="body">
 
-<div id="renderer" style="position:absolute; background-color: #000000; width: 100%; height: 100%;">
-<img src="gfx/slicedrop_transparent.png">
-</div>
+	<div id="renderer"
+		style="background-color: #000000; display:none;">
+	</div>
+	
+	<div id="blacklogo" style="position:absolute;top:10px;left:10px;display:none;"><img src="gfx/slicedrop_transparent.png"></div>
 
-	<div class="container" style="display:none">
+	<div id="content" class="container" style="">
 
 		<img src="gfx/slicedrop.png">
 		<div class="signin-panel">
@@ -72,42 +78,54 @@
 				<li>
 					<div class="thumbnail">
 						<img src="gfx/fibers.png" alt=""> Fibers<br>(.trk)
-					</div></li>
+					</div>
+				</li>
 				<li>
 					<div class="thumbnail">
 						<img src="gfx/dicom.png" alt=""> Volumes<br>(.mgh /
 						.mgz / .nrrd)
-					</div></li>
+					</div>
+				</li>
 				<li>
 					<div class="thumbnail">
 						<img src="gfx/surface.png" alt=""> Models<br>(.vtk /
 						.stl / FreeSurfer)
-					</div></li>
+					</div>
+				</li>
 			</ul>
 		</div>
 
 		<div class="footer">
-			<div class="row" style="margin:auto">
+			<div class="row" style="margin: auto">
 				<div class="span2 offset4">
 					<ul class="unstyled paddingated">
-						<li><a href="">About</a></li>
-						<li><a href="">Plans and Pricing</a></li>
-						<li><a href="">Privacy</a></li>
-						<li><a href="">Terms of Use</a></li>
+						<li><a href="">About</a>
+						</li>
+						<li><a href="">Plans and Pricing</a>
+						</li>
+						<li><a href="">Privacy</a>
+						</li>
+						<li><a href="">Terms of Use</a>
+						</li>
 					</ul>
 				</div>
 				<div class="span2">
 					<ul class="unstyled paddingated">
-						<li><a href="">Open Research</a></li>
-						<li><a href="">Get Involved</a></li>
-						<li><a href="">Source Code</a></li>
+						<li><a href="">Open Research</a>
+						</li>
+						<li><a href="">Get Involved</a>
+						</li>
+						<li><a href="">Source Code</a>
+						</li>
 					</ul>
 				</div>
 				<div class="span2">
 					<ul class="unstyled paddingated">
-					  <li><a href="">The Team</a>
-					  <li><a href="">Help and Support</a></li>
-						<li><a href="">Send Feedback</a></li>
+						<li><a href="">The Team</a>
+						<li><a href="">Help and Support</a>
+						</li>
+						<li><a href="">Send Feedback</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -115,7 +133,7 @@
 	</div>
 	<!-- /container -->
 
-  
+
 
 	<div class="modal hide fade" id="learnMore" style="display: none;">
 		<div class="modal-header">
@@ -126,6 +144,10 @@
 			<p>Learn more..</p>
 		</div>
 	</div>
+	
+  <div id="drop-box-overlay">
+    <h1>Drop files anywhere...</h1>
+  </div>	
 
 </body>
 </html>

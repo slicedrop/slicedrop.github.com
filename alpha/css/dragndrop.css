@@ -1,0 +1,35 @@
+
+#drop-box-overlay {
+  margin: 1px;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  position: fixed;
+  background-color: #222222;
+  display: none;
+  
+  z-index: 50;
+  opacity: 0.9;
+}
+
+#drop-box-overlay h1 {
+  padding: 2em;
+  top: 38%;
+  left: 40%;
+  position: absolute;
+  
+  border: 2px solid #5e5e5e;
+  background-color: #c2c2c2;
+  -moz-border-radius: 4px 4px;
+  -webkit-border-radius: 4px 4px;
+  border-bottom-left-radius: 4px 4px;
+  border-bottom-right-radius: 4px 4px;
+  border-top-left-radius: 4px 4px;
+  border-top-right-radius: 4px 4px;
+  
+  color: #222222;
+  font-size: 150%;
+  text-shadow: 1px 1px 1px #FFFFFF;
+}
