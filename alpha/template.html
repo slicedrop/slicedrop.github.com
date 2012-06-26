@@ -10,7 +10,7 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.ui.js"></script>
 <script type="text/javascript" src="js/jquery.miniColors.min.js"></script>
-<script type="text/javascript" src="http://get.goXTK.com/xtk_edge.js"></script>
+<script type="text/javascript" src="js/xtk.js"></script>
 
 <script type="text/javascript">
   // script snippet for the menu animation
@@ -75,34 +75,13 @@
     jQuery("#red_slider").slider();
     jQuery("#green_slider").slider();
     
-    //jQuery("#your_input").modcoder_excolor({
-    //  z_index : 99999999,
-    //  hue_slider : 2,
-    //  show_color_on_border : true,
-    //  callback_on_ok : function() {
-    // You can insert your code here
-    //  alert(jQuery("#meshname").val());
-    //  }
-    //});
     
     jQuery("#labelmapname").change(function() {
 
-      //alert(jQuery(this).val());
-      // similar to sliceDrop
-      //if(jQuery(this).val()=="None"){
-      //volume.labelmap.visibility = false;
-      //volume.modified();
-      //threeD.render();
-      //}
-      //if None hide it
-      // else load by name
-      // no button to be updated
     });
     
     jQuery("#scalarname").change(function() {
 
-      // alert(jQuery(this).val());
-      // reset all buttons with color, opacity, etc.
     });
     
   });
@@ -111,6 +90,7 @@
       .ready(
           function() {
 
+            
             //
             // The X Toolkit code
             //
@@ -367,7 +347,7 @@
                 
                 jQuery('#visibility-mesh').button("refresh");
               });
-              
+            
 
               // customize slider look and feeld
               jQuery('.ui-slider').height(5);
@@ -488,13 +468,6 @@ body {
 	top: 0px;
 }
 
-.credits {
-	position: absolute;
-	bottom: 2px;
-	right: 2px;
-	opacity: 0.6;
-	font-size: 120%;
-}
 </style>
 </head>
 <body>
@@ -573,13 +546,28 @@ body {
         <div class="pin">
           <span class="ui-icon ui-icon-pin-s" id="fiberspin"></span>
         </div>
-				<div class="content"></div>
+				<div class="content">
+<div id="tabs2" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                  <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#tabs2-1">First</a></li>
+                  <li class="ui-state-default ui-corner-top"><a href="#tabs2-2">Second</a></li>
+                  <li class="ui-state-default ui-corner-top"><a href="#tabs2-3">Third</a></li>
+                </ul>
+                <div id="tabs2-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget diam nec urna hendrerit tempus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum aliquam ligula non nulla cursus volutpat. Aliquam malesuada felis nec turpis auctor interdum. Cras et lobortis dolor. Nam sodales, dolor eu cursus faucibus, justo leo vestibulum turpis, id malesuada erat ipsum et leo. Integer id aliquam augue. Proin quis risus magna.</p>
+                  <a href="#" id="sampleButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Change</span></a>
+                </div>
+                <div id="tabs2-2" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">Tab 2</div>
+                <div id="tabs2-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">Tab 3</div>
+              </div>
+				<span class="ui-state-default ui-corner-all ui-icon ui-icon-dark ui-icon-info"></span>
+				
+				</div>
 				<div class="caption">FIBERS</div>
 		</a> </span></li>
 	</ul>
 	<div id="3d"
 		style="background-color: #000; width: 80%; height: 100%; position: absolute; right: 20%; left: 0%; bottom: 0%; top: 0%;">
-		<div class="credits">Powered by XTK©</div>
 	</div>
 	<div id="sliceX"
 		style="border-left: thin solid #666; background-color: #000; width: 20%; height: 33.3%; position: absolute; right: 0%; top: 0%;">
