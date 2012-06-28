@@ -30,8 +30,24 @@
 					<a href="#volumeTab" class="selected">Volume</a> <a
 						href="#labelmapTab" style="margin-left: 50px;">Labelmap</a>
 					<div id="volumeTab" class="tabContent">
-						<input type="checkbox" id="volumerendering" /><label
-							for="volumerendering">VOLUMERENDERING</label>
+
+
+						<div id="modes">
+							<div id='volumerendering'>
+								<img src='gfx/3d.png' />
+							</div>
+							<div id='slicing'>
+								<img src='gfx/2d.png' />
+							</div>
+						</div>
+
+						<input type="hidden" name="color4" class="color-picker black"
+							size="6" />
+
+
+
+						<!-- 						<input type="checkbox" id="volumerendering" /><label -->
+						<!-- 							for="volumerendering">VOLUMERENDERING</label> -->
 						<div id="volumerendering-visible">
 							<div class="label">Opacity</div>
 							<div id="opacity-volume"></div>
@@ -46,8 +62,7 @@
 						test3</div>
 				</div>
 
-			</div>
-		</li>
+			</div></li>
 
 		<li id="mesh" class="navigationLi"><div class='menu'>
 				<div class="pin">
@@ -62,8 +77,7 @@
 					<div id="mesh2" class="tabContent" style="display: none">
 						test3</div>
 				</div>
-			</div>
-		</li>
+			</div></li>
 
 		<li id="fibers" class="navigationLi"><div class='menu'>
 				<div class="pin">
@@ -76,11 +90,11 @@
 						style="margin-left: 16px;">2</a>
 					<div id="fibers1" class="tabContent">TEST</div>
 					<div id="fibers2" class="tabContent" style="display: none">
-						test3<br>dfdfdsfdsf<br><br>sfasf<br>sfasd</br></br></br></br></div>
+						test3<br>dfdfdsfdsf<br><br>sfasf<br>sfasd</br></br></br></br>
+					</div>
 				</div>
-			</div>
-		</li>
-		
+			</div></li>
+
 	</ul>
 
 	<div id="blacklogo">
