@@ -1,0 +1,16 @@
+body {
+	background: #000;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: hidden !important;
+	margin: 0;
+}
+
+#blacklogo {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}

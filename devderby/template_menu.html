@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Slice:Drop</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link type="text/css" rel="stylesheet" href="css/xtheme/jquery.ui.css" />
+<link type="text/css" rel="stylesheet" href="css/jquery.miniColors.css" />
+<link type="text/css" rel="stylesheet" href="css/jquery.sidebar.css" />
+<link type="text/css" rel="stylesheet" href="css/viewer.css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.ui.js"></script>
+<script type="text/javascript" src="js/jquery.miniColors.js"></script>
+<script type="text/javascript" src="js/jquery.idTabs.js"></script>
+<script type="text/javascript" src="js/jquery.sidebar.js"></script>
+<script type="text/javascript" src="js/xtk.js"></script>
+
+</head>
+<body>
+	<ul class="navigation">
+		<li id="volume" class="navigationLi"><div class='menu'>
+				<div class="pin">
+					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+				</div>
+
+				<div class="tabbox idTabs">
+					<div class="caption">VOLUME</div>
+
+					<a href="#volumeTab" class="selected">Volume</a> <a
+						href="#labelmapTab" style="margin-left: 50px;">Labelmap</a>
+					<div id="volumeTab" class="tabContent">
+						<input type="checkbox" id="volumerendering" /><label
+							for="volumerendering">VOLUMERENDERING</label>
+						<div id="volumerendering-visible">
+							<div class="label">Opacity</div>
+							<div id="opacity-volume"></div>
+						</div>
+
+						<div class="label">Threshold</div>
+						<div id="threshold-volume"></div>
+
+
+					</div>
+					<div id="labelmapTab" class="tabContent" style="display: none">
+						test3</div>
+				</div>
+
+			</div>
+		</li>
+
+		<li id="mesh" class="navigationLi"><div class='menu'>
+				<div class="pin">
+					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+				</div>
+				<div class="tabbox idTabs">
+					<div class="caption">MESH</div>
+
+					<a href="#mesh1" class="selected">1</a> <a href="#mesh2"
+						style="margin-left: 16px;">2</a>
+					<div id="mesh1" class="tabContent">TEST</div>
+					<div id="mesh2" class="tabContent" style="display: none">
+						test3</div>
+				</div>
+			</div>
+		</li>
+
+		<li id="fibers" class="navigationLi"><div class='menu'>
+				<div class="pin">
+					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+				</div>
+				<div class="tabbox idTabs">
+					<div class="caption">FIBERS</div>
+
+					<a href="#fibers1" class="selected">1</a> <a href="#fibers2"
+						style="margin-left: 16px;">2</a>
+					<div id="fibers1" class="tabContent">TEST</div>
+					<div id="fibers2" class="tabContent" style="display: none">
+						test3<br>dfdfdsfdsf<br><br>sfasf<br>sfasd</br></br></br></br></div>
+				</div>
+			</div>
+		</li>
+		
+	</ul>
+
+	<div id="blacklogo">
+		<img src="gfx/slicedrop_transparent.png"></img>
+	</div>
+
+</body>
+</html>
