@@ -1,0 +1,82 @@
+// volume panel javascript
+jQuery(function() {
+
+  //
+  // VOLUME
+  //
+  jQuery("#volumerendering").button();
+  jQuery("#volumerendering").unbind('mouseenter').unbind('mouseleave');
+  jQuery("#volumerendering").click(function() {
+
+    jQuery("#slicing").removeClass('ui-state-active');
+    jQuery("#volumerendering").addClass('ui-state-active');
+    jQuery('#windowlevel-label').hide();
+    jQuery('#windowlevel-volume').hide();
+    jQuery("#opacity-label").show();
+    jQuery('#opacity-volume').show();
+    
+
+  });
+  jQuery("#slicing").button();
+  jQuery("#slicing").addClass('ui-state-active');
+  jQuery("#slicing").unbind('mouseenter').unbind('mouseleave');
+  jQuery("#slicing").click(function() {
+
+    jQuery("#volumerendering").removeClass('ui-state-active');
+    jQuery("#slicing").addClass('ui-state-active');
+    jQuery("#opacity-label").hide();
+    jQuery('#opacity-volume').hide();
+    jQuery('#windowlevel-label').show();
+    jQuery('#windowlevel-volume').show();
+    
+  });
+  jQuery("#modes").buttonset();
+  
+  jQuery(".color-picker").miniColors({
+    letterCase: 'uppercase',
+    change: function(hex, rgb) {
+
+      logData(hex, rgb);
+      
+    }
+  });
+  
+
+  jQuery('#inverted').button();
+  
+  jQuery('#color2').button();
+  
+  jQuery("#colormodes").buttonset();
+  jQuery('#inverted').removeClass('ui-corner-left').addClass('ui-corner-top');
+  jQuery('#color2').removeClass('ui-corner-right').addClass('ui-corner-bottom');
+  
+  jQuery("#windowlevel-volume").dragslider({
+    range: true,
+    rangeDrag: true,
+    values: [0, 100]
+  });
+  jQuery("#windowlevel-volume").width(140);
+  
+  jQuery("#opacity-volume").slider();
+  jQuery("#opacity-volume").width(140);
+  jQuery("#opacity-volume").hide();
+  jQuery("#opacity-label").hide();
+  
+  jQuery("#threshold-volume").dragslider({
+    range: true,
+    rangeDrag: true,
+    values: [0, 100]
+  });
+  jQuery("#threshold-volume").width(140);
+  
+  //
+  // LABELMAP
+  //
+  
+
+  jQuery("#opacity-labelmap").slider();
+  jQuery("#opacity-labelmap").width(140);
+  
+
+
+});

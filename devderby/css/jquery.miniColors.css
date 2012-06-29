@@ -3,7 +3,7 @@
 	width: 22px;
 	background: url(../gfx/miniColors/trigger.png) center no-repeat;
 	vertical-align: middle;
-	margin: 0 .25em;
+	margin: 2.5px;
 	display: inline-block;
 	outline: none;
 }

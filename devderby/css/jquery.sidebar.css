@@ -98,3 +98,11 @@
   right: 0px;
   top: 0px;
 }
+
+.pinicon {
+	
+}
+
+.show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }
+
+.hide-icon { width: 16px; height: 18px; background-image: url(../gfx/hide.png); }

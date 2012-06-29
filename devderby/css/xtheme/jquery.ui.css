@@ -394,10 +394,10 @@
 ----------------------------------*/
 
 /* Corner radius */
-.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 4px; -webkit-border-top-left-radius: 4px; -khtml-border-top-left-radius: 4px; border-top-left-radius: 4px; }
-.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; -khtml-border-top-right-radius: 4px; border-top-right-radius: 4px; }
-.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-left-radius: 4px; -khtml-border-bottom-left-radius: 4px; border-bottom-left-radius: 4px; }
-.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; -khtml-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; -khtml-border-top-left-radius: 2px; border-top-left-radius: 2px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; -khtml-border-top-right-radius: 2px; border-top-right-radius: 2px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; -khtml-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; -khtml-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
 
 
 
@@ -529,7 +529,8 @@
   background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
   background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
-  padding: 5px 14px 6px;
+/*   padding: 5px 14px 6px; */
+  padding: 2px 2px 0px;
   margin: 0;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   color: #333;
@@ -782,8 +783,8 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  *
  * http://docs.jquery.com/UI/Slider#theming
  */
-.ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
+.ui-slider { position: relative; text-align: left; height: 5px; }
+.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 3px; height: 10px; cursor: default; margin-top: 0.5px; }
 .ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0;
 
   color: #ffffff;
@@ -803,7 +804,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 
 }
 
-.ui-slider-horizontal { height: .8em; }
+.ui-slider-horizontal { height: 5px; }
 .ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
 .ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
 .ui-slider-horizontal .ui-slider-range-min { left: 0; }
@@ -1091,13 +1092,13 @@ textarea,
 .uneditable-input {
   display: inline-block;
   padding: 4px;
-  font-size: 13px;
-  line-height: 18px;
+/*   font-size: 13px; */
+/*   line-height: 18px; */
   color: #808080;
   border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 
 

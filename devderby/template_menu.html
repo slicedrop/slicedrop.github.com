@@ -11,9 +11,12 @@
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.ui.js"></script>
+<script type="text/javascript" src="js/jquery.ui.slider.js"></script>
 <script type="text/javascript" src="js/jquery.miniColors.js"></script>
 <script type="text/javascript" src="js/jquery.idTabs.js"></script>
 <script type="text/javascript" src="js/jquery.sidebar.js"></script>
+<script type="text/javascript" src="js/jquery.sidebar.volume.js"></script>
+<script type="text/javascript" src="js/jquery.sidebar.mesh.js"></script>
 <script type="text/javascript" src="js/xtk.js"></script>
 
 </head>
@@ -21,7 +24,7 @@
 	<ul class="navigation">
 		<li id="volume" class="navigationLi"><div class='menu'>
 				<div class="pin">
-					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+					<span class="ui-icon ui-icon-pin-w pinicon"></span>
 				</div>
 
 				<div class="tabbox idTabs">
@@ -32,7 +35,7 @@
 					<div id="volumeTab" class="tabContent">
 
 
-						<div id="modes">
+						<div id="modes" style="width: 130px; float: left;">
 							<div id='volumerendering'>
 								<img src='gfx/3d.png' />
 							</div>
@@ -41,39 +44,94 @@
 							</div>
 						</div>
 
-						<input type="hidden" name="color4" class="color-picker black"
-							size="6" />
+						<div id="colors"
+							style="width: 26px; margin-left: 6px; float: left;">
 
-
-
-						<!-- 						<input type="checkbox" id="volumerendering" /><label -->
-						<!-- 							for="volumerendering">VOLUMERENDERING</label> -->
-						<div id="volumerendering-visible">
-							<div class="label">Opacity</div>
-							<div id="opacity-volume"></div>
+							<input type="hidden" class="color-picker black" size="6"
+								value="#ffffff" /> <input type="hidden"
+								class="color-picker black" size="6" value="#000000" />
 						</div>
 
-						<div class="label">Threshold</div>
-						<div id="threshold-volume"></div>
+						<div id="opacity-label" class="label"
+							style='margin-top: 4px; float: left;'>3D Opacity</div>
+						<div id="opacity-volume"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+						<div id="windowlevel-label" class="label"
+							style='margin-top: 4px; float: left;'>Window/Level</div>
+						<div id="windowlevel-volume"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+						<div class="label" style='margin-top: 4px; float: left;'>Threshold</div>
+						<div id="threshold-volume"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
 
 					</div>
 					<div id="labelmapTab" class="tabContent" style="display: none">
-						test3</div>
+
+
+						<div id="visibility-labelmap" style='width: 130px; float: left;'>
+							<div class="label" style='margin-top: 4px; float: left;'>Show/Hide</div>
+							<div id='labelmapvisibility' class="eye show-icon"
+								style="margin-left: 6px;"></div>
+						</div>
+
+						<div class="label" style='margin-top: 4px; float: left;'>Labelmap
+							Opacity</div>
+						<div id="opacity-labelmap"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+
+					</div>
 				</div>
 
 			</div></li>
 
 		<li id="mesh" class="navigationLi"><div class='menu'>
 				<div class="pin">
-					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+					<span class="ui-icon ui-icon-pin-w pinicon"></span>
 				</div>
-				<div class="tabbox idTabs">
+				<div class="tabbox idTabs" id="meshtabs">
 					<div class="caption">MESH</div>
 
 					<a href="#mesh1" class="selected">1</a> <a href="#mesh2"
 						style="margin-left: 16px;">2</a>
-					<div id="mesh1" class="tabContent">TEST</div>
+					<div id="mesh1" class="tabContent">
+
+						<div id="visibility-mesh"
+							style='width: 140px; float: left; margin-top: 2px;'>
+							<div class="label" style='margin-top: 4px; float: left;'>Show/Hide</div>
+							<div id='meshvisibility' class="eye show-icon"
+								style="margin-left: 6px;"></div>
+						</div>
+
+						<input type="hidden" name="color4" class="color-picker black"
+							size="6" value="#ff0000" />
+
+						<div class="label" style='margin-top: 4px; float: left;'>Opacity</div>
+						<div id="opacity-mesh"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+						<div class="label"
+							style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
+						<div id="scalars-mesh" style='width: 160px; float: left;'>
+
+							<select id='scalars-selector' style="margin-left: 6px"><option>C
+									(mm&#x207b;&sup2;)</option></select> <input type="hidden" name="color4"
+								class="color-picker black" size="6" value="#ffffff" /> <input
+								type="hidden" name="color4" class="color-picker black" size="6"
+								value="#0000ff" />
+						</div>
+
+
+
+						<div class="label" style='margin-top: 4px; float: left;'>Scalars
+							Threshold</div>
+						<div id="threshold-scalars"
+							style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+					</div>
 					<div id="mesh2" class="tabContent" style="display: none">
 						test3</div>
 				</div>
@@ -81,7 +139,7 @@
 
 		<li id="fibers" class="navigationLi"><div class='menu'>
 				<div class="pin">
-					<span class="ui-icon ui-icon-pin-s" id="meshpin"></span>
+					<span class="ui-icon ui-icon-pin-w pinicon"></span>
 				</div>
 				<div class="tabbox idTabs">
 					<div class="caption">FIBERS</div>

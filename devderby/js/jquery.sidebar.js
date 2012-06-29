@@ -1,4 +1,4 @@
-// script snippet for the menu animation
+// sidebar javascript
 jQuery(function() {
 
   jQuery('.menu').stop().animate({
@@ -7,73 +7,69 @@ jQuery(function() {
   
   jQuery('.navigationLi').hover(function() {
 
+    if (jQuery('.miniColors-selector').length > 0) {
+      
+      // color dialog is active, don't slide
+      return;
+      
+    }
+    
     jQuery('.menu', jQuery(this)).stop().animate({
       'marginLeft': '-2px'
     }, 200);
     
   }, function() {
 
+    if (jQuery('.pinicon', jQuery(this)).hasClass('ui-icon-pin-s')) {
+      // if pinned, don't slide in
+      return;
+    }
+    
+    if (jQuery('.miniColors-selector').length > 0) {
+      
+      // color dialog is active, don't slide
+      return;
+      
+    }
+    
     jQuery('.menu', jQuery(this)).stop().animate({
       'marginLeft': '-195px'
     }, 200);
     
   });
   
+  jQuery('.pin').click(
+      function() {
+
+        jQuery('.pinicon', jQuery(this)).toggleClass('ui-icon-pin-w')
+            .toggleClass('ui-icon-pin-s');
+        
+      });
+  
+
   // activate the tab box
   jQuery(".tabbox").idTabs("!mouseover");
   
-  // other layout elements
-  jQuery("#volumerendering").button();
-  jQuery("#volumerendering").unbind('mouseenter').unbind('mouseleave');
-  jQuery("#volumerendering").click(function() {
 
-    jQuery("#slicing").removeClass('ui-state-active');
-    jQuery("#volumerendering").addClass('ui-state-active');
+  // a show/hide button
+  jQuery('.eye').button();
+  jQuery('.eye').unbind('mouseenter').unbind('mouseleave');
+  jQuery('.eye').click(function() {
+
+    jQuery('.eye').toggleClass('show-icon').toggleClass('hide-icon');
     
   });
-  jQuery("#slicing").button();
-  jQuery("#slicing").addClass('ui-state-active');
-  jQuery("#slicing").unbind('mouseenter').unbind('mouseleave');
-  jQuery("#slicing").click(function() {
-
-    jQuery("#volumerendering").removeClass('ui-state-active');
-    jQuery("#slicing").addClass('ui-state-active');
-    
-  });
-  jQuery("#modes").buttonset();
-  
-  jQuery(".color-picker").miniColors({
-    letterCase: 'uppercase',
-    change: function(hex, rgb) {
-
-      logData(hex, rgb);
-    }
-  });
   
 
-  jQuery('#inverted').button();
-  
-  jQuery('#color2').button();
-  
-  jQuery("#colormodes").buttonset();
-  jQuery('#inverted').removeClass('ui-corner-left').addClass('ui-corner-top');
-  jQuery('#color2').removeClass('ui-corner-right').addClass('ui-corner-bottom');
-  
-  jQuery("#threshold-volume").slider();
-  
+  jQuery("#meshtabs").idTabs(
+      function(id, list, set) {
 
-
-  // customize slider look and feeld
-  jQuery('.ui-slider').height(5);
-  jQuery('.ui-slider-handle').height(10);
-  jQuery('.ui-slider-handle').width(3);
-  jQuery('.ui-slider-handle').css('margin-top', '0.5px');
-  // jQuery('.ui-widget').css('font-size', '10px');
-  // jQuery('.ui-widget').css('letter-spacing', '1px');
-  jQuery('.ui-corner-all').css('-moz-border-radius', '2px');
-  jQuery('.ui-corner-all').css('-webkit-border-radius', '2px');
+        jQuery("a", set).removeClass("selected").filter("[href='" + id + "']",
+            set).addClass("selected");
+        // for (i in list)
+        // $(list[i]).hide();
+        // $(id).fadeIn();
+        return false;
+      });
   
-  jQuery('.ui-button').css('padding', '2px 2px 0px');
-  
-
 });
