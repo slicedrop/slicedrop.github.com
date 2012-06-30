@@ -71,6 +71,10 @@
 	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80 );
 }
 
+.menuDisabled {
+	opacity: 0.2;
+}
+
 .caption {
   float: right;
   position: relative;
@@ -85,7 +89,7 @@
   -webkit-transform: rotate(90deg);
 }
 
-.label {
+.menuLabel {
   letter-spacing: 1px;
   font-size: x-small;
   font-weight: bold;  
@@ -100,7 +104,15 @@
 }
 
 .pinicon {
-	
+	cursor:pointer;
+}
+
+.fiberstabs {
+	cursor:pointer;
+}
+
+.meshtabs {
+	cursor:pointer;
 }
 
 .show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }

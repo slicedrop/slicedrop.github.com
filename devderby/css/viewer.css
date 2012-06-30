@@ -1,16 +1,41 @@
-body {
-	background: #000;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #fff;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	overflow: hidden !important;
-	margin: 0;
-}
-
 #blacklogo {
 	position: absolute;
 	top: 10px;
 	left: 10px;
+}
+
+.threeDRenderer {
+	background-color: #000;
+	width: 80%;
+	height: 100%;
+	position: absolute;
+	right: 20%;
+	left: 0%;
+	bottom: 0%;
+	top: 0%;
+}
+
+.twoDRenderer {
+	border-left: thin solid #666;
+	background-color: #000;
+	width: 20%;
+	height: 33.333%;
+	position: absolute;
+	right: 0%;
+}
+
+
+#yellow_slider {
+  margin-top: 2px;
+  background: yellow;
+}
+
+#red_slider {
+  margin-top: 2px;
+  background: red;
+}
+
+#green_slider {
+  margin-top: 2px;
+  background: green;
 }

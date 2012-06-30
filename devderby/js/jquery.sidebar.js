@@ -7,6 +7,11 @@ jQuery(function() {
   
   jQuery('.navigationLi').hover(function() {
 
+    if (jQuery('.menu', jQuery(this)).hasClass('menuDisabled')) {
+      // if this menu is disabled, don't slide
+      return;
+    }
+    
     if (jQuery('.miniColors-selector').length > 0) {
       
       // color dialog is active, don't slide
@@ -47,10 +52,24 @@ jQuery(function() {
       });
   
 
-  // activate the tab box
-  jQuery(".tabbox").idTabs("!mouseover");
-  
+  // activate the tab boxes
+  // .. for volumes
+  jQuery("#volumetabs").idTabs("!mouseover");
+  // .. for meshes
+  jQuery(".meshtabs").bind('mouseenter', function() {
 
+    jQuery('.meshtabs').removeClass('selected');
+    jQuery(this).addClass("selected");
+    
+  });
+  // .. for fibers
+  jQuery(".fiberstabs").bind('mouseenter', function() {
+
+    jQuery('.fiberstabs').removeClass('selected');
+    jQuery(this).addClass("selected");
+    
+  });
+  
   // a show/hide button
   jQuery('.eye').button();
   jQuery('.eye').unbind('mouseenter').unbind('mouseleave');
@@ -59,17 +78,5 @@ jQuery(function() {
     jQuery('.eye').toggleClass('show-icon').toggleClass('hide-icon');
     
   });
-  
-
-  jQuery("#meshtabs").idTabs(
-      function(id, list, set) {
-
-        jQuery("a", set).removeClass("selected").filter("[href='" + id + "']",
-            set).addClass("selected");
-        // for (i in list)
-        // $(list[i]).hide();
-        // $(id).fadeIn();
-        return false;
-      });
   
 });
