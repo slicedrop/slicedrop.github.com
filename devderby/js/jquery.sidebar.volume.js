@@ -4,78 +4,94 @@ jQuery(function() {
   //
   // VOLUME
   //
-  jQuery("#volumerendering").button();
-  jQuery("#volumerendering").unbind('mouseenter').unbind('mouseleave');
-  jQuery("#volumerendering").click(function() {
+  jQuery('#volumerendering').button();
+  jQuery('#volumerendering').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#volumerendering').click(function() {
 
-    jQuery("#slicing").removeClass('ui-state-active');
-    jQuery("#volumerendering").addClass('ui-state-active');
+    jQuery('#slicing').removeClass('ui-state-active');
+    jQuery('#volumerendering').addClass('ui-state-active');
     jQuery('#windowlevel-label').hide();
     jQuery('#windowlevel-volume').hide();
-    jQuery("#opacity-label").show();
+    jQuery('#opacity-label').show();
     jQuery('#opacity-volume').show();
     
-
+    volumerenderingOnOff(true);
+    
   });
-  jQuery("#slicing").button();
-  jQuery("#slicing").addClass('ui-state-active');
-  jQuery("#slicing").unbind('mouseenter').unbind('mouseleave');
-  jQuery("#slicing").click(function() {
+  jQuery('#slicing').button();
+  jQuery('#slicing').addClass('ui-state-active');
+  jQuery('#slicing').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#slicing').click(function() {
 
-    jQuery("#volumerendering").removeClass('ui-state-active');
-    jQuery("#slicing").addClass('ui-state-active');
-    jQuery("#opacity-label").hide();
+    jQuery('#volumerendering').removeClass('ui-state-active');
+    jQuery('#slicing').addClass('ui-state-active');
+    jQuery('#opacity-label').hide();
     jQuery('#opacity-volume').hide();
     jQuery('#windowlevel-label').show();
     jQuery('#windowlevel-volume').show();
     
+    volumerenderingOnOff(false);
+    
   });
-  jQuery("#modes").buttonset();
+  jQuery('#modes').buttonset();
   
-  jQuery(".color-picker").miniColors({
+  jQuery('#fgColorVolume').miniColors({
     letterCase: 'uppercase',
-    change: function(hex, rgb) {
-
-      logData(hex, rgb);
-      
-    }
+    change: fgColorVolume
   });
   
-
+  jQuery('#bgColorVolume').miniColors({
+    letterCase: 'uppercase',
+    change: bgColorVolume
+  });
+  
   jQuery('#inverted').button();
   
   jQuery('#color2').button();
   
-  jQuery("#colormodes").buttonset();
+  jQuery('#colormodes').buttonset();
   jQuery('#inverted').removeClass('ui-corner-left').addClass('ui-corner-top');
   jQuery('#color2').removeClass('ui-corner-right').addClass('ui-corner-bottom');
   
-  jQuery("#windowlevel-volume").dragslider({
+  jQuery('#windowlevel-volume').dragslider({
     range: true,
     rangeDrag: true,
-    values: [0, 100]
+    values: [0, 100],
+    // connect to x.controller.js
+    slide: windowLevelVolume
   });
-  jQuery("#windowlevel-volume").width(140);
+  jQuery('#windowlevel-volume').width(140);
   
-  jQuery("#opacity-volume").slider();
-  jQuery("#opacity-volume").width(140);
-  jQuery("#opacity-volume").hide();
-  jQuery("#opacity-label").hide();
+  jQuery('#opacity-volume').slider({
+    slide: opacity3dVolume
+  });
+  jQuery('#opacity-volume').width(140);
+  jQuery('#opacity-volume').hide();
+  jQuery('#opacity-label').hide();
   
-  jQuery("#threshold-volume").dragslider({
+  jQuery('#threshold-volume').dragslider({
     range: true,
     rangeDrag: true,
-    values: [0, 100]
+    values: [0, 100],
+    // connect to x.controller.js
+    slide: thresholdVolume
   });
-  jQuery("#threshold-volume").width(140);
+  jQuery('#threshold-volume').width(140);
   
   //
   // LABELMAP
   //
   
+  jQuery('#labelmapvisibility').click(function() {
 
-  jQuery("#opacity-labelmap").slider();
-  jQuery("#opacity-labelmap").width(140);
+    toggleLabelmapVisibility();
+  });
+  
+
+  jQuery('#opacity-labelmap').slider({
+    slide: opacityLabelmap
+  });
+  jQuery('#opacity-labelmap').width(140);
   
 
 

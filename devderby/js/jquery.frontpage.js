@@ -8,8 +8,48 @@ jQuery(document).ready(function() {
 
   initBrowserWarning();
   initDnD();
+  initExamples();
+  
+  ren3d = null;
+  configurator = function() {
+
+  };
   
 });
+
+function initExamples() {
+
+  jQuery('.examples img').bind('mouseenter', function() {
+
+    jQuery('.examples img').removeClass('selectexample');
+    jQuery(this).addClass('selectexample');
+    jQuery('.examples div').hide();
+    var currentExample = jQuery(this).attr('id').replace('Image', '');
+    jQuery('#' + currentExample).show();
+    
+  });
+  
+  jQuery('#14yroldlink').click(function() {
+
+    load14yrold();
+  });
+  
+  jQuery('#avflink').click(function() {
+
+    loadAvf();
+  });
+  
+  jQuery('#2yroldlink').click(function() {
+
+    load2yrold();
+  });
+  
+  jQuery('#brainstemlink').click(function() {
+
+    loadBrainstem();
+  });
+  
+}
 
 function initBrowserWarning() {
 
@@ -90,11 +130,7 @@ function onDrop(evt) {
     return;
   }
   
-  // now switch to the viewer
-  switchToViewer();
-  
-  // .. and start the file reading
-  read(files);
+  selectfiles(files);
   
 };
 
@@ -103,5 +139,15 @@ function switchToViewer() {
   jQuery('#body').addClass('viewerBody');
   jQuery('#frontpage').hide();
   jQuery('#viewer').show();
+  
+};
+
+function selectfiles(files) {
+
+  // now switch to the viewer
+  switchToViewer();
+  
+  // .. and start the file reading
+  read(files);
   
 };

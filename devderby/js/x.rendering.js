@@ -1,6 +1,11 @@
 
 function initializeRenderers(){
   
+  if (ren3d) {
+    // do this only once
+    return;
+  }
+  
   // create the XTK renderers
   ren3d = new X.renderer3D();
   ren3d.container = '3d';
@@ -20,7 +25,7 @@ function initializeRenderers(){
   sliceZ.container = 'sliceZ';
   sliceZ.orientation = 'Z';
   sliceZ.init();  
-  
+
   ren3d.onShowtime = function() {
     
     window.console.log('Loading completed.');
@@ -38,17 +43,37 @@ function initializeRenderers(){
       
     }
     
+    setupUi();
+    configurator();
     
+    
+  };  
+  
+  //
+  // LINK THE RENDERERS
+  //
+  // link the 2d renderers to the 3d one by setting the onScroll
+  // method. this means, once you scroll in 2d, it upates 3d as well
+  var _updateThreeD = function() {
+
+    if (_data.volume.file != null) {
+      volume.modified();
+      jQuery('#yellow_slider').slider("option", "value",volume.indexX);
+      jQuery('#red_slider').slider("option", "value",volume.indexY);
+      jQuery('#green_slider').slider("option", "value",volume.indexZ);
+    }
+    ren3d.render();
     
   };
+  sliceX.onScroll = _updateThreeD;
+  sliceY.onScroll = _updateThreeD;
+  sliceZ.onScroll = _updateThreeD;  
   
 };
 
-//
-// Reading files using the HTML5 FileReader.
-//
-function read(files) {
-    
+function createData() {
+  
+
   // we support here max. 1 of the following
   //
   // volume (.nrrd,.mgz,.mgh)
@@ -93,8 +118,16 @@ function read(files) {
      'filedata': null,
      'extensions': ['TRK']
    },
-  };
+  };  
   
+}
+
+//
+// Reading files using the HTML5 FileReader.
+//
+function read(files) {
+    
+  createData();
   
   for ( var i = 0; i < files.length; i++) {
    
@@ -263,7 +296,7 @@ function parse(data) {
   if (data['mesh']['file']) {
    
    // we have a mesh
-   var mesh = new X.mesh();
+   mesh = new X.mesh();
    mesh.file = data['mesh']['file'].name;
    mesh.filedata = data['mesh']['filedata'];
    
@@ -283,7 +316,7 @@ function parse(data) {
   if (data['fibers']['file']) {
    
    // we have fibers
-   var fibers = new X.fibers();
+   fibers = new X.fibers();
    fibers.file = data['fibers']['file'].name;
    fibers.filedata = data['fibers']['filedata'];
    

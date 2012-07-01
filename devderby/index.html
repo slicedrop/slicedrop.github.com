@@ -1,16 +1,52 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<!-- 
+
+/*
+ * Slice:Drop is proudly powered by 
+ *
+ *                  xxxxxxx      xxxxxxx
+ *                   x:::::x    x:::::x 
+ *                    x:::::x  x:::::x  
+ *                     x:::::xx:::::x   
+ *                      x::::::::::x    
+ *                       x::::::::x     
+ *                       x::::::::x     
+ *                      x::::::::::x    
+ *                     x:::::xx:::::x   
+ *                    x:::::x  x:::::x  
+ *                   x:::::x    x:::::x 
+ *              THE xxxxxxx      xxxxxxx TOOLKIT
+ *                    
+ *                  http://www.goXTK.com
+ *                   
+ * Copyright (c) 2012 The X Toolkit Developers <dev@goXTK.com>
+ *                   
+ *    The X Toolkit (XTK) is licensed under the MIT License:
+ *      http://www.opensource.org/licenses/mit-license.php
+ * 
+ *      "Free software" is a matter of liberty, not price.
+ *      "Free" as in "free speech", not as in "free beer".
+ *                                         - Richard M. Stallman
+ *
+ * CREDITS: https://raw.github.com/xtk/X/master/LICENSE
+ *
+ * Thanks to Twitter Bootstrap and JQuery!!
+ *
+ */
+
+ -->
 <html>
 <head>
 <title>Slice:Drop</title>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description"
-  content="Slice:Drop - Instantly view scientific and medical imaging data in 3D." />
-<meta name="author" content="Daniel Haehn" />
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name='description'
+	content='Slice:Drop - Instantly view scientific and medical imaging data in 3D.' />
+<meta name='author' content='Daniel Haehn' />
 
-<link href="css/bootstrap.css" rel="stylesheet" />
-<link href="css/bootstrap-responsive.css" rel="stylesheet" />
+<link href='css/bootstrap.css' rel='stylesheet' />
+<link href='css/bootstrap-responsive.css' rel='stylesheet' />
 <link type='text/css' rel='stylesheet' href='css/xtheme/jquery.ui.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.miniColors.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.sidebar.css' />
@@ -21,264 +57,335 @@
 <script type='text/javascript' src='js/jquery.ui.js'></script>
 <script type='text/javascript' src='js/jquery.ui.slider.js'></script>
 <script type='text/javascript' src='js/jquery.miniColors.js'></script>
+<script type='text/javascript' src='js/jquery.filestyle.js'></script>
 <script type='text/javascript' src='js/jquery.idTabs.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.volume.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.mesh.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.fibers.js'></script>
 <script type='text/javascript' src='js/jquery.viewer.js'></script>
-<script type='text/javascript' src="js/jquery.frontpage.js"></script>
-<script type="text/javascript" src="js/bootstrap-modal.js"></script>
+<script type='text/javascript' src='js/jquery.frontpage.js'></script>
+<script type='text/javascript' src='js/bootstrap-modal.js'></script>
+<script type='text/javascript' src='js/x.controller.js'></script>
+<script type='text/javascript' src='js/x.examples.js'></script>
 <script type='text/javascript' src='js/x.rendering.js'></script>
 <script type='text/javascript' src='js/xtk.js'></script>
 
 
 </head>
-<body id="body">
+<body id='body'>
 
-  <!-- The frontpage -->
-  <div id='frontpage' style=''>
+	<!-- The frontpage -->
+	<div id='frontpage' style=''>
 
-    <div id="content" class="container" style="">
+		<div id='content' class='container' style=''>
 
-      <img src="gfx/slicedrop.png" />
+			<img src='gfx/slicedrop.png' />
 
-      <div class="hero-unit">
-        <p>Instantly view scientific and medical imaging data in 3D.</p>
-        <p>
-          <a class="btn btn-medium" data-toggle="modal" href="#learnMore">Learn
-            more &raquo;</a>
-        </p>
-      </div>
+			<div class='hero-unit'>
+				<p>Instantly view scientific and medical imaging data in 3D.</p>
+				<p>
+					<a class='btn btn-medium' data-toggle='modal' href='#learnMore'>Learn
+						more &raquo;</a>
+				</p>
+			</div>
 
+			<div class='well examples'>
+				<h3>Try the examples..</h3>
+				<img id='14yroldImage' src='gfx/14yrold.png' class='selectexample' />
+				<img id='avfImage' src='gfx/avf_small.png' /> <img id='2yroldImage'
+					src='gfx/2yrold_small.png' /> <img id='brainstemImage'
+					src='gfx/brainstem_small.png' />
+				<div id='14yrold'>
+					A 14 year old healthy male brain. The patient was scanned using a
+					structural MRI and a diffusion MRI to highlight connecting brain
+					fibers. <b>Loading time: ++++</b><span
+						class='label label-info viewexample' id='14yroldlink'>View
+						Example</span>
+				</div>
+				<div id='avf' style='display: none'>
+					A contrast enhanced 3D MR image showing an arteriovenous fistula
+					which is a bypass created by joining an artery and a vein, located
+					in an arm. <b>Loading time: +</b><span
+						class='label label-info viewexample' id='avflink'>View
+						Example</span>
+				</div>
+				<div id='2yrold' style='display: none'>
+					The surface of the left hemisphere of a 2 years old healthy brain.
+					The scalar overlay shows the bending energy based on <i>Curvedness</i>.
+					<b>Loading time: ++</b><span class='label label-info viewexample'
+						id='2yroldlink'>View Example</span>
+				</div>
+				<div id='brainstem' style='display: none'>
+					A region of the brainstem of a human adult including an
+					automatically generated segmentation as a label map colorized using
+					an anatomical color table. <b>Loading time: +</b> <span
+						class='label label-info viewexample' id='brainstemlink'>View
+						Example</span>
+				</div>
+			</div>
 
-      <div class="dropzone">
-        <span>Drop files here or </span><a class="btn btn-inverse btn-large"
-          style="vertical-align: super;">Select files</a><br /> <br />
-        <ul class="thumbnails">
-          <li>
-            <div class="thumbnail">
-              <img src="gfx/fibers.png" alt="" /> Fibers<br />(.trk)
-            </div>
-          </li>
-          <li>
-            <div class="thumbnail">
-              <img src="gfx/dicom.png" alt="" /> Volumes<br />(.mgh / .mgz /
-              .nrrd)
-            </div>
-          </li>
-          <li>
-            <div class="thumbnail">
-              <img src="gfx/surface.png" alt="" /> Models<br />(.vtk / .stl /
-              FreeSurfer)
-            </div>
-          </li>
-        </ul>
-      </div>
+			<div class='dropzone'>
+				<span>Drop files here or </span><input id='filebutton' type='file'
+					multiple onchange='selectfiles(this.files)' style='display: none;'></input><a
+					class='btn btn-inverse btn-large' style='vertical-align: super;'
+					onclick='javascript:document.getElementById('filebutton').click();'>Select
+					files</a><br /> <br />
+				<ul class='thumbnails'>
+					<li>
+						<div class='thumbnail'>
+							<img src='gfx/fibers.png' alt='' /> Fibers<br />(.trk)
+						</div>
+					</li>
+					<li>
+						<div class='thumbnail'>
+							<img src='gfx/dicom.png' alt='' /> Volumes<br />(.mgh / .mgz /
+							.nrrd)
+						</div>
+					</li>
+					<li>
+						<div class='thumbnail'>
+							<img src='gfx/surface.png' alt='' /> Models<br />(.vtk / .stl /
+							FreeSurfer)
+						</div>
+					</li>
+				</ul>
+			</div>
 
-      <div class="footer">
-        <div class="row" style="margin: auto">
-          <div class="span2 offset8">
-            <ul class="unstyled paddingated">
-              <li style='line-height:18px'><a href="http://childrenshospital.org/FNNDSC" target="_blank">Boston Children's Hospital</a></li>
-              <li style='line-height:18px'><a href="https://github.com/slicedrop/devderby" target="_blank">Source Code</a></li>
-              <li style='line-height:18px'><a href="mailto:dev@goxtk.com" target="_blank">Send Feedback</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /container -->
+			<div class='footer'>
+				<div class='row' style='margin: auto'>
+					<div class='span2 offset8'>
+						<ul class='unstyled paddingated'>
+							<li style='line-height: 18px'><a
+								href='http://childrenshospital.org/FNNDSC' target='_blank'>Boston
+									Children's Hospital</a></li>
+							<li style='line-height: 18px'><a
+								href='https://github.com/slicedrop/devderby' target='_blank'>Source
+									Code</a></li>
+							<li style='line-height: 18px'><a href='mailto:dev@goxtk.com'
+								target='_blank'>Send Feedback</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
 
-  </div>
+	</div>
 
-  <!-- Learn more -->
-  <div class="modal hide fade" id="learnMore" style="display: none;">
-    <div class="modal-header">
-      <button class="close" data-dismiss="modal">×</button>
-      <h3>&nbsp;</h3>
-    </div>
-    <div class="modal-body">
-      <p>Learn more..</p>
-    </div>
-  </div>
+	<!-- Learn more -->
+	<div class='modal hide fade' id='learnMore' style='display: none;'>
+		<div class='modal-header'>
+			<button class='close' data-dismiss='modal'>×</button>
+			<h3>&nbsp;</h3>
+		</div>
+		<div class='modal-body'>
+			<h2>Try it!!</h2>
+			<img src='gfx/slicedrop_logo.png' / style='float: right'>
+			<p>
+				<b>Slice:Drop</b> is a viewer for medical imaging data. It supports
+				a variety of scientific file formats out-of-the-box (see <a
+					href='https://github.com/xtk/X/wiki/X%3AFileformats'
+					target='_blank'>here</a> for a complete list).
+			</p>
+			<p>We think that the best way to render your files is without any
+				necessary conversions. Just drop'em on a website and they are ready
+				to render.</p>
+			<p>
+				<b>Getting started</b>: Just drag'n'drop some medical imaging files
+				on this website or <b>try one of the four examples in the right
+					corner</b>. Then, play with the panels on the left and click, drag and
+				rotate the 3d content.
+			</p>
+			<br /> <br />
+			<p>
+				<b>Slice:Drop</b> uses WebGL and HTML5 Canvas to render the data in
+				2D and 3D. We use our own open-source toolkit to perform the
+				rendering, called <a href='http://goXTK.com' target='_blank'>XTK</a>.
+			</p>
+			<p>
+				We are very keen on your feedback, so please <a
+					href='mailto:dev@goxtk.com'>email us</a>.
+			</p>
+		</div>
+	</div>
 
-  <!-- Drop note -->
-  <div id="drop-box-overlay">
-    <h1>Drop files anywhere...</h1>
-  </div>
+	<!-- Drop note -->
+	<div id='drop-box-overlay'>
+		<h1>Drop files anywhere...</h1>
+	</div>
 
-  <!-- The viewer -->
-  <div id='viewer' style='display: none;'>
+	<!-- The viewer -->
+	<div id='viewer' style='display: none;'>
 
-    <ul class='navigation'>
-      <li id='volume' class='navigationLi'><div class='menu'>
-          <div class='pin'>
-            <span class='ui-icon ui-icon-pin-w pinicon'></span>
-          </div>
+		<ul class='navigation'>
+			<li id='volume' class='navigationLi'><div class='menu'>
+					<div class='pin'>
+						<span class='ui-icon ui-icon-pin-w pinicon'></span>
+					</div>
 
-          <div class='tabbox idTabs' id='volumetabs'>
-            <div class='caption'>VOLUME</div>
+					<div class='tabbox idTabs' id='volumetabs'>
+						<div class='caption'>VOLUME</div>
 
-            <a href='#volumeTab' class='selected'>Volume</a> <a
-              href='#labelmapTab' style='margin-left: 50px;'>Labelmap</a>
-            <div id='volumeTab' class='tabContent'>
-
-
-              <div id='modes' style='width: 130px; float: left;'>
-                <div id='volumerendering'>
-                  <img src='gfx/3d.png' />
-                </div>
-                <div id='slicing'>
-                  <img src='gfx/2d.png' />
-                </div>
-              </div>
-
-              <div id='colors'
-                style='width: 26px; margin-left: 6px; float: left;'>
-
-                <input type='hidden' class='color-picker black' size='6'
-                  value='#ffffff' /> <input type='hidden'
-                  class='color-picker black' size='6' value='#000000' />
-              </div>
-
-              <div id='opacity-label' class='menuLabel'
-                style='margin-top: 4px; float: left;'>3D Opacity</div>
-              <div id='opacity-volume'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-              <div id='windowlevel-label' class='menuLabel'
-                style='margin-top: 4px; float: left;'>Window/Level</div>
-              <div id='windowlevel-volume'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>
-              <div id='threshold-volume'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-
-            </div>
-            <div id='labelmapTab' class='tabContent' style='display: none'>
-
-
-              <div id='visibility-labelmap' style='width: 130px; float: left;'>
-                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
-                <div id='labelmapvisibility' class='eye show-icon'
-                  style='margin-left: 6px;'></div>
-              </div>
-
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Labelmap
-                Opacity</div>
-              <div id='opacity-labelmap'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-
-            </div>
-          </div>
-
-        </div></li>
-
-      <li id='mesh' class='navigationLi'><div class='menu'>
-          <div class='pin'>
-            <span class='ui-icon ui-icon-pin-w pinicon'></span>
-          </div>
-          <div class='tabbox idTabs'>
-            <div class='caption'>MESH</div>
-
-            <a class='meshtabs selected'>1</a> <a class='meshtabs'
-              style='margin-left: 16px;'>2</a>
-            <div id='mesh1' class='tabContent'>
-
-              <div id='visibility-mesh'
-                style='width: 140px; float: left; margin-top: 2px;'>
-                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
-                <div id='meshvisibility' class='eye show-icon'
-                  style='margin-left: 6px;'></div>
-              </div>
-
-              <input type='hidden' name='color4' class='color-picker black'
-                size='6' value='#ff0000' />
-
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Opacity</div>
-              <div id='opacity-mesh'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-              <div class='menuLabel'
-                style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
-              <div id='scalars-mesh' style='width: 160px; float: left;'>
-
-                <select id='scalars-selector' style='margin-left: 6px'><option>C
-                    (mm&#x207b;&sup2;)</option></select> <input type='hidden' name='color4'
-                  class='color-picker black' size='6' value='#ffffff' /> <input
-                  type='hidden' name='color4' class='color-picker black' size='6'
-                  value='#0000ff' />
-              </div>
+						<a href='#volumeTab' class='selected'>Volume</a> <a
+							href='#labelmapTab' id='labelmapSwitch'
+							style='margin-left: 50px;'>Labelmap</a>
+						<div id='volumeTab' class='tabContent'>
 
 
+							<div id='modes' style='width: 130px; float: left;'>
+								<div id='volumerendering'>
+									<img src='gfx/3d.png' />
+								</div>
+								<div id='slicing'>
+									<img src='gfx/2d.png' />
+								</div>
+							</div>
 
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
-                Threshold</div>
-              <div id='threshold-scalars'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+							<div id='colors'
+								style='width: 26px; margin-left: 6px; float: left;'>
 
-            </div>
+								<input id='fgColorVolume' type='hidden'
+									class='color-picker black' size='6' value='#ffffff' /> <input
+									id='bgColorVolume' type='hidden' class='color-picker black'
+									size='6' value='#000000' />
+							</div>
 
-          </div>
-        </div></li>
+							<div id='opacity-label' class='menuLabel'
+								style='margin-top: 4px; float: left;'>3D Opacity</div>
+							<div id='opacity-volume'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-      <li id='fibers' class='navigationLi'><div class='menu'>
-          <div class='pin'>
-            <span class='ui-icon ui-icon-pin-w pinicon'></span>
-          </div>
-          <div class='tabbox idTabs'>
-            <div class='caption'>FIBERS</div>
+							<div id='windowlevel-label' class='menuLabel'
+								style='margin-top: 4px; float: left;'>Window/Level</div>
+							<div id='windowlevel-volume'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-            <a class='fiberstabs selected'>1</a> <a class='fiberstabs'
-              style='margin-left: 16px;'>2</a>
-
-            <div id='fibers1' class='tabContent'>
-
-              <div id='visibility-fibers'
-                style='width: 140px; float: left; margin-top: 2px;'>
-                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
-                <div id='fibersvisibility' class='eye show-icon'
-                  style='margin-left: 6px;'></div>
-              </div>
-
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Fiber
-                Length Threshold</div>
-              <div id='threshold-fibers'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>
+							<div id='threshold-volume'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
 
-            </div>
-
-          </div>
-        </div></li>
-
-    </ul>
+						</div>
+						<div id='labelmapTab' class='tabContent' style='display: none'>
 
 
+							<div id='visibility-labelmap' style='width: 130px; float: left;'>
+								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+								<div id='labelmapvisibility' class='eye show-icon'
+									style='margin-left: 6px;'></div>
+							</div>
 
-    <!--  The renderers. -->
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Labelmap
+								Opacity</div>
+							<div id='opacity-labelmap'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-    <div id="3d" class="threeDRenderer"></div>
-    <div id="sliceX" class="twoDRenderer" style="top: 0%;">
-      <div id="yellow_slider"></div>
-    </div>
-    <div id="sliceY" class="twoDRenderer" style="top: 33.333%;">
-      <div id="red_slider"></div>
-    </div>
-    <div id="sliceZ" class="twoDRenderer" style="top: 66.666%;">
-      <div id="green_slider"></div>
-    </div>
 
-    <!-- Slice:Drop logo -->
-    <div id='blacklogo'>
-      <img src='gfx/slicedrop_transparent.png'></img>
-    </div>
+						</div>
+					</div>
 
-  </div>
+				</div></li>
+
+			<li id='mesh' class='navigationLi'><div class='menu'>
+					<div class='pin'>
+						<span class='ui-icon ui-icon-pin-w pinicon'></span>
+					</div>
+					<div class='tabbox idTabs'>
+						<div class='caption'>MESH</div>
+
+						<a class='meshtabs selected'>Mesh 1</a>
+						<div id='mesh1' class='tabContent'>
+
+							<div id='visibility-mesh'
+								style='width: 140px; float: left; margin-top: 2px;'>
+								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+								<div id='meshvisibility' class='eye show-icon'
+									style='margin-left: 6px;'></div>
+							</div>
+
+							<input type='hidden' id='meshColor' class='color-picker black'
+								size='6' value='#0000ff' />
+
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Opacity</div>
+							<div id='opacity-mesh'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+							<div class='menuLabel'
+								style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
+							<div id='scalars-mesh' style='width: 160px; float: left;'>
+
+								<select id='scalars-selector' style='margin-left: 6px'><option>Scalars
+										1</option></select> <input type='hidden' class='color-picker black'
+									id='scalarsMinColor' size='6' value='#00ff00' /> <input
+									type='hidden' id='scalarsMaxColor' class='color-picker black'
+									size='6' value='#ff0000' />
+							</div>
+
+
+
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
+								Threshold</div>
+							<div id='threshold-scalars'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+						</div>
+
+					</div>
+				</div></li>
+
+			<li id='fibers' class='navigationLi'><div class='menu'>
+					<div class='pin'>
+						<span class='ui-icon ui-icon-pin-w pinicon'></span>
+					</div>
+					<div class='tabbox idTabs'>
+						<div class='caption'>FIBERS</div>
+
+						<a class='fiberstabs selected'>Fibers 1</a>
+
+						<div id='fibers1' class='tabContent'>
+
+							<div id='visibility-fibers'
+								style='width: 140px; float: left; margin-top: 2px;'>
+								<div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+								<div id='fibersvisibility' class='eye show-icon'
+									style='margin-left: 6px;'></div>
+							</div>
+
+							<div class='menuLabel' style='margin-top: 4px; float: left;'>Fiber
+								Length Threshold</div>
+							<div id='threshold-fibers'
+								style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+
+						</div>
+
+					</div>
+				</div></li>
+
+		</ul>
+
+
+
+		<!--  The renderers. -->
+
+		<div id='3d' class='threeDRenderer'></div>
+		<div id='sliceX' class='twoDRenderer' style='top: 0%;'>
+			<div id='yellow_slider'></div>
+		</div>
+		<div id='sliceY' class='twoDRenderer' style='top: 33.333%;'>
+			<div id='red_slider'></div>
+		</div>
+		<div id='sliceZ' class='twoDRenderer' style='top: 66.666%;'>
+			<div id='green_slider'></div>
+		</div>
+
+		<!-- Slice:Drop logo -->
+		<div id='blacklogo'>
+			<a href=''><img src='gfx/slicedrop_transparent.png' /></a>
+		</div>
+
+	</div>
 
 </body>
 </html>
