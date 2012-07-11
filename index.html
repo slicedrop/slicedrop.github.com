@@ -15,8 +15,12 @@
   })();
 
   args = location.href.match(/(\?)(\w*.\w*)*/);
-  args = args.replace('?','').replace('/','');
-  window.location = 'http://slicedrop.com/devderby/?' + args;
+  if (args) {
+    args = args[0];
+  } else {
+    args = '';
+  }
+  window.location = 'http://slicedrop.com/devderby/' + args;
 
 </script>
   </head>
