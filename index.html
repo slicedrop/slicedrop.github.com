@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Slice:Drop</title>
-    <meta http-equiv="refresh" content="0;URL=http://slicedrop.com/devderby/">
+    <meta http-equiv="refresh" content="10;URL=http://slicedrop.com/devderby/">
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -13,6 +13,10 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+  args = location.href.match(/(\?)(\w*.\w*)*/);
+  args = args.replace('?','').replace('/','');
+  window.location = 'http://slicedrop.com/devderby/?' + args;
 
 </script>
   </head>
