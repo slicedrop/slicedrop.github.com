@@ -45,6 +45,13 @@
 	left: 50%;
 }
 
+.toolbar_icon {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0.7;
+  left:10px;
+}
+
 .ren2d_icon {
 	cursor: pointer;
 	position: absolute;
