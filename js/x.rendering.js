@@ -14,6 +14,7 @@ function initializeRenderers(){
     ren3d = new X.renderer3D();
     ren3d.container = '3d';    
     ren3d.init();
+    ren3d.camera.position = [0,0,300];
     
   } catch (Error) {
     
