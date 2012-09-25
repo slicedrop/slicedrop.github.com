@@ -5,12 +5,26 @@ function initializeRenderers(){
     return;
   }
     
-  // create the XTK renderers
-  ren3d = new X.renderer3D();
-  ren3d.container = '3d';
-  ren3d.init();    
+  _webgl_supported = true;
   
-  sliceX = new X.renderer2D();
+ 
+  try {
+    
+    // create the XTK renderers
+    ren3d = new X.renderer3D();
+    ren3d.container = '3d';    
+    ren3d.init();
+    
+  } catch (Error) {
+    
+    window.console.log('WebGL not supported.');
+    _webgl_supported = false;
+    jQuery('#3d').empty();
+    console.log(jQuery('#3d'));
+    
+  }
+  
+   sliceX = new X.renderer2D();
    sliceX.container = 'sliceX';
    sliceX.orientation = 'X';
    sliceX.init();
@@ -25,6 +39,11 @@ function initializeRenderers(){
    sliceZ.orientation = 'Z';
    sliceZ.init();
 
+   if (!_webgl_supported) {
+     ren3d = sliceZ;
+     jQuery('#3d').append(jQuery('<canvas/>'));
+   }
+   
   ren3d.onShowtime = function() {
     
     window.console.log('Loading completed.');
@@ -38,7 +57,7 @@ function initializeRenderers(){
        sliceX.render();
        sliceY.render();
        sliceZ.render();
-      
+       
     }
     
     setupUi();

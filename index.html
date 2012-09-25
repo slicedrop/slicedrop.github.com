@@ -71,6 +71,7 @@
 <script type='text/javascript' src='js/x.rendering.js'></script>
 <script type='text/javascript' src='js/xtk.js'></script>
 
+
 <!-- Google Analytics -->
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -155,8 +156,7 @@
 				<ul class='thumbnails'>
 					<li>
 						<div class='thumbnail'>
-							<img src='gfx/fibers.png' alt='' /> Fibers<br />(.trk)<br />
-							<br />
+							<img src='gfx/fibers.png' alt='' /> Fibers<br />(.trk)<br /> <br />
 						</div>
 					</li>
 					<li>
@@ -168,8 +168,7 @@
 					<li>
 						<div class='thumbnail'>
 							<img src='gfx/surface.png' alt='' /> Models<br />(.vtk / .stl /
-							FreeSurfer)<br />
-							<br />
+							FreeSurfer)<br /> <br />
 						</div>
 					</li>
 				</ul>
@@ -183,8 +182,8 @@
 								href='http://childrenshospital.org/FNNDSC' target='_blank'>Boston
 									Children's Hospital</a></li>
 							<li style='line-height: 18px'><a
-								href='https://github.com/slicedrop/slicedrop.github.com' target='_blank'>Source
-									Code</a></li>
+								href='https://github.com/slicedrop/slicedrop.github.com'
+								target='_blank'>Source Code</a></li>
 							<li style='line-height: 18px'><a href='mailto:dev@goxtk.com'
 								target='_blank'>Send Feedback</a></li>
 						</ul>
@@ -395,37 +394,95 @@
 		<div id='sliceX' class='twoDRenderer' style='top: 0%;'>
 			<div id='yellow_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceX"),sliceX);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_X_content.rotateCounter();' style="left:20px;" title="Rotate"></span>     				
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_X_content.rotate();' style="left:30px;" title="Rotate"></span>				
+				onclick='javascript:showLarge(jQuery("#sliceX"),sliceX);'
+				title="Enlarge"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
+				onclick='javascript:_current_X_content.rotateCounter();'
+				style="left: 20px;" title="Rotate"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
+				onclick='javascript:_current_X_content.rotate();'
+				style="left: 30px;" title="Rotate"></span>
 		</div>
 		<div id='sliceY' class='twoDRenderer' style='top: 33.333%;'>
 			<div id='red_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceY"), sliceY);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_Y_content.rotateCounter();' style="left:20px;" title="Rotate"></span>     				
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_Y_content.rotate();' style="left:30px;" title="Rotate"></span>     				
+				onclick='javascript:showLarge(jQuery("#sliceY"), sliceY);'
+				title="Enlarge"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
+				onclick='javascript:_current_Y_content.rotateCounter();'
+				style="left: 20px;" title="Rotate"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
+				onclick='javascript:_current_Y_content.rotate();'
+				style="left: 30px;" title="Rotate"></span>
 		</div>
 		<div id='sliceZ' class='twoDRenderer' style='top: 66.666%;'>
 			<div id='green_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceZ"), sliceZ);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_Z_content.rotateCounter();' style="left:20px;" title="Rotate"></span>      
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_Z_content.rotate();' style="left:30px;" title="Rotate"></span>     				
+				onclick='javascript:showLarge(jQuery("#sliceZ"), sliceZ);'
+				title="Enlarge"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
+				onclick='javascript:_current_Z_content.rotateCounter();'
+				style="left: 20px;" title="Rotate"></span> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
+				onclick='javascript:_current_Z_content.rotate();'
+				style="left: 30px;" title="Rotate"></span>
 		</div>
 
 		<!-- Slice:Drop logo -->
 		<div id='blacklogo'>
-			<a href=''><img src='gfx/slicedrop_transparent.png' /></a>
+			<a href=''><img src='gfx/slicedrop_transparent.png' /></a> <span
+				class='ui-icon ui-icon-image toolbar_icon' title='Split Screen'
+				onclick='javascript:split_screen()'></span><span
+				class='ui-icon ui-icon-image toolbar_icon' style='left: 20px'
+				title='Split Screen' onclick='javascript:split_screen()'></span>
 		</div>
 
+
+		<div id='atlas_selector'>
+			<span id="atlas_selection" style='margin-top: 3px; float: left;'><input
+				type="radio" id="a_23" name="weeks" /><label for="a_23">23</label>
+				<input type="radio" id="a_24" name="weeks" /><label for="a_24">24</label>
+				<input type="radio" id="a_25" name="weeks" /><label for="a_25">25</label>
+				<input type="radio" id="a_26" name="weeks" /><label for="a_26">26</label>
+				<input type="radio" id="a_27" name="weeks" /><label for="a_27">27</label>
+				<input type="radio" id="a_28" name="weeks" /><label for="a_28">28</label>
+				<input type="radio" id="a_29" name="weeks" /><label for="a_29">29</label>
+				<input type="radio" id="a_30" name="weeks" /><label for="a_30">30</label>
+				<input type="radio" id="a_31" name="weeks" /><label for="a_31">31</label>
+				<input type="radio" id="a_32" name="weeks" /><label for="a_32">32</label>
+				<input type="radio" id="a_33" name="weeks" /><label for="a_33">33</label>
+				<input type="radio" id="a_34" name="weeks" /><label for="a_34">34</label>
+				<input type="radio" id="a_35" name="weeks" /><label for="a_35">35</label>
+				<input type="radio" id="a_36" name="weeks" /><label for="a_36">36</label>
+				<input type="radio" id="a_37" name="weeks" /><label for="a_37">37</label>
+				&nbsp;weeks</span> <span id='options'
+				style='margin-top: 3px; margin-left: 20px; float: right;'><label
+				for="labelmap">Labelmap</label> <input type="checkbox" id="labelmap"
+				name="labelmap" onclick='javascript:loadLabelmap();' /> <label
+				for="ventricles">3D Ventricles</label> <input type="checkbox"
+				id="ventricles" name="ventricles"
+				onclick='javascript:loadVentricles();' /> <label for="cortex">3D
+					Cortex</label> <input type="checkbox" id="cortex" name="cortex"
+				onclick='javascript:loadCortex();' /></span>
+		</div>
 	</div>
+
+	<div id='credits'>
+		<a
+			href="http://biomedic.doc.ic.ac.uk/brain-development/index.php?n=Main.Fetal"
+			style='color: darkgrey; font-size: 0.9em;' target='_blank'>Data
+			from<br />Imperial College
+		</a>
+	</div>
+
+	<div id='bch_logo'>
+		<a href='http://childrenshospital.org/FNNDSC/' target='_blank'><img
+			src='gfx/bch_logo.png' /></a>
+	</div>
+
+
+	</div>
+
 
 </body>
 </html>

@@ -129,6 +129,16 @@ function setupUi() {
   _current_Y_content = sliceY;
   _current_Z_content = sliceZ;
   
+  // here show the axial slice large
+  showLarge(jQuery("#sliceZ"), sliceZ);
+  
+  if (!_webgl_supported) {
+    // adjust the css for the 3d renderer in case it was not shown
+    jQuery('#sliceZ').css('position', 'absolute');
+    // also remove all small icons when webgl is not supported
+    jQuery('#sliceZ').empty();
+  }
+  
 
 }
 
