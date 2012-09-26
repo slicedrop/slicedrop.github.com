@@ -174,7 +174,6 @@ function loadFile(file) {
   
   // init renderers
   initializeRenderers();
-  
   createData();
   
   var _fileExtension = file.split('.').pop().toUpperCase();
@@ -186,13 +185,6 @@ function loadFile(file) {
     volume = new X.volume();
     volume.file = 'http://x.babymri.org/?' + file;
     _data.volume.file = volume.file;
-    if (__labelmap) {
-      volume.labelmap.file = volume.file.replace('template', 'labelmap');
-      volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
-      volume.labelmap.opacity = 0.7;
-      
-    }
-    volume.lowerThreshold = 75;
     ren3d.add(volume);
     
   } else if (_data['mesh']['extensions'].indexOf(_fileExtension) >= 0) {
@@ -221,83 +213,6 @@ function loadFile(file) {
   
   configurator = function() {
 
-    volume.windowLow = 80;
-    jQuery('#windowlevel-volume').dragslider("option", "values",
-        [volume.windowLow, volume.windowHigh]);
-    jQuery('#threshold-volume').dragslider("option", "values",
-        [volume.lowerThreshold, volume.upperThreshold]);
-    
-    if (__labelmap) {
-      // activate the UI for labelmaps
-      jQuery('#labelmapSwitch').show();
-      jQuery('#opacity-labelmap').slider("option", "value", 40);
-    }
-    
   };
-  
-}
-
-function loadVentricles() {
-
-  if (typeof _ventricles !== 'undefined') {
-    
-    _ventricles.visible = !_ventricles.visible;
-    return;
-    
-  }
-  
-  _ventricles = new X.mesh();
-  _ventricles.file = 'http://x.babymri.org/?' + _week + '/ventricles.vtk';
-  _ventricles.color = [0, 0, 1];
-  
-  ren3d.onShowtime = function() {
-
-    _ventricles.transform.matrix = new X.matrix([[1, 0, 0, 0], [0, 0, -1, 0],
-                                                 [0, 1, 0, 0], [0, 0, 0, 1]]);
-    
-  };
-  
-  ren3d.add(_ventricles);
-  jQuery('#sliceZ').css('position', 'absolute');
-  
-}
-
-function loadCortex() {
-
-  if (typeof _cortex !== 'undefined') {
-    
-    _cortex.visible = !_cortex.visible;
-    return;
-    
-  }
-  
-  _cortex = new X.mesh();
-  _cortex.file = 'http://x.babymri.org/?' + _week + '/cortex.vtk';
-  _cortex.color = [0, 1, 0];
-  _cortex.opacity = 0.5;
-  
-  ren3d.onShowtime = function() {
-
-    jQuery('#sliceZ').css('position', 'absolute');
-    _cortex.transform.matrix = new X.matrix([[1, 0, 0, 0], [0, 0, -1, 0],
-                                             [0, 1, 0, 0], [0, 0, 0, 1]]);
-    
-  };
-  
-  ren3d.add(_cortex);
-  
-}
-
-function loadLabelmap() {
-
-  if (__labelmap) {
-    
-    volume.labelmap.visible = !volume.labelmap.visible;
-    return;
-    
-
-  }
-  
-  location.href = "index.html?" + _week + '.labelmap';
   
 }

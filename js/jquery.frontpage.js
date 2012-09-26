@@ -8,25 +8,9 @@
 jQuery(document).ready(function() {
 
   
-  // initBrowserWarning();
-  // initDnD();
-  // initExamples();
-  
-
-  // enable the button set for the atlas selection
-  jQuery('#atlas_selection').buttonset();
-  jQuery('#options').buttonset();
-  // .. and the call backs
-  jQuery('#atlas_selection :radio').click(function(e) {
-
-    var _id = jQuery(this).attr("id");
-    _id = _id.split('_')[1];
-    
-    var _atlas_file = _id;
-    
-    location.href = "index.html?" + _atlas_file;
-    
-  });
+  initBrowserWarning();
+  initDnD();
+  initExamples();
   
   ren3d = null;
   configurator = function() {
@@ -40,32 +24,27 @@ jQuery(document).ready(function() {
     var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
     _file = _file.replace('?', '').replace('/', ''); // replace any ? or /
     
-    __labelmap = null;
-    
-    // select the correct button for the atlas
-    _week = _file.split('.')[0];
-    if (_file.split('.').length > 1) {
+    if (_file == '14yrold') {
       
-      __labelmap = true;
-      jQuery('#labelmap').attr('checked', true);
-      jQuery('#options').buttonset('refresh');
+      load14yrold();
+      
+    } else if (_file == 'avf') {
+      
+      loadAvf();
+      
+    } else if (_file == '2yrold') {
+      
+      load2yrold();
+      
+    } else if (_file == 'brainstem') {
+      
+      loadBrainstem();
+      
+    } else {
+      
+      loadFile(_file);
       
     }
-    jQuery('#a_' + _week).attr('checked', true);
-    jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
-    // propagate to UI
-    
-    loadFile(_week + '/template.nii');
-    
-  } else {
-    
-    _week = 28;
-    __labelmap = null;
-    jQuery('#a_' + _week).attr('checked', true);
-    jQuery('#atlas_selection').buttonset('refresh'); // and refresh to
-    // propagate to UI
-    
-    loadFile('28/template.nii');
     
   }
   

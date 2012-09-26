@@ -20,19 +20,3 @@ jQuery(function() {
   jQuery("#green_slider .ui-slider-handle").unbind('keydown');
   
 });
-
-
-// splits the document into two frames
-function split_screen() {
-
-  if (parent.viewer_left !== undefined) {
-    // exit if we are already in split screen mode
-    return;
-  }
-  
-  frameset = '<FRAMESET cols="50%,50%" BORDER=3>' + '<FRAME src="' +
-      document.location.href + '"' + ' NAME="viewer_left">' + '<FRAME src="' +
-      document.location.href + '"' + ' NAME="viewer_right">' + '</FRAMESET>';
-  location = 'javascript:frameset';
-  
-};
