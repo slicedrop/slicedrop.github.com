@@ -39,14 +39,21 @@ function initializeRenderers(){
    sliceX.container = 'sliceX';
    sliceX.orientation = 'X';
    sliceX.init();
-  
+   // observe the on touch thingie to enlarge
+   sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStart;
+   sliceX.interactor.onTouchEnd = sliceX.interactor.onMouseUp = onTouchEndX;
+   
    sliceY = new X.renderer2D();
    sliceY.container = 'sliceY';
    sliceY.orientation = 'Y';
    sliceY.init();
-    
+   // observe the on touch thingie to enlarge
+   sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStart;
+   sliceY.interactor.onTouchEnd = sliceY.interactor.onMouseUp = onTouchEndY;
+   
    sliceZ = new X.renderer2D();
-
+   sliceZ.container = 'sliceZ';
+   
    if (!_webgl_supported) {
      
      sliceZ.container = '3d';
@@ -65,6 +72,11 @@ function initializeRenderers(){
    sliceZ.orientation = 'Z';
    sliceZ.init();
 
+   // observe the on touch thingie to enlarge
+   sliceZ.interactor.onTouchStart = sliceZ.interactor.onMouseDown = onTouchStart;
+   sliceZ.interactor.onTouchEnd = sliceZ.interactor.onMouseUp = onTouchEndZ;
+      
+   
    if (!_webgl_supported) {
 
      // now our ren3d is sliceZ
@@ -420,4 +432,51 @@ function parse(data) {
 
 };
 
+//
+// Switch on touch / click (enlarge)
+//
+function onTouchStart() {
+  
+  _touch_started = Date.now();
+  
+};
+
+function onTouchEndX() {
+  
+  onTouchEnd('X');
+  
+};
+
+function onTouchEndY() {
+  
+  onTouchEnd('Y');
+  
+};
+
+function onTouchEndZ() {
+  
+  onTouchEnd('Z');
+  
+};
+
+function onTouchEnd(container) {
+
+  _touch_ended = Date.now();
+  
+  var _old_2d_content = eval('_current_' + container + '_content');  
+  eval('var cont = slice'+container+'.container');
+  
+  if (jQuery(cont).attr('id') == '3d') {
+    return;
+  }
+  
+  eval('var rend = slice'+container);
+  
+  if (_touch_ended - _touch_started < 200) {
+    
+    showLarge(jQuery(cont), _old_2d_content);
+    
+  }
+  
+};
 
