@@ -40,7 +40,7 @@
 <title>Slice:Drop</title>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
 <meta name='description'
 	content='Slice:Drop - Instantly view scientific and medical imaging data in 3D.' />
 <meta name='author' content='Daniel Haehn' />
@@ -92,7 +92,7 @@
 <!-- Google Analytics -->
 
 </head>
-<body id='body'>
+<body id='body' class='webgl_enabled'>
 
 	<!-- The frontpage -->
 	<div id='frontpage' style=''>
@@ -392,7 +392,7 @@
 		<!--  The renderers. -->
 
 		<div id='3d' class='threeDRenderer'></div>
-		<div id='sliceX' class='twoDRenderer' style='top: 0%;'>
+		<div id='sliceX' class='twoDRenderer'>
 			<div id='yellow_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
 				onclick='javascript:showLarge(jQuery("#sliceX"),sliceX);' title="Enlarge"></span>
@@ -401,7 +401,7 @@
       <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
         onclick='javascript:_current_X_content.rotate();' style="left:30px;" title="Rotate"></span>				
 		</div>
-		<div id='sliceY' class='twoDRenderer' style='top: 33.333%;'>
+		<div id='sliceY' class='twoDRenderer'>
 			<div id='red_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
 				onclick='javascript:showLarge(jQuery("#sliceY"), sliceY);' title="Enlarge"></span>
@@ -410,7 +410,7 @@
       <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
         onclick='javascript:_current_Y_content.rotate();' style="left:30px;" title="Rotate"></span>     				
 		</div>
-		<div id='sliceZ' class='twoDRenderer' style='top: 66.666%;'>
+		<div id='sliceZ' class='twoDRenderer'>
 			<div id='green_slider'></div>
 			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
 				onclick='javascript:showLarge(jQuery("#sliceZ"), sliceZ);' title="Enlarge"></span>

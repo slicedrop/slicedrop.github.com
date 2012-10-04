@@ -130,6 +130,13 @@ function setupUi() {
   _current_Z_content = sliceZ;
   
 
+  if (!_webgl_supported) {
+    
+
+
+  }
+  
+
 }
 
 function volumerenderingOnOff(bool) {

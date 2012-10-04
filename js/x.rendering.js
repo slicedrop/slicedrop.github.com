@@ -4,13 +4,38 @@ function initializeRenderers(){
     // do this only once
     return;
   }
-    
-  // create the XTK renderers
-  ren3d = new X.renderer3D();
-  ren3d.container = '3d';
-  ren3d.init();    
   
-  sliceX = new X.renderer2D();
+  _webgl_supported = true;
+    
+
+  try {
+    
+    // create the XTK renderers
+    ren3d = new X.renderer3D();
+    ren3d.container = '3d';
+    ren3d.init();    
+
+    // webgl is enabled
+    window.console.log('WebGL supported.');
+    
+    jQuery(body).addClass('webgl_enabled');    
+    
+  } catch (Error) {
+    
+    window.console.log('WebGL *not* supported.');
+    
+    _webgl_supported = false;
+    
+    // delete the created 3d canvas
+    jQuery('#3d').empty();    
+    
+    jQuery(body).addClass('webgl_disabled');
+    jQuery(body).removeClass('webgl_enabled');
+    
+  }
+
+  
+   sliceX = new X.renderer2D();
    sliceX.container = 'sliceX';
    sliceX.orientation = 'X';
    sliceX.init();
@@ -21,10 +46,32 @@ function initializeRenderers(){
    sliceY.init();
     
    sliceZ = new X.renderer2D();
-   sliceZ.container = 'sliceZ';
+
+   if (!_webgl_supported) {
+     
+     sliceZ.container = '3d';
+     
+     // move the green slider to the 3d view
+     var el1 = jQuery('#3d');
+     el1.prepend('<span/>'); // drop a marker in place
+     var tag1 = jQuery(el1.children()[0]);
+     tag1.replaceWith(jQuery('#green_slider'));
+     
+   } else {
+     
+     sliceZ.container = 'sliceZ';
+     
+   }
    sliceZ.orientation = 'Z';
    sliceZ.init();
 
+   if (!_webgl_supported) {
+
+     // now our ren3d is sliceZ
+     ren3d = sliceZ;
+
+   }   
+   
   ren3d.onShowtime = function() {
     
     window.console.log('Loading completed.');
@@ -34,7 +81,8 @@ function initializeRenderers(){
       // show any volume also in 2d
        sliceX.add(volume);
        sliceY.add(volume);
-       sliceZ.add(volume);
+       // don't add it again if webgl is not supported
+       if (_webgl_supported){sliceZ.add(volume);}
        sliceX.render();
        sliceY.render();
        sliceZ.render();
@@ -43,8 +91,6 @@ function initializeRenderers(){
     
     setupUi();
     configurator();
-    
-    // render();
     
   };
   

@@ -8,6 +8,8 @@
 jQuery(document).ready(function() {
 
   
+  detect_viewingmode();
+  
   initBrowserWarning();
   initDnD();
   initExamples();
@@ -48,12 +50,49 @@ jQuery(document).ready(function() {
     
   }
   
+  function switch_orientation(id) {
+
+    var _width = jQuery(id).width();
+    var _height = jQuery(id).height();
+    
+    // now convert to percentage
+    console.log('old', _width, _height);
+    _width = jQuery(id).width() / jQuery(document).width() * 100;
+    _height = jQuery(id).height() / jQuery(document).height() * 100;
+    console.log('new', _width, _height);
+    jQuery(id).height(_width + '%');
+    jQuery(id).width(_height + '%');
+    jQuery(id).css('position', 'absolute');
+    
+  }
+  
+  function detect_viewingmode() {
+
+    // portrait or landscape display
+    if (jQuery(document).width() < jQuery(document).height()) {
+      
+      jQuery(body).removeClass('landscape');
+      jQuery(body).addClass('portrait');
+      
+    } else {
+      
+      jQuery(body).removeClass('portrait');
+      jQuery(body).addClass('landscape');
+      
+    }
+    
+  }
+  
+  // add a handler for viewing mode detecting
+  jQuery(window).resize(detect_viewingmode);
+  
 });
 
 var _current_3d_content = null;
 var _current_X_content = null;
 var _current_Y_content = null;
 var _current_Z_content = null;
+
 
 function showLarge(el2, new3d_content) {
 
@@ -68,8 +107,6 @@ function showLarge(el2, new3d_content) {
   }
   
   // from Stackoverflow http://stackoverflow.com/a/6391857/1183453
-  
-  var _old_3d_height = document.getElementById('3d').clientHeight;
   
   var el1 = jQuery('#3d');
   el1.prepend('<span/>'); // drop a marker in place
@@ -92,8 +129,6 @@ function showLarge(el2, new3d_content) {
   
   _current_3d_content.container = document.getElementById(_2dcontainerId);
   _old_2d_content.container = document.getElementById('3d');
-  
-  jQuery('#3d').height(_old_3d_height);
   
   // .. and update the layout
   _current_3d_content = _old_2d_content;
