@@ -19,4 +19,6 @@ jQuery(function() {
   });
   jQuery("#green_slider .ui-slider-handle").unbind('keydown');
   
+  // jQuery('.rotateCounter').button();
+  
 });

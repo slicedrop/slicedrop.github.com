@@ -146,7 +146,11 @@ Portrait mode for 2D renderers
 .ren2d_icon {
 	cursor: pointer;
 	position: absolute;
-	top: 10px;
+	width: 28px;
+	height: 28px;
+	top: 12px;
+	border: thin dotted #484848;
+	opacity: 0.5;
 }
 
 .ren2d_icon_flip {

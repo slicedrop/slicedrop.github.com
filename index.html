@@ -40,7 +40,8 @@
 <title>Slice:Drop</title>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-<meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
+<meta name='viewport'
+	content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
 <meta name='description'
 	content='Slice:Drop - Instantly view scientific and medical imaging data in 3D.' />
 <meta name='author' content='Daniel Haehn' />
@@ -155,8 +156,7 @@
 				<ul class='thumbnails'>
 					<li>
 						<div class='thumbnail'>
-							<img src='gfx/fibers.png' alt='' /> Fibers<br />(.trk)<br />
-							<br />
+							<img src='gfx/fibers.png' alt='' /> Fibers<br />(.trk)<br /> <br />
 						</div>
 					</li>
 					<li>
@@ -168,8 +168,7 @@
 					<li>
 						<div class='thumbnail'>
 							<img src='gfx/surface.png' alt='' /> Models<br />(.vtk / .stl /
-							FreeSurfer)<br />
-							<br />
+							FreeSurfer)<br /> <br />
 						</div>
 					</li>
 				</ul>
@@ -183,8 +182,8 @@
 								href='http://childrenshospital.org/FNNDSC' target='_blank'>Boston
 									Children's Hospital</a></li>
 							<li style='line-height: 18px'><a
-								href='https://github.com/slicedrop/slicedrop.github.com' target='_blank'>Source
-									Code</a></li>
+								href='https://github.com/slicedrop/slicedrop.github.com'
+								target='_blank'>Source Code</a></li>
 							<li style='line-height: 18px'><a href='mailto:dev@goxtk.com'
 								target='_blank'>Send Feedback</a></li>
 						</ul>
@@ -394,30 +393,46 @@
 		<div id='3d' class='threeDRenderer'></div>
 		<div id='sliceX' class='twoDRenderer'>
 			<div id='yellow_slider'></div>
-			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceX"),sliceX);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_X_content.rotateCounter();' style="left:20px;" title="Rotate"></span>     				
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_X_content.rotate();' style="left:30px;" title="Rotate"></span>				
+      <span class='ren2d_icon' style='left: 2px;'
+        onclick='javascript:_current_X_content.rotateCounter();'>
+        <span class='ui-icon ui-icon-arrowreturnthick-1-w'
+          style='margin: 5px;' title="Rotate"></span>
+      </span>
+      <span class='ren2d_icon' style='right: 2px;'
+        onclick='javascript:_current_X_content.rotate();'>
+        <span
+          class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+          style='margin: 5px;' title="Rotate"></span>
+      </span>
 		</div>
 		<div id='sliceY' class='twoDRenderer'>
 			<div id='red_slider'></div>
-			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceY"), sliceY);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_Y_content.rotateCounter();' style="left:20px;" title="Rotate"></span>     				
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_Y_content.rotate();' style="left:30px;" title="Rotate"></span>     				
+      <span class='ren2d_icon' style='left: 2px;'
+        onclick='javascript:_current_Y_content.rotateCounter();'>
+        <span class='ui-icon ui-icon-arrowreturnthick-1-w'
+          style='margin: 5px;' title="Rotate"></span>
+      </span>
+      <span class='ren2d_icon' style='right: 2px;'
+        onclick='javascript:_current_Y_content.rotate();'>
+        <span
+          class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+          style='margin: 5px;' title="Rotate"></span>
+      </span>
 		</div>
 		<div id='sliceZ' class='twoDRenderer'>
 			<div id='green_slider'></div>
-			<span class='ui-icon ui-icon-extlink  ren2d_icon ren2d_icon_flip'
-				onclick='javascript:showLarge(jQuery("#sliceZ"), sliceZ);' title="Enlarge"></span>
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon'
-        onclick='javascript:_current_Z_content.rotateCounter();' style="left:20px;" title="Rotate"></span>      
-      <span class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon ren2d_icon_flip'
-        onclick='javascript:_current_Z_content.rotate();' style="left:30px;" title="Rotate"></span>     				
+			<span class='ren2d_icon' style='left: 2px;'
+				onclick='javascript:_current_Z_content.rotateCounter();'>
+				<span class='ui-icon ui-icon-arrowreturnthick-1-w'
+					style='margin: 5px;' title="Rotate"></span>
+			</span>
+			<span class='ren2d_icon' style='right: 2px;'
+				onclick='javascript:_current_Z_content.rotate();'>
+				<span
+					class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+					style='margin: 5px;' title="Rotate"></span>
+			</span>
+
 		</div>
 
 		<!-- Slice:Drop logo -->

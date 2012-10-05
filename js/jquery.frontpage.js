@@ -124,6 +124,10 @@ function showLarge(el2, new3d_content) {
   var _2dcontainerId = el2.attr('id');
   var _orientation = _2dcontainerId.substr(-1);
   
+  if (_orientation == 'd') {
+    return;
+  }
+  
   var _old_2d_content = eval('_current_' + _orientation + '_content');
   var _old_3d_content = _current_3d_content;
   

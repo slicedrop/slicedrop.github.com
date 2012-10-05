@@ -14,7 +14,9 @@ function initializeRenderers(){
     ren3d = new X.renderer3D();
     ren3d.container = '3d';
     ren3d.init();    
-
+    ren3d.interactor.onTouchStart = ren3d.interactor.onMouseDown = onTouchStart;
+    ren3d.interactor.onTouchEnd = ren3d.interactor.onMouseUp = onTouchEnd3D;
+    
     // webgl is enabled
     window.console.log('WebGL supported.');
     
@@ -443,36 +445,36 @@ function onTouchStart() {
 
 function onTouchEndX() {
   
-  onTouchEnd('X');
+  onTouchEnd('sliceX','X');
   
 };
 
 function onTouchEndY() {
   
-  onTouchEnd('Y');
+  onTouchEnd('sliceY','Y');
   
 };
 
 function onTouchEndZ() {
   
-  onTouchEnd('Z');
+  onTouchEnd('sliceZ','Z');
   
 };
 
-function onTouchEnd(container) {
+function onTouchEnd3D() {
+  
+  onTouchEnd('ren3d','3d');
+  
+}
+
+function onTouchEnd(rend,container) {
 
   _touch_ended = Date.now();
   
-  var _old_2d_content = eval('_current_' + container + '_content');  
-  eval('var cont = slice'+container+'.container');
-  
-  if (jQuery(cont).attr('id') == '3d') {
-    return;
-  }
-  
-  eval('var rend = slice'+container);
-  
   if (_touch_ended - _touch_started < 200) {
+  
+    var _old_2d_content = eval('_current_' + container + '_content');  
+    eval('var cont = '+rend+'.container');    
     
     showLarge(jQuery(cont), _old_2d_content);
     
