@@ -12,11 +12,11 @@ function load14yrold() {
   
   // now the fun part..
   volume = new X.volume();
-  volume.file = 'http://x.babymri.org/?T1sub.mgh';
+  volume.file = 'http://x.babymri.org/?T1sub.nii';
   _data.volume.file = volume.file;
   
   fibers = new X.fibers();
-  fibers.file = 'http://x.babymri.org/?streamlineres.trk';
+  fibers.file = 'http://x.babymri.org/?streamlineres.small.trk';
   _data.fibers.file = fibers.file;
   
   ren3d.add(volume);
@@ -55,14 +55,10 @@ function load14yrold() {
     
     volume.modified();
     
-    fibers.scalars.lowerThreshold = 41;
-    jQuery("#threshold-fibers").dragslider("option", "values",
-        [41, fibers.scalars.max]);
-    
-    fibers.transform.matrix = new X.matrix(
-        [[1, 0, 0, -130], [0, 6.123031769111886e-17, 1, -130],
-         [0, -1, 6.123031769111886e-17, 130], [0, 0, 0, 1]]);
-    fibers.modified();
+    fibers.transform.flipY();
+    fibers.transform.translateX(-125);
+    fibers.transform.translateY(-120);
+    fibers.transform.translateZ(-120);
     
     ren3d.camera.view = new X.matrix(
         [[-0.5093217615929089, -0.8570143021091494, -0.07821655290449646, 10],
@@ -87,7 +83,7 @@ function loadAvf() {
   
   // now the fun part
   volume = new X.volume();
-  volume.file = 'http://x.babymri.org/?avf.nrrd';
+  volume.file = 'http://x.babymri.org/?avf.nii';
   _data.volume.file = volume.file;
   
   mesh = new X.mesh();
@@ -151,8 +147,8 @@ function loadBrainstem() {
   
   // now the fun part, arrrr
   volume = new X.volume();
-  volume.file = 'http://x.babymri.org/?vol.nrrd';
-  volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
+  volume.file = 'http://x.babymri.org/?vol.nii';
+  volume.labelmap.file = 'http://x.babymri.org/?seg.nii';
   volume.labelmap.colortable.file = 'http://x.babymri.org/?genericanatomy.txt';
   _data.volume.file = volume.file;
   _data.labelmap.file = volume.labelmap.file;
