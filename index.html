@@ -152,7 +152,10 @@
 					multiple onchange='selectfiles(this.files)' style='display: none;'></input><a
 					class='btn btn-inverse btn-large' style='vertical-align: super;'
 					onclick='javascript:document.getElementById("filebutton").click();'>Select
-					files</a><br /> <br />
+					files</a><br />
+				<span style='font-size: 10px'> Your data stays on your
+					computer. No upload required!</span><br />
+				<br />
 				<ul class='thumbnails'>
 					<li>
 						<div class='thumbnail'>
@@ -196,38 +199,36 @@
 	</div>
 
 	<!-- Learn more -->
-	<div class='modal hide fade' id='learnMore' style='display: none;'>
+	<div class='modal hide fade' id='learnMore'
+		style='display: none; width: 800px; height: 610px; margin-top: -305px; margin-left: -400px;'>
 		<div class='modal-header'>
 			<button class='close' data-dismiss='modal'>×</button>
-			<h3>&nbsp;</h3>
+			<h3>Try it!!</h3>
 		</div>
-		<div class='modal-body'>
-			<h2>Try it!!</h2>
-			<img src='gfx/slicedrop_logo.png' / style='float: right'>
-				<p>
-					<b>Slice:Drop</b> is a viewer for medical imaging data. It supports
-					a variety of scientific file formats out-of-the-box (see <a
-						href='https://github.com/xtk/X/wiki/X%3AFileformats'
-						target='_blank'>here</a> for a complete list).
-				</p>
-				<p>We think that the best way to render your files is without
-					any necessary conversions. Just drop'em on a website and they are
-					ready to render.</p>
-				<p>
-					<b>Getting started</b>: Just drag'n'drop some medical imaging files
-					on this website or <b>try one of the four examples in the right
-						corner</b>. Then, play with the panels on the left and click, drag and
-					rotate the 3d content.
-				</p> <br /> <br />
-				<p>
-					<b>Slice:Drop</b> uses WebGL and HTML5 Canvas to render the data in
-					2D and 3D. We use our own open-source toolkit to perform the
-					rendering, called <a href='http://goXTK.com' target='_blank'>XTK</a>.
-				</p>
-				<p>
-					We are very keen on your feedback, so please <a
-						href='mailto:dev@goxtk.com'>email us</a>.
-				</p>
+		<div class='modal-body' style='max-height: 600px'>
+			<p>
+				<img src='gfx/workflow.png' />
+			</p>
+			<p>
+				We think that the best way to render your files is without any
+				necessary conversions. Just drop'em on this website and they are ready
+				to render. <b>Slice:Drop</b> supports a variety of scientific file formats
+				out-of-the-box (see <a
+					href='https://github.com/xtk/X/wiki/X%3AFileformats'
+					target='_blank' style='color:cornflowerblue'>here</a> for a complete list).
+			</p>			
+			<img src='gfx/multitouch.png' style='float:right'/>
+			<p>
+				<b>Slice:Drop</b> uses WebGL and HTML5 Canvas to render the data in
+				2D and 3D. We use our own open-source toolkit to perform the
+				rendering, called <a href='http://goXTK.com' target='_blank' style='color:cornflowerblue'>XTK</a>.
+			</p>
+			<p>All data stays on the client and nothing gets transferred via the internet. This is totally safe!
+			</p>
+			<p>
+				We are very keen on your feedback, so please <a
+					href='mailto:dev@goxtk.com' style='color:cornflowerblue'>email us</a>.
+			</p>
 		</div>
 	</div>
 
@@ -393,44 +394,38 @@
 		<div id='3d' class='threeDRenderer'></div>
 		<div id='sliceX' class='twoDRenderer'>
 			<div id='yellow_slider'></div>
-      <span class='ren2d_icon' style='left: 2px;'
-        onclick='javascript:_current_X_content.rotateCounter();'>
-        <span class='ui-icon ui-icon-arrowreturnthick-1-w'
-          style='margin: 5px;' title="Rotate"></span>
-      </span>
-      <span class='ren2d_icon' style='right: 2px;'
-        onclick='javascript:_current_X_content.rotate();'>
-        <span
-          class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
-          style='margin: 5px;' title="Rotate"></span>
-      </span>
+			<span class='ren2d_icon' style='left: 2px;'
+				onclick='javascript:_current_X_content.rotateCounter();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w' style='margin: 5px;'
+				title="Rotate"></span>
+			</span> <span class='ren2d_icon' style='right: 2px;'
+				onclick='javascript:_current_X_content.rotate();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+				style='margin: 5px;' title="Rotate"></span>
+			</span>
 		</div>
 		<div id='sliceY' class='twoDRenderer'>
 			<div id='red_slider'></div>
-      <span class='ren2d_icon' style='left: 2px;'
-        onclick='javascript:_current_Y_content.rotateCounter();'>
-        <span class='ui-icon ui-icon-arrowreturnthick-1-w'
-          style='margin: 5px;' title="Rotate"></span>
-      </span>
-      <span class='ren2d_icon' style='right: 2px;'
-        onclick='javascript:_current_Y_content.rotate();'>
-        <span
-          class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
-          style='margin: 5px;' title="Rotate"></span>
-      </span>
+			<span class='ren2d_icon' style='left: 2px;'
+				onclick='javascript:_current_Y_content.rotateCounter();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w' style='margin: 5px;'
+				title="Rotate"></span>
+			</span> <span class='ren2d_icon' style='right: 2px;'
+				onclick='javascript:_current_Y_content.rotate();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+				style='margin: 5px;' title="Rotate"></span>
+			</span>
 		</div>
 		<div id='sliceZ' class='twoDRenderer'>
 			<div id='green_slider'></div>
 			<span class='ren2d_icon' style='left: 2px;'
-				onclick='javascript:_current_Z_content.rotateCounter();'>
-				<span class='ui-icon ui-icon-arrowreturnthick-1-w'
-					style='margin: 5px;' title="Rotate"></span>
-			</span>
-			<span class='ren2d_icon' style='right: 2px;'
-				onclick='javascript:_current_Z_content.rotate();'>
-				<span
-					class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
-					style='margin: 5px;' title="Rotate"></span>
+				onclick='javascript:_current_Z_content.rotateCounter();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w' style='margin: 5px;'
+				title="Rotate"></span>
+			</span> <span class='ren2d_icon' style='right: 2px;'
+				onclick='javascript:_current_Z_content.rotate();'> <span
+				class='ui-icon ui-icon-arrowreturnthick-1-w ren2d_icon_flip'
+				style='margin: 5px;' title="Rotate"></span>
 			</span>
 
 		</div>
