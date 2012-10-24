@@ -71,13 +71,13 @@ jQuery(document).ready(function() {
     // portrait or landscape display
     if (jQuery(document).width() < jQuery(document).height()) {
       
-      jQuery(body).removeClass('landscape');
-      jQuery(body).addClass('portrait');
+      jQuery(document.body).removeClass('landscape');
+      jQuery(document.body).addClass('portrait');
       
     } else {
       
-      jQuery(body).removeClass('portrait');
-      jQuery(body).addClass('landscape');
+      jQuery(document.body).removeClass('portrait');
+      jQuery(document.body).addClass('landscape');
       
     }
     
