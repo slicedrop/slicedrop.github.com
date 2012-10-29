@@ -1,9 +1,9 @@
-Slice:Drop
+<img src="http://slicedrop.com/gfx/slicedrop.png">
 ========
 
 <img src="http://slicedrop.com/gfx/workflow.png">
 
-We think that the best way to render your files is without any necessary conversions. Just drop'em on this website and they are ready to render. Slice:Drop supports a variety of scientific file formats out-of-the-box (see <a href="">here</a> for a complete list).
+We think that the best way to render your files is without any necessary conversions. Just drop'em on this website and they are ready to render. Slice:Drop supports a variety of scientific file formats out-of-the-box (see <a href="#file-formats">here</a> for a complete list).
 
 ## Features and Technology
 
