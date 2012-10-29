@@ -46,6 +46,10 @@ Copyright (c) 2012 The Slice:Drop and X Toolkit Developers  \<dev@goXTK.com>
 Slice:Drop is licensed under the MIT License:
   <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">http://www.opensource.org/licenses/mit-license.php</a>
 
+## Publications
+* Hähn D, Rannou N, Grant PE, Pienaar R: <b>Slice:Drop</b>. IEEE VisWeek, SciVis Poster Session, September 2012.
+* <a href="https://github.com/xtk/X/wiki/X:publications">more..</a>
+
 ## Feedback
 
 We are very keen on your feedback, so please <a href="mailto:dev@goXTK.com">email us</a>.
