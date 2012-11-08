@@ -103,6 +103,8 @@ function initializeRenderers(){
       
     }
     
+    window.console.timeEnd('Loadtime');
+    
     setupUi();
     configurator();
     
@@ -342,6 +344,8 @@ function parse(data) {
   
   // initialize renderers
   initializeRenderers();
+  
+  window.console.time('Loadtime');
   
   if (data['volume']['file'].length > 0) {
    
