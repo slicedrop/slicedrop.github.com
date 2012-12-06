@@ -376,6 +376,34 @@ function parse(data) {
   
   window.console.time('Loadtime');
   
+  // check for special case if a volume, a labelmap and a colortable was dropped
+  if (data['volume']['file'].length == 2 && data['colortable']['file'].length == 1) {
+    
+    // we assume the smaller volume is a labelmap
+    var _smaller_volume = data['volume']['file'][0];
+    var _smaller_data = data['volume']['filedata'][0];
+    if (_smaller_volume.size < data['volume']['file'][1]) {
+    
+      // this is the smaller volume so configure it as a labelmap
+      data['labelmap']['file'].push(_smaller_volume);
+      data['labelmap']['filedata'].push(_smaller_data);
+      data['volume']['file'].shift();
+      data['volume']['filedata'].shift();
+      
+    } else {
+      
+      // we swap them and configure the second one as a labelmap
+      _smaller_volume = data['volume']['file'][1];
+      _smaller_data = data['volume']['filedata'][1];
+      data['labelmap']['file'].push(_smaller_volume);
+      data['labelmap']['filedata'].push(_smaller_data);
+      data['volume']['file'].pop();
+      data['volume']['filedata'].pop();      
+      
+    }
+    
+  }
+  
   if (data['volume']['file'].length > 0) {
    
    // we have a volume
