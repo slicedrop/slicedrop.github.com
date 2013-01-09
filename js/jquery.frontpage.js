@@ -53,7 +53,10 @@ jQuery(document).ready(function() {
     
     // this is any file
     var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
-    _file = _file.replace('?', '').replace('/', ''); // replace any ? or /
+    _file = _file.replace('?', ''); // replace any ?
+    
+    // only replace the last /
+    _file = _file.replace(new RegExp('/$'),'');
     
     if (_file == '14yrold') {
       

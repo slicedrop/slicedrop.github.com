@@ -194,6 +194,14 @@ function loadBrainstem() {
 
 function loadFile(file) {
 
+  var _file = 'http://x.babymri.org/?' + file;
+  
+  if (file.substring(0,4) == 'http') {
+    // external url detected
+    console.log('Using external data url: ' + file);
+    _file = file;
+  }
+  
   // now switch to the viewer
   switchToViewer();
   
@@ -208,7 +216,7 @@ function loadFile(file) {
     
     // it's a volume
     volume = new X.volume();
-    volume.file = 'http://x.babymri.org/?' + file;
+    volume.file = _file;
     _data.volume.file = volume.file;
     ren3d.add(volume);
     
@@ -216,7 +224,7 @@ function loadFile(file) {
     
     // it's a mesh
     mesh = new X.mesh();
-    mesh.file = 'http://x.babymri.org/?' + file;
+    mesh.file = _file;
     _data.mesh.file = mesh.file;
     ren3d.add(mesh);
     
@@ -224,7 +232,7 @@ function loadFile(file) {
     
     // it's a fibers thingie
     fibers = new X.fibers();
-    fibers.file = 'http://x.babymri.org/?' + file;
+    fibers.file = _file;
     _data.fibers.file = fibers.file;
     ren3d.add(fibers);
     
