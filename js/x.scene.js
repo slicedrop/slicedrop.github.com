@@ -101,6 +101,10 @@ function loadScene(sceneUrl) {
           jQuery('#windowlevel-volume').hide();
           jQuery('#opacity-label').show();
           jQuery('#opacity-volume').show();
+          
+          volume.opacity = scene.volume.opacity;
+          jQuery('#opacity-volume').slider("option", "value", volume.opacity * 100);          
+          
         }
   
         volume.lowerThreshold = scene.volume.lowerThreshold;
@@ -111,9 +115,6 @@ function loadScene(sceneUrl) {
         volume.windowHigh = scene.volume.windowHigh;
         jQuery('#windowlevel-volume').dragslider("option", "values", [volume.windowLow, volume.windowHigh]);      
         
-        volume.opacity = scene.volume.opacity;
-        jQuery('#opacity-volume').slider("option", "value", volume.opacity * 100);
-  
         volume.minColor = scene.volume.minColor;
         var bgColor = ((1 << 24) + (volume.minColor[0] * 255 << 16) +
             (volume.minColor[1] * 255 << 8) + volume.minColor[2] * 255)
