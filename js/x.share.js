@@ -357,6 +357,9 @@ function createShortURL(url) {
   }).done(
       function(shorturl) {
         // display the short URL
+        
+        shorturl = shorturl.replace('jvf.li/', 'my.slicedrop.com/?');
+        
         $('#sharemsg').html(
             $('#sharemsg').html() + '<br><a href="' + shorturl
                 + '" target=_blank><span style="font-size:14px;color:red;">'
