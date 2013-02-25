@@ -48,36 +48,51 @@ jQuery(document).ready(function() {
 
   };
 
-  // parse the url for variables which trigger demos immediately
-  if (location.href.match(/(\?)(\w*.\w*)*/)) {
+  // from http://stackoverflow.com/a/7826782/1183453
+  var args = document.location.search.substring(1).split('&');
+  argsParsed = {};
+  for (var i=0; i < args.length; i++)
+  {
+      arg = unescape(args[i]);
+      
+      if (arg.length == 0) continue;
 
-    // this is any file
-    var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
-    _file = _file.replace('?', ''); // replace any ?
+      if (arg.indexOf('=') == -1)
+      {
+          argsParsed[arg.replace(new RegExp('/$'),'').trim()] = true;
+      }
+      else
+      {
+          kvp = arg.split('=');
+          argsParsed[kvp[0].trim()] = kvp[1].replace(new RegExp('/$'),'').trim();
+      }
+  }  
+  
+  if ('14yrold' in argsParsed) {
 
-    // only replace the last /
-    _file = _file.replace(new RegExp('/$'),'');
+    load14yrold();
 
-    if (_file == '14yrold') {
+  } else if ('avf' in argsParsed) {
 
-      load14yrold();
+    loadAvf();
 
-    } else if (_file == 'avf') {
+  } else if ('2yrold' in argsParsed) {
 
-      loadAvf();
+    load2yrold();
 
-    } else if (_file == '2yrold') {
+  } else if ('brainstem' in argsParsed) {
 
-      load2yrold();
+    loadBrainstem();
 
-    } else if (_file == 'brainstem') {
+  } else if ('scene' in argsParsed) {
+    
+    console.log('Found scene ' + argsParsed['scene']);
+    loadScene(argsParsed['scene']);
+    
+  } else {
 
-      loadBrainstem();
-
-    } else {
-
-      loadFile(_file);
-
+    for (var a in argsParsed) {
+      loadFile(a);
     }
 
   }
