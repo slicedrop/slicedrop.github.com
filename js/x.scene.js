@@ -66,6 +66,11 @@ function loadScene(sceneUrl) {
     
     ren3d.render();
     
+    // show the download icon
+    // artwork from http://www.iconlet.com/info/94982_download_258x258
+    $('#download').show();
+    $('#downloadlogo').click(downloadScene.bind(scene));
+    
     configurator = function() {
 
       // restore the cameras
@@ -193,5 +198,23 @@ function loadScene(sceneUrl) {
     };
   
   });
+  
+}
+
+function downloadScene(scene) {
+  
+  var _toDownload = [];
+  
+  for (var d in scene) {
+    
+    for (var f in scene[d].file) {
+      
+      _toDownload.push(scene[d].file[f]);
+      
+    }
+    
+  }
+  
+  downloadFile(_toDownload);
   
 }

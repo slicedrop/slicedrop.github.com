@@ -346,3 +346,19 @@ function selectfiles(files) {
   read(files);
 
 };
+
+// From http://stackoverflow.com/a/11448009/1183453
+function downloadFile(url)
+{
+    var iframe = document.createElement("iframe");
+    iframe.src = url;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+}
+
+function downloadFiles(urls)
+{
+    downloadFile(urls[0]);
+    if (urls.length > 1)
+        window.setTimeout(function () { downloadFiles(urls.slice(1)); }, 1000);
+}

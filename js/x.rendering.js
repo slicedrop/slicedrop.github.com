@@ -249,6 +249,9 @@ function read(files) {
     
   createData();
   
+  // show share button
+  $('#share').show();
+  
   for ( var i = 0; i < files.length; i++) {
    
    var f = files[i];
