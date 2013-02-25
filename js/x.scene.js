@@ -217,6 +217,6 @@ function downloadScene() {
     
   }
   
-  downloadFile(_toDownload);
+  downloadFiles(_toDownload);
   
 }
