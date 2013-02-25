@@ -3,8 +3,10 @@ function loadScene(sceneUrl) {
   // grab the JSON scene
   $.ajax({
     url: sceneUrl
-  }).done(function(scene) {
+  }).done(function(_scene) {
 
+    scene = _scene;
+    
     // now switch to the viewer
     switchToViewer();
     
@@ -69,7 +71,7 @@ function loadScene(sceneUrl) {
     // show the download icon
     // artwork from http://www.iconlet.com/info/94982_download_258x258
     $('#download').show();
-    $('#downloadlogo').click(downloadScene.bind(scene));
+    $('#downloadlogo').click(downloadScene);
     
     configurator = function() {
 
@@ -201,7 +203,7 @@ function loadScene(sceneUrl) {
   
 }
 
-function downloadScene(scene) {
+function downloadScene() {
   
   var _toDownload = [];
   
