@@ -532,6 +532,10 @@ function onTouchEnd(rend,container) {
 
   _touch_ended = Date.now();
   
+  if (typeof _touch_started == 'undefined') {
+    _touch_started = _touch_ended;
+  }
+  
   if (_touch_ended - _touch_started < 200) {
   
     var _old_2d_content = eval('_current_' + container + '_content');  

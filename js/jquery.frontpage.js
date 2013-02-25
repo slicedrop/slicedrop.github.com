@@ -1,30 +1,30 @@
 /*
 
-    .----.                    _..._                                                     .-'''-.                           
-   / .--./    .---.        .-'_..._''.                          _______                '   _    \                         
-  ' '         |   |.--.  .' .'      '.\     __.....__           \  ___ `'.           /   /` '.   \_________   _...._      
-  \ \         |   ||__| / .'            .-''         '.    ,.--. ' |--.\  \         .   |     \  '\        |.'      '-.   
-   `.`'--.    |   |.--.. '             /     .-''"'-.  `. //    \| |    \  ' .-,.--.|   '      |  '\        .'```'.    '. 
+    .----.                    _..._                                                     .-'''-.
+   / .--./    .---.        .-'_..._''.                          _______                '   _    \
+  ' '         |   |.--.  .' .'      '.\     __.....__           \  ___ `'.           /   /` '.   \_________   _...._
+  \ \         |   ||__| / .'            .-''         '.    ,.--. ' |--.\  \         .   |     \  '\        |.'      '-.
+   `.`'--.    |   |.--.. '             /     .-''"'-.  `. //    \| |    \  ' .-,.--.|   '      |  '\        .'```'.    '.
      `'-. `.  |   ||  || |            /     /________\   \\\    /| |     |  '|  .-. \    \     / /  \      |       \     \
          `. \ |   ||  || |            |                  | `'--' | |     |  || |  | |`.   ` ..' /    |     |        |    |
-           \ '|   ||  |. '            \    .-------------' ,.--. | |     ' .'| |  | |   '-...-'`     |      \      /    . 
-            | |   ||  | \ '.          .\    '-.____...---.//    \| |___.' /' | |  '-                 |     |\`'-.-'   .'  
-            | |   ||__|  '. `._____.-'/ `.             .' \\    /_______.'/  | |                     |     | '-....-'`    
-           / /'---'        `-.______ /    `''-...... -'    `'--'\_______|/   | |                    .'     '.             
-     /...-'.'                       `                                        |_|                  '-----------'           
-    /--...-'                                                                                                              
-    
+           \ '|   ||  |. '            \    .-------------' ,.--. | |     ' .'| |  | |   '-...-'`     |      \      /    .
+            | |   ||  | \ '.          .\    '-.____...---.//    \| |___.' /' | |  '-                 |     |\`'-.-'   .'
+            | |   ||__|  '. `._____.-'/ `.             .' \\    /_______.'/  | |                     |     | '-....-'`
+           / /'---'        `-.______ /    `''-...... -'    `'--'\_______|/   | |                    .'     '.
+     /...-'.'                       `                                        |_|                  '-----------'
+    /--...-'
+
     Slice:Drop - Instantly view scientific and medical imaging data in 3D.
-    
+
      http://slicedrop.com
-     
+
     Copyright (c) 2012 The Slice:Drop and X Toolkit Developers <dev@goXTK.com>
-    
+
     Slice:Drop is licensed under the MIT License:
-      http://www.opensource.org/licenses/mit-license.php    
-      
+      http://www.opensource.org/licenses/mit-license.php
+
     CREDITS: http://slicedrop.com/LICENSE
-     
+
 */
 
 /**
@@ -36,57 +36,72 @@
 
 jQuery(document).ready(function() {
 
-  
+
   detect_viewingmode();
-  
+
   initBrowserWarning();
   initDnD();
   initExamples();
-  
+
   ren3d = null;
   configurator = function() {
 
   };
+
+  // from http://stackoverflow.com/a/7826782/1183453
+  var args = document.location.search.substring(1).split('&');
+  argsParsed = {};
+  for (var i=0; i < args.length; i++)
+  {
+      arg = unescape(args[i]);
+      
+      if (arg.length == 0) continue;
+
+      if (arg.indexOf('=') == -1)
+      {
+          argsParsed[arg.replace(new RegExp('/$'),'').trim()] = true;
+      }
+      else
+      {
+          kvp = arg.split('=');
+          argsParsed[kvp[0].trim()] = kvp[1].replace(new RegExp('/$'),'').trim();
+      }
+  }  
   
-  // parse the url for variables which trigger demos immediately
-  if (location.href.match(/(\?)(\w*.\w*)*/)) {
+  if ('14yrold' in argsParsed) {
+
+    load14yrold();
+
+  } else if ('avf' in argsParsed) {
+
+    loadAvf();
+
+  } else if ('2yrold' in argsParsed) {
+
+    load2yrold();
+
+  } else if ('brainstem' in argsParsed) {
+
+    loadBrainstem();
+
+  } else if ('scene' in argsParsed) {
     
-    // this is any file
-    var _file = location.href.match(/(\?)(\w*.\w*)*/)[0];
-    _file = _file.replace('?', ''); // replace any ?
+    console.log('Found scene ' + argsParsed['scene']);
+    loadScene(argsParsed['scene']);
     
-    // only replace the last /
-    _file = _file.replace(new RegExp('/$'),'');
-    
-    if (_file == '14yrold') {
-      
-      load14yrold();
-      
-    } else if (_file == 'avf') {
-      
-      loadAvf();
-      
-    } else if (_file == '2yrold') {
-      
-      load2yrold();
-      
-    } else if (_file == 'brainstem') {
-      
-      loadBrainstem();
-      
-    } else {
-      
-      loadFile(_file);
-      
+  } else {
+
+    for (var a in argsParsed) {
+      loadFile(a);
     }
-    
+
   }
-  
+
   function switch_orientation(id) {
 
     var _width = jQuery(id).width();
     var _height = jQuery(id).height();
-    
+
     // now convert to percentage
     console.log('old', _width, _height);
     _width = jQuery(id).width() / jQuery(document).width() * 100;
@@ -95,29 +110,29 @@ jQuery(document).ready(function() {
     jQuery(id).height(_width + '%');
     jQuery(id).width(_height + '%');
     jQuery(id).css('position', 'absolute');
-    
+
   }
-  
+
   function detect_viewingmode() {
 
     // portrait or landscape display
     if (jQuery(document).width() < jQuery(document).height()) {
-      
+
       jQuery(document.body).removeClass('landscape');
       jQuery(document.body).addClass('portrait');
-      
+
     } else {
-      
+
       jQuery(document.body).removeClass('portrait');
       jQuery(document.body).addClass('landscape');
-      
+
     }
-    
+
   }
-  
+
   // add a handler for viewing mode detecting
   jQuery(window).resize(detect_viewingmode);
-  
+
 });
 
 var _current_3d_content = null;
@@ -131,50 +146,50 @@ function showLarge(el2, new3d_content) {
   // jump out if the renderers were not set up
   if (!_current_3d_content || !_current_X_content || !_current_Y_content ||
       !_current_Z_content) {
-    
+
     console.log('nothing to do');
-    
+
     return;
-    
+
   }
-  
+
   // from Stackoverflow http://stackoverflow.com/a/6391857/1183453
-  
+
   var el1 = jQuery('#3d');
   el1.prepend('<span/>'); // drop a marker in place
   var tag1 = jQuery(el1.children()[0]);
   var old_content = tag1.nextAll();
-  
+
   tag1.replaceWith(el2.children('div, canvas'));
-  
+
   el2.prepend('<span/>');
   var tag2 = jQuery(el2.children()[0]);
   tag2.replaceWith(old_content);
-  
+
   // adjust the XTK containers
-  
+
   var _2dcontainerId = el2.attr('id');
   var _orientation = _2dcontainerId.substr(-1);
-  
+
   if (_orientation == 'd') {
     return;
   }
-  
+
   var _old_2d_content = eval('_current_' + _orientation + '_content');
   var _old_3d_content = _current_3d_content;
-  
+
   _current_3d_content.container = document.getElementById(_2dcontainerId);
   _old_2d_content.container = document.getElementById('3d');
-  
+
   // .. and update the layout
   _current_3d_content = _old_2d_content;
   eval('_current_' + _orientation + '_content = _old_3d_content');
-  
+
   // fire resize event
   var evt = document.createEvent('UIEvents');
   evt.initUIEvent('resize', true, false, window, 0);
   window.dispatchEvent(evt);
-  
+
 };
 
 function initExamples() {
@@ -186,56 +201,56 @@ function initExamples() {
     jQuery('.examples div').hide();
     var currentExample = jQuery(this).attr('id').replace('Image', '');
     jQuery('#' + currentExample).show();
-    
+
   });
-  
+
   jQuery('#14yroldImage').click(function() {
 
     load14yrold();
   });
-  
+
   jQuery('#avfImage').click(function() {
 
     loadAvf();
   });
-  
+
   jQuery('#2yroldImage').click(function() {
 
     load2yrold();
   });
-  
+
   jQuery('#brainstemImage').click(function() {
 
     loadBrainstem();
   });
-  
+
   jQuery('#14yroldlink').click(function() {
 
     load14yrold();
   });
-  
+
   jQuery('#avflink').click(function() {
 
     loadAvf();
   });
-  
+
   jQuery('#2yroldlink').click(function() {
 
     load2yrold();
   });
-  
+
   jQuery('#brainstemlink').click(function() {
 
     loadBrainstem();
   });
-  
+
 }
 
 function initBrowserWarning() {
 
   var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
   var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-  
+
   if (!isChrome && !isFirefox) {
     jQuery("#browser-warning").fadeIn(125);
   }
@@ -250,11 +265,11 @@ function initDnD() {
       onDragLeave, false);
   document.getElementById("drop-box-overlay").addEventListener("dragover",
       noopHandler, false);
-  
+
   // Add drop handling
   document.getElementById("drop-box-overlay").addEventListener("drop", onDrop,
       false);
-  
+
 };
 
 function noopHandler(evt) {
@@ -297,21 +312,21 @@ function onDrop(evt) {
 
   // Consume the event.
   noopHandler(evt);
-  
+
   // Hide overlay
   jQuery("#drop-box-overlay").fadeOut(0);
   jQuery("#drop-box-prompt").fadeOut(0);
-  
+
   // Get the dropped files.
   var files = evt.dataTransfer.files;
-  
+
   // If anything is wrong with the dropped files, exit.
   if (typeof files == "undefined" || files.length == 0) {
     return;
   }
-  
+
   selectfiles(files);
-  
+
 };
 
 function switchToViewer() {
@@ -319,15 +334,15 @@ function switchToViewer() {
   jQuery('#body').addClass('viewerBody');
   jQuery('#frontpage').hide();
   jQuery('#viewer').show();
-  
+
 };
 
 function selectfiles(files) {
 
   // now switch to the viewer
   switchToViewer();
-  
+
   // .. and start the file reading
   read(files);
-  
+
 };
