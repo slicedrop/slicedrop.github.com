@@ -8,7 +8,8 @@ function initialize_sharing() {
 function share() {
 
   var client = new Dropbox.Client({
-    key : "",
+    // this key has to change for each app
+    key : "Q60cVmMyg/A=|pQC3I1F1qW3kRyF3Q2s78saA2VpYpQQwBez7IsFKgQ==",
     sandbox : true
   });
 
