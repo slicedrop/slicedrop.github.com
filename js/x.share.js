@@ -21,7 +21,7 @@ function share() {
 function authorize(client) {
 
   client.authDriver(new Dropbox.Drivers.Popup({
-    receiverUrl : "http://slicedrop.com/loginok.html",
+    receiverUrl : window.location.href + "/loginok.html",
     useQuery : true
   }));
 
@@ -152,9 +152,9 @@ function grabSlicedrop(client, foldername, _toUpload) {
   }).done(function(html) {
 
     // replace paths to point to slicedrop.com
-    html = html.replace(/'css/g, "'http://slicedrop.com/css");
-    html = html.replace(/'js/g, "'http://slicedrop.github.com/js");
-    html = html.replace(/'gfx/g, "'http://slicedrop.com/gfx");
+    html = html.replace(/'css/g, "'" + window.location.href + "/css");
+    html = html.replace(/'js/g, "'" + window.location.href + "/js");
+    html = html.replace(/'gfx/g, "'" + window.location.href + "/gfx");
 
     client.writeFile(foldername + '/index.html', html, function(error, stat) {
 
@@ -358,9 +358,9 @@ function createShortURL(url) {
   }).done(
       function(shorturl) {
         // display the short URL
-        
+
         shorturl = shorturl.replace('jvf.li/', 'my.slicedrop.com/?');
-        
+
         $('#sharemsg').html(
             $('#sharemsg').html() + '<br><a href="' + shorturl
                 + '" target=_blank><span style="font-size:14px;color:red;">'
@@ -382,7 +382,7 @@ var showError = function(error) {
   case Dropbox.ApiError.NOT_FOUND:
     // The file or folder you tried to access is not in the user's Dropbox.
     // Handling this error is specific to your application.
-    $('#sharemsg').html('File not found!');  
+    $('#sharemsg').html('File not found!');
     break;
 
   case Dropbox.ApiError.OVER_QUOTA:
@@ -412,5 +412,5 @@ var showError = function(error) {
     // Tell the user an error occurred, ask them to refresh the page.
     $('#sharemsg').html('There was an error!');
   }
-  $('#sharemsg').html($('#sharemsg').html()+'<br>Please try again!');
+  $('#sharemsg').html($('#sharemsg').html() + '<br>Please try again!');
 };

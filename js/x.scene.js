@@ -72,6 +72,9 @@ function loadScene(sceneUrl) {
     // artwork from http://www.iconlet.com/info/94982_download_258x258
     $('#download').show();
     $('#downloadlogo').click(downloadScene);
+    // and this artwork is part of the cool jigsoar icons (CC)
+    $('#linklogo').click(RT.link);
+    $('#linkselectedlogo').click(RT.link);
     
     configurator = function() {
 

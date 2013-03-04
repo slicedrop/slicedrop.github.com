@@ -1,37 +1,62 @@
 var RT = RT || {};
 RT.linked = false;
+RT.channel = null;
+RT.pusher = null;
 
 RT.link = function() {
 
-  var channelname = 'abcdef';
+  if ( !RT.linked ) {
 
-  var pusher = new Pusher('7d039f97f26780edd35e');
-  Pusher.channel_auth_endpoint = 'http://x.babymri.org/auth.php';
+    var _location = (window.location != window.parent.location) ? document.referrer
+        : document.location;
+    var channelname = 'mydrop-' + _location.split('?')[1];
 
-  RT._channel = pusher.subscribe('private-' + channelname);
+    console.log('Linking via channel ' + channelname + '...');
 
-  RT._updater = 1;
-  RT._old_view = [1];
+    RT.pusher = new Pusher('7d039f97f26780edd35e');
+    Pusher.channel_auth_endpoint = 'http://x.babymri.org/auth.php';
 
-  // the events
-  RT._channel.bind('client-camera-sync', function(data) {
+    RT.channel = 'private-' + channelname;
+    RT._link = RT.pusher.subscribe(RT.channel);
 
-    eval(data.target).camera.view = new Float32Array(data.value);
+    RT._updater = 1;
+    RT._old_view = [ 1 ];
 
-  });
-  RT._channel.bind('client-volume-sync', function(data) {
+    // the events
+    RT._link.bind('client-camera-sync', function(data) {
 
-    volume[data.target] = data.value;
+      eval(data.target).camera.view = new Float32Array(data.value);
 
-  });
+    });
+    RT._link.bind('client-volume-sync', function(data) {
 
-  // observe the cameras
-  RT.observeCamera('ren3d');
-  RT.observeCamera('sliceX');
-  RT.observeCamera('sliceY');
-  RT.observeCamera('sliceZ');
+      volume[data.target] = data.value;
 
-  RT.linked = true;
+    });
+
+    // observe the cameras
+    RT.observeCamera('ren3d');
+    RT.observeCamera('sliceX');
+    RT.observeCamera('sliceY');
+    RT.observeCamera('sliceZ');
+
+    RT.linked = true;
+
+    // switch to the blue icon
+    $('#linklogo').hide();
+    $('#linkselectedlogo').show();
+
+  } else {
+
+    RT.pusher.unsubscribe(RT.channel);
+
+    RT.linked = false;
+
+    // switch to the gray icon
+    $('#linkselectedlogo').hide();
+    $('#linklogo').show();
+
+  }
 
 };
 
@@ -42,13 +67,13 @@ RT.observeCamera = function(renderer) {
   };
 
   eval(renderer).interactor.onMouseDown = function(e) {
-    RT._updater = setInterval(RT.pushCamera.bind(this,renderer), 150);
+    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);
   };
 
   eval(renderer).interactor.onMouseWheel = function(e) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushCamera.bind(this,renderer), 150);
+    RT._updater = setTimeout(RT.pushCamera.bind(this, renderer), 150);
 
   };
 
@@ -56,15 +81,13 @@ RT.observeCamera = function(renderer) {
 
 RT.pushCamera = function(renderer) {
 
-  console.log('push');
-
   var _current_view = Array.apply([], eval(renderer).camera.view);
 
-  if (!arraysEqual(_current_view, RT._old_view)) {
+  if ( !arraysEqual(_current_view, RT._old_view) ) {
 
-    RT._channel.trigger('client-camera-sync', {
-      'target': renderer,
-      'value': _current_view
+    RT._link.trigger('client-camera-sync', {
+      'target' : renderer,
+      'value' : _current_view
     });
 
     RT._old_view = _current_view;
@@ -75,22 +98,21 @@ RT.pushCamera = function(renderer) {
 
 RT.pushVolume = function(target, value) {
 
-  RT._channel.trigger('client-volume-sync', {
-    'target': target,
-    'value': value
+  RT._link.trigger('client-volume-sync', {
+    'target' : target,
+    'value' : value
   });
 
 };
 
-
 // compare two arrays
 function arraysEqual(arr1, arr2) {
 
-  if (arr1.length !== arr2.length) {
+  if ( arr1.length !== arr2.length ) {
     return false;
   }
   for ( var i = arr1.length; i--;) {
-    if (arr1[i] !== arr2[i]) {
+    if ( arr1[i] !== arr2[i] ) {
       return false;
     }
   }

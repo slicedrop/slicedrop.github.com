@@ -46,6 +46,18 @@
   float:right;
 }
 
+#linkselectedlogo {
+  opacity: 0.7;
+  float:left;
+  margin-right: 10px;
+}
+
+#linklogo {
+  opacity: 0.7;
+  float:left;
+  margin-right: 10px;
+}
+
 #share {
 	display: none;
 	position: absolute;
