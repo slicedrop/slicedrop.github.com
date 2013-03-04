@@ -212,6 +212,9 @@ function loadScene(sceneUrl) {
         
       }
       
+      // reset the 3d bounding box
+      ren3d.resetBoundingBox();
+      
     };
   
   });
