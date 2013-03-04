@@ -25,7 +25,7 @@ RT.link = function() {
 
     // the events
     RT._link.bind('client-camera-sync', function(data) {
-
+      
       eval(data.target).camera.view = new Float32Array(data.value);
 
     });

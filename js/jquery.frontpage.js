@@ -68,6 +68,14 @@ jQuery(document).ready(function() {
       }
   }  
   
+  // setup logging hotkey
+  $(window).keypress(function(e) {
+    if (e.charCode == 108) {
+      $('#log').show();
+      _LOG_ = true;
+    }
+  });
+  
   if ('14yrold' in argsParsed) {
 
     load14yrold();
@@ -355,4 +363,18 @@ function downloadFiles(urls)
     downloadFile(urls[0]);
     if (urls.length > 1)
         window.setTimeout(function () { downloadFiles(urls.slice(1)); }, 1000);
+}
+
+// debug logging (for mobile)
+_LOG_ = false;
+
+function log(msg) {
+  
+  if (!_LOG_) return;
+  
+  var now = new Date();
+  var timestamp = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
+      + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':'
+      + now.getSeconds();
+  $('#log').html($('#log').html()+timestamp+' '+msg+'<br>');
 }

@@ -257,7 +257,7 @@ function createData() {
      'file': [],
      'filedata': [],
      'extensions': ['STL', 'VTK', 'FSM', 'SMOOTHWM', 'INFLATED', 'SPHERE',
-                    'PIAL', 'ORIG']
+                    'PIAL', 'ORIG', 'OBJ']
    },
    'scalars': {
      'file': [],
@@ -582,9 +582,12 @@ function onTouchEnd3D() {
 
 function onTouchStart(renderer) {
   
+  log('Touch start');
+  
   _touch_started = Date.now();
   
   if (RT.linked) {
+    clearInterval(RT._updater);
     RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);    
   }
   
@@ -603,7 +606,7 @@ function onTouchEnd(rend,container) {
   }
 
   if (_touch_ended - _touch_started < 200) {
-
+    
     var _old_2d_content = eval('_current_' + container + '_content');
     eval('var cont = '+rend+'.container');
 
