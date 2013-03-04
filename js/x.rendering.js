@@ -43,9 +43,19 @@ function initializeRenderers(){
     ren3d = new X.renderer3D();
     ren3d.container = '3d';
     ren3d.init();
-    ren3d.interactor.onTouchStart = ren3d.interactor.onMouseDown = onTouchStart;
+    ren3d.interactor.onTouchStart = ren3d.interactor.onMouseDown = onTouchStart3D;
     ren3d.interactor.onTouchEnd = ren3d.interactor.onMouseUp = onTouchEnd3D;
+    ren3d.interactor.onMouseWheel = function(e) {
 
+      if (RT.linked) {
+        
+        clearTimeout(RT._updater);
+        RT._updater = setTimeout(RT.pushCamera.bind(this, 'ren3d'), 150);
+        
+      }
+
+    };
+    
     // webgl is enabled
     window.console.log('WebGL supported.');
 
@@ -71,7 +81,7 @@ function initializeRenderers(){
    sliceX.orientation = 'X';
    sliceX.init();
    // observe the on touch thingie to enlarge
-   sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStart;
+   sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStartX;
    sliceX.interactor.onTouchEnd = sliceX.interactor.onMouseUp = onTouchEndX;
 
    sliceY = new X.renderer2D();
@@ -79,7 +89,7 @@ function initializeRenderers(){
    sliceY.orientation = 'Y';
    sliceY.init();
    // observe the on touch thingie to enlarge
-   sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStart;
+   sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStartY;
    sliceY.interactor.onTouchEnd = sliceY.interactor.onMouseUp = onTouchEndY;
 
    sliceZ = new X.renderer2D();
@@ -104,7 +114,7 @@ function initializeRenderers(){
    sliceZ.init();
 
    // observe the on touch thingie to enlarge
-   sliceZ.interactor.onTouchStart = sliceZ.interactor.onMouseDown = onTouchStart;
+   sliceZ.interactor.onTouchStart = sliceZ.interactor.onMouseDown = onTouchStartZ;
    sliceZ.interactor.onTouchEnd = sliceZ.interactor.onMouseUp = onTouchEndZ;
 
 
@@ -520,13 +530,31 @@ function parse(data) {
 };
 
 //
-// Switch on touch / click (enlarge)
+// Interaction callbacks
 //
-function onTouchStart() {
+function onTouchStartX() {
 
-  _touch_started = Date.now();
+  onTouchStart('sliceX');
 
 };
+
+function onTouchStartY() {
+
+  onTouchStart('sliceY');
+
+};
+
+function onTouchStartZ() {
+
+  onTouchStart('sliceZ');
+
+};
+
+function onTouchStart3D() {
+  
+  onTouchStart('ren3d');
+  
+}
 
 function onTouchEndX() {
 
@@ -552,8 +580,22 @@ function onTouchEnd3D() {
 
 }
 
+function onTouchStart(renderer) {
+  
+  _touch_started = Date.now();
+  
+  if (RT.linked) {
+    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);    
+  }
+  
+}
+
 function onTouchEnd(rend,container) {
 
+  if (RT.linked){
+    clearInterval(RT._updater);
+  }
+  
   _touch_ended = Date.now();
 
   if (typeof _touch_started == 'undefined') {

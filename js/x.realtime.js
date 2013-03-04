@@ -9,7 +9,8 @@ RT.link = function() {
 
     var _location = (window.location != window.parent.location) ? document.referrer
         : document.location;
-    var channelname = 'mydrop-' + _location.split('?')[1];
+    // here we make sure that location is a string
+    var channelname = 'mydrop-' + (_location+"").split('?')[1];
 
     console.log('Linking via channel ' + channelname + '...');
 
@@ -34,12 +35,7 @@ RT.link = function() {
 
     });
 
-    // observe the cameras
-    RT.observeCamera('ren3d');
-    RT.observeCamera('sliceX');
-    RT.observeCamera('sliceY');
-    RT.observeCamera('sliceZ');
-
+    // we are online
     RT.linked = true;
 
     // switch to the blue icon
@@ -57,25 +53,6 @@ RT.link = function() {
     $('#linklogo').show();
 
   }
-
-};
-
-RT.observeCamera = function(renderer) {
-
-  eval(renderer).interactor.onMouseUp = function(e) {
-    clearInterval(RT._updater);
-  };
-
-  eval(renderer).interactor.onMouseDown = function(e) {
-    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);
-  };
-
-  eval(renderer).interactor.onMouseWheel = function(e) {
-
-    clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushCamera.bind(this, renderer), 150);
-
-  };
 
 };
 
