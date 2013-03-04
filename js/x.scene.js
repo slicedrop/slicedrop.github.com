@@ -89,6 +89,9 @@ function loadScene(sceneUrl) {
       //
       if (_data.volume.file.length > 0) {
           
+        // the transform
+        volume.transform.matrix = new Float32Array(scene.volume.transform);
+        
         volume.indexX = scene.volume.indexX;
         volume.indexY = scene.volume.indexY;
         volume.indexZ = scene.volume.indexZ;
@@ -148,6 +151,10 @@ function loadScene(sceneUrl) {
       // restore the mesh settings
       //
       if (_data.mesh.file.length > 0) {
+        
+        // the transform
+        mesh.transform.matrix = new Float32Array(scene.mesh.transform);        
+        
         mesh.visible = scene.mesh.visible;
         if (!mesh.visible) {
           $('#meshvisibility').removeClass('show-icon');
@@ -189,6 +196,10 @@ function loadScene(sceneUrl) {
       // restore the fiber settings
       //
       if (_data.fibers.file.length > 0) {
+        
+        // the transform
+        fibers.transform.matrix = new Float32Array(scene.fibers.transform);        
+        
         fibers.visible = scene.fibers.visible;
         if (!fibers.visible) {
           $('#fibersvisibility').removeClass('show-icon');

@@ -217,6 +217,7 @@ function writeScene(client, foldername, _toUpload) {
     _scene.volume.minColor = volume.minColor;
     _scene.volume.maxColor = volume.maxColor;
     _scene.volume.volumeRendering = volume.volumeRendering;
+    _scene.volume.transform = Array.apply([], volume.transform.matrix);
 
   }
 
@@ -229,6 +230,7 @@ function writeScene(client, foldername, _toUpload) {
     _scene.mesh.visible = mesh.visible;
     _scene.mesh.opacity = mesh.opacity;
     _scene.mesh.color = mesh.color;
+    _scene.mesh.transform = Array.apply([], mesh.transform.matrix);
   }
 
   if ( _data.scalars.file.length > 0 ) {
@@ -242,6 +244,7 @@ function writeScene(client, foldername, _toUpload) {
     _scene.fibers.visible = fibers.visible;
     _scene.fibers.lowerThreshold = fibers.scalars.lowerThreshold;
     _scene.fibers.upperThreshold = fibers.scalars.upperThreshold;
+    _scene.fibers.transform = Array.apply([], fibers.transform.matrix);
   }
 
   //
