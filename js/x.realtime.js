@@ -51,6 +51,13 @@ RT.link = function() {
       mesh[data.target] = data.value;
 
     });        
+    RT._link.bind('client-scalars-sync', function(data) {
+
+      if (_data.scalars.file.length == 0) return;
+      
+      mesh.scalars[data.target] = data.value;
+
+    });        
 
     // we are online
     RT.linked = true;
@@ -111,6 +118,15 @@ RT.pushLabelmap = function(target, value) {
 RT.pushMesh = function(target, value) {
 
   RT._link.trigger('client-mesh-sync', {
+    'target' : target,
+    'value' : value
+  });
+
+};
+
+RT.pushScalars = function(target, value) {
+
+  RT._link.trigger('client-scalars-sync', {
     'target' : target,
     'value' : value
   });

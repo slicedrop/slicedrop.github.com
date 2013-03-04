@@ -430,7 +430,15 @@ function thresholdScalars(event, ui) {
 
   mesh.scalars.lowerThreshold = ui.values[0] / 100;
   mesh.scalars.upperThreshold = ui.values[1] / 100;
+  
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushScalars.bind(RT, 'lowerThreshold', mesh.scalars.lowerThreshold), 150);
+    clearTimeout(RT._updater2);
+    RT._updater2 = setTimeout(RT.pushScalars.bind(RT, 'upperThreshold', mesh.scalars.upperThreshold), 150);
+        
+  }  
 
 }
 
@@ -441,7 +449,13 @@ function scalarsMinColor(hex, rgb) {
   }
 
   mesh.scalars.minColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
+  
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushScalars.bind(RT, 'minColor', mesh.scalars.minColor), 150);
+    
+  }  
 
 }
 
@@ -453,6 +467,12 @@ function scalarsMaxColor(hex, rgb) {
 
   mesh.scalars.maxColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushScalars.bind(RT, 'maxColor', mesh.scalars.maxColor), 150);
+    
+  }  
 
 }
 
