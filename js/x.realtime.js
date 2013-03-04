@@ -57,7 +57,21 @@ RT.link = function() {
       
       mesh.scalars[data.target] = data.value;
 
-    });        
+    });    
+    RT._link.bind('client-fibers-sync', function(data) {
+
+      if (_data.fibers.file.length == 0) return;
+      
+      fibers[data.target] = data.value;
+
+    });    
+    RT._link.bind('client-fibersscalars-sync', function(data) {
+
+      if (_data.fibers.file.length == 0) return;
+      
+      fibers.scalars[data.target] = data.value;
+
+    });    
 
     // we are online
     RT.linked = true;
@@ -127,6 +141,24 @@ RT.pushMesh = function(target, value) {
 RT.pushScalars = function(target, value) {
 
   RT._link.trigger('client-scalars-sync', {
+    'target' : target,
+    'value' : value
+  });
+
+};
+
+RT.pushFibers = function(target, value) {
+
+  RT._link.trigger('client-fibers-sync', {
+    'target' : target,
+    'value' : value
+  });
+
+};
+
+RT.pushFibersScalars = function(target, value) {
+
+  RT._link.trigger('client-fibersscalars-sync', {
     'target' : target,
     'value' : value
   });

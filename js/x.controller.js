@@ -486,6 +486,13 @@ function toggleFibersVisibility() {
   }
 
   fibers.visible = !fibers.visible;
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushFibers.bind(RT, 'visible', fibers.visible), 150);
+    
+  }    
 
 
 }
@@ -498,6 +505,13 @@ function thresholdFibers(event, ui) {
 
   fibers.scalars.lowerThreshold = ui.values[0];
   fibers.scalars.upperThreshold = ui.values[1];
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushFibersScalars.bind(RT, 'lowerThreshold', fibers.scalars.lowerThreshold), 150);
+    clearTimeout(RT._updater2);
+    RT._updater2 = setTimeout(RT.pushFibersScalars.bind(RT, 'upperThreshold', fibers.scalars.upperThreshold), 150);
+        
+  }  
 
 }
