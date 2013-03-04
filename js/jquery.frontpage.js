@@ -72,18 +72,6 @@ jQuery(document).ready(function() {
 
     load14yrold();
 
-  } else if ('avf' in argsParsed) {
-
-    loadAvf();
-
-  } else if ('2yrold' in argsParsed) {
-
-    load2yrold();
-
-  } else if ('brainstem' in argsParsed) {
-
-    loadBrainstem();
-
   } else if ('scene' in argsParsed) {
     
     console.log('Found scene ' + argsParsed['scene']);
@@ -211,17 +199,20 @@ function initExamples() {
 
   jQuery('#avfImage').click(function() {
 
-    loadAvf();
+    window.location.href = "http://my.slicedrop.com/?St";
+    
   });
 
   jQuery('#2yroldImage').click(function() {
 
-    load2yrold();
+    window.location.href = "http://my.slicedrop.com/?XE";
+    
   });
 
   jQuery('#brainstemImage').click(function() {
 
-    loadBrainstem();
+    window.location.href = "http://my.slicedrop.com/?Fi";
+    
   });
 
   jQuery('#14yroldlink').click(function() {
@@ -231,17 +222,20 @@ function initExamples() {
 
   jQuery('#avflink').click(function() {
 
-    loadAvf();
+    window.location.href = "http://my.slicedrop.com/?St";
+    
   });
 
   jQuery('#2yroldlink').click(function() {
 
-    load2yrold();
+    window.location.href = "http://my.slicedrop.com/?XE";
+    
   });
 
   jQuery('#brainstemlink').click(function() {
 
-    loadBrainstem();
+    window.location.href = "http://my.slicedrop.com/?Fi";
+    
   });
 
 }
