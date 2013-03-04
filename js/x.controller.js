@@ -177,6 +177,12 @@ function volumerenderingOnOff(bool) {
   }
 
   volume.volumeRendering = bool;
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'volumeRendering', volume.volumeRendering), 150);
+  }  
 
 
 }
@@ -189,6 +195,15 @@ function thresholdVolume(event, ui) {
 
   volume.lowerThreshold = ui.values[0];
   volume.upperThreshold = ui.values[1];
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'lowerThreshold', volume.lowerThreshold), 150);
+    clearTimeout(RT._updater2);
+    RT._updater2 = setTimeout(RT.pushVolume.bind(RT, 'upperThreshold', volume.upperThreshold), 150);
+
+  }  
 
 
 }
@@ -201,6 +216,15 @@ function windowLevelVolume(event, ui) {
 
   volume.windowLow = ui.values[0];
   volume.windowHigh = ui.values[1];
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'windowLow', volume.windowLow), 150);
+    clearTimeout(RT._updater2);
+    RT._updater2 = setTimeout(RT.pushVolume.bind(RT, 'windowHigh', volume.windowHigh), 150);
+
+  }  
 
 
 }
@@ -212,6 +236,13 @@ function opacity3dVolume(event, ui) {
   }
 
   volume.opacity = ui.value / 100;
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'opacity', volume.opacity), 150);
+    
+  }    
 
 
 }
@@ -224,6 +255,13 @@ function volumeslicingX(event, ui) {
 
   volume.indexX = Math
       .floor(jQuery('#yellow_slider').slider("option", "value"));
+  
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexX), 150);
+
+  }  
 
 }
 
@@ -235,6 +273,13 @@ function volumeslicingY(event, ui) {
 
   volume.indexY = Math.floor(jQuery('#red_slider').slider("option", "value"));
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexY), 150);
+
+  }  
+  
 }
 
 function volumeslicingZ(event, ui) {
@@ -245,6 +290,13 @@ function volumeslicingZ(event, ui) {
 
   volume.indexZ = Math.floor(jQuery('#green_slider').slider("option", "value"));
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexZ', volume.indexZ), 150);
+
+  }  
+  
 }
 
 function fgColorVolume(hex, rgb) {
@@ -255,6 +307,12 @@ function fgColorVolume(hex, rgb) {
 
   volume.maxColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'maxColor', volume.maxColor), 150);
+    
+  }  
 
 }
 
@@ -266,6 +324,12 @@ function bgColorVolume(hex, rgb) {
 
   volume.minColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'minColor', volume.minColor), 150);
+    
+  }  
 
 }
 

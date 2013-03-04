@@ -21,6 +21,7 @@ RT.link = function() {
     RT._link = RT.pusher.subscribe(RT.channel);
 
     RT._updater = 1;
+    RT._updater2 = 1;
     RT._old_view = [ 1 ];
 
     // the events

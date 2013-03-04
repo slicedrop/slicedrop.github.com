@@ -214,6 +214,15 @@ function initializeRenderers(){
 
     jQuery('#windowlevel-volume').dragslider("option", "values", [volume.windowLow, volume.windowHigh]);
 
+    if (RT.linked) {
+
+      clearTimeout(RT._updater);
+      RT._updater = setTimeout(RT.pushVolume.bind(RT, 'windowLow', volume.windowLow), 150);
+      clearTimeout(RT._updater2);
+      RT._updater2 = setTimeout(RT.pushVolume.bind(RT, 'windowHigh', volume.windowHigh), 150);
+
+    }
+    
   };
 
   sliceX.onWindowLevel = _updateWLSlider;
