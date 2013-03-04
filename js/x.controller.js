@@ -381,7 +381,13 @@ function toggleMeshVisibility() {
 
   mesh.visible = !mesh.visible;
 
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushMesh.bind(RT, 'visible', mesh.visible), 150);
+    
+  }  
+  
 }
 
 function meshColor(hex, rgb) {
@@ -392,7 +398,12 @@ function meshColor(hex, rgb) {
 
   mesh.color = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
 
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushMesh.bind(RT, 'color', mesh.color), 150);
+    
+  }  
 }
 
 function opacityMesh(event, ui) {
@@ -403,7 +414,12 @@ function opacityMesh(event, ui) {
 
   mesh.opacity = ui.value / 100;
 
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushMesh.bind(RT, 'opacity', mesh.opacity), 150);
+    
+  }  
 }
 
 function thresholdScalars(event, ui) {

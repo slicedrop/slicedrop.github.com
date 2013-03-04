@@ -44,6 +44,13 @@ RT.link = function() {
       volume.labelmap[data.target] = data.value;
 
     });    
+    RT._link.bind('client-mesh-sync', function(data) {
+
+      if (_data.mesh.file.length == 0) return;
+      
+      mesh[data.target] = data.value;
+
+    });        
 
     // we are online
     RT.linked = true;
@@ -95,6 +102,15 @@ RT.pushVolume = function(target, value) {
 RT.pushLabelmap = function(target, value) {
 
   RT._link.trigger('client-labelmap-sync', {
+    'target' : target,
+    'value' : value
+  });
+
+};
+
+RT.pushMesh = function(target, value) {
+
+  RT._link.trigger('client-mesh-sync', {
     'target' : target,
     'value' : value
   });
