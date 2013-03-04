@@ -344,7 +344,13 @@ function opacityLabelmap(event, ui) {
 
   volume.labelmap.opacity = ui.value / 100;
 
+  if (RT.linked) {
 
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushLabelmap.bind(RT, 'opacity', volume.labelmap.opacity), 150);
+    
+  }  
+  
 }
 
 function toggleLabelmapVisibility() {
@@ -355,6 +361,12 @@ function toggleLabelmapVisibility() {
 
   volume.labelmap.visible = !volume.labelmap.visible;
 
+  if (RT.linked) {
+
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushLabelmap.bind(RT, 'visible', volume.labelmap.visible), 150);
+    
+  }  
 
 }
 

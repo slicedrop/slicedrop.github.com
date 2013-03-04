@@ -32,9 +32,18 @@ RT.link = function() {
     });
     RT._link.bind('client-volume-sync', function(data) {
 
+      if (_data.volume.file.length == 0) return;
+      
       volume[data.target] = data.value;
 
     });
+    RT._link.bind('client-labelmap-sync', function(data) {
+
+      if (_data.labelmap.file.length == 0) return;
+      
+      volume.labelmap[data.target] = data.value;
+
+    });    
 
     // we are online
     RT.linked = true;
@@ -77,6 +86,15 @@ RT.pushCamera = function(renderer) {
 RT.pushVolume = function(target, value) {
 
   RT._link.trigger('client-volume-sync', {
+    'target' : target,
+    'value' : value
+  });
+
+};
+
+RT.pushLabelmap = function(target, value) {
+
+  RT._link.trigger('client-labelmap-sync', {
     'target' : target,
     'value' : value
   });
