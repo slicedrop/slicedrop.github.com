@@ -202,7 +202,8 @@ function initExamples() {
 
   jQuery('#14yroldImage').click(function() {
 
-    load14yrold();
+    window.location.href = "http://my.slicedrop.com/?P9";
+    
   });
 
   jQuery('#avfImage').click(function() {
@@ -225,7 +226,8 @@ function initExamples() {
 
   jQuery('#14yroldlink').click(function() {
 
-    load14yrold();
+    window.location.href = "http://my.slicedrop.com/?P9";
+    
   });
 
   jQuery('#avflink').click(function() {
