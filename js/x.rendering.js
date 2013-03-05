@@ -621,6 +621,12 @@ function onTouchEnd(rend,container) {
 
     showLarge(jQuery(cont), _old_2d_content);
 
+    if (RT.linked) {
+      
+      RT._updater = setInterval(RT.pushUI.bind(RT, rend, container), 150);  
+      
+    }
+    
   }
 
 };

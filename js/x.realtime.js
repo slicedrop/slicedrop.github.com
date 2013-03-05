@@ -25,6 +25,14 @@ RT.link = function() {
     RT._old_view = [ 1 ];
 
     // the events
+    RT._link.bind('client-ui-sync', function(data) {
+      
+      var _old_2d_content = eval('_current_' + data.container + '_content');
+      eval('var cont = '+data.rend+'.container');
+
+      showLarge(jQuery(cont), _old_2d_content);
+
+    });    
     RT._link.bind('client-camera-sync', function(data) {
       
       eval(data.target).camera.view = new Float32Array(data.value);
@@ -247,6 +255,15 @@ RT.pushFibersScalars = function(target, value) {
     'value' : value
   });
 
+};
+
+RT.pushUI = function(rend, container) {
+  
+  RT._link.trigger('client-ui-sync', {
+    'rend' : rend,
+    'container' : container
+  });
+  
 };
 
 // compare two arrays
