@@ -6,7 +6,7 @@ RT.pusher = null;
 RT.link = function() {
 
   if ( !RT.linked ) {
-
+    
     var _location = (window.location != window.parent.location) ? document.referrer
         : document.location;
     // here we make sure that location is a string
@@ -171,6 +171,10 @@ RT.link = function() {
     // switch to the blue icon
     $('#linklogo').hide();
     $('#linkselectedlogo').show();
+    
+    // connect webrtc
+    $('cams').show();
+    WRTC.connect();
 
   } else {
 

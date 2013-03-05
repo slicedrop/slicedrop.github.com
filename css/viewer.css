@@ -90,6 +90,14 @@
 	display:none;
 }
 
+#cams {
+	position: absolute;
+	bottom: 10px;
+	left: 50px;
+	height: 100px;
+	display:none;
+}
+
 #body.landscape.webgl_enabled>#viewer>.threeDRenderer {
 	height: 100%;
 	width: 80%;

@@ -162,7 +162,7 @@ function grabSlicedrop(client, foldername, _toUpload) {
         return showError(error);
 
       // now write the JSON scene
-      writeScene(client, foldername, _toUpload);
+      getWRTCsession(client, foldername, _toUpload);
 
     });
 
@@ -170,13 +170,36 @@ function grabSlicedrop(client, foldername, _toUpload) {
 
 }
 
+function getWRTCsession(client, foldername, _toUpload) {
+  
+//  var _api = '23161912';
+//  var _secret = '492a94430433bb8b47cc07f7bc592bc1e8a8d45b';
+//
+//  $.ajax({
+//    url : "https://api.opentok.com/hl/session/create",
+//    type : "POST",
+//    beforeSend : function(xhr) {
+//      xhr.setRequestHeader('X-TB-PARTNER-AUTH', _api + ':' + _secret);
+//    },
+//    success : function(data) {
+//   
+      var sessionId = '1_MX4yMzE2MTkxMn4xMjcuMC4wLjF-TW9uIE1hciAwNCAyMDo0MTo1NiBQU1QgMjAxM34wLjI1NTg4OTc3fg';//$(data).find('session_id').text();
+      
+      writeScene(client, foldername, _toUpload, sessionId);
+//      
+//    }
+//  });
+  
+}
+
 /**
  * Here we create the scene which later gets parsed by Slice:Drop again.
  */
-function writeScene(client, foldername, _toUpload) {
+function writeScene(client, foldername, _toUpload, sessionId) {
 
   // then we store a JSON scene
   var _scene = {
+    sessionId : sessionId, 
     camera : {
       ren3d : Array.apply([], ren3d.camera.view),
       sliceX : Array.apply([], sliceX.camera.view),
