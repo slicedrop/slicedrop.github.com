@@ -54,8 +54,10 @@ jQuery(document).ready(function() {
   for (var i=0; i < args.length; i++)
   {
       arg = unescape(args[i]);
-      
-      if (arg.length == 0) continue;
+
+      if (arg.length == 0) {
+        continue;
+      }
 
       if (arg.indexOf('=') == -1)
       {
@@ -66,8 +68,8 @@ jQuery(document).ready(function() {
           kvp = arg.split('=');
           argsParsed[kvp[0].trim()] = kvp[1].replace(new RegExp('/$'),'').trim();
       }
-  }  
-  
+  }
+
   // setup logging hotkey
   $(window).keypress(function(e) {
     if (e.charCode == 108) {
@@ -75,21 +77,28 @@ jQuery(document).ready(function() {
       _LOG_ = true;
     }
   });
-  
+
   if ('14yrold' in argsParsed) {
 
     load14yrold();
 
   } else if ('scene' in argsParsed) {
-    
+
     console.log('Found scene ' + argsParsed['scene']);
     loadScene(argsParsed['scene']);
-    
+
+  } else if ('url' in argsParsed) {
+
+    console.log('Found url ' + argsParsed['url']);
+
   } else {
 
-    for (var a in argsParsed) {
-      loadFile(a);
+    //for (var a in argsParsed) {
+    var _url = document.location.search;
+    if (_url.length > 1) {
+      loadFile(document.location.search.substring(1));
     }
+    //}
 
   }
 
@@ -203,49 +212,49 @@ function initExamples() {
   jQuery('#14yroldImage').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?P9";
-    
+
   });
 
   jQuery('#avfImage').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?St";
-    
+
   });
 
   jQuery('#2yroldImage').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?XE";
-    
+
   });
 
   jQuery('#brainstemImage').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?Fi";
-    
+
   });
 
   jQuery('#14yroldlink').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?P9";
-    
+
   });
 
   jQuery('#avflink').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?St";
-    
+
   });
 
   jQuery('#2yroldlink').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?XE";
-    
+
   });
 
   jQuery('#brainstemlink').click(function() {
 
     window.location.href = "http://my.slicedrop.com/?Fi";
-    
+
   });
 
 }
@@ -363,17 +372,18 @@ function downloadFile(url)
 function downloadFiles(urls)
 {
     downloadFile(urls[0]);
-    if (urls.length > 1)
-        window.setTimeout(function () { downloadFiles(urls.slice(1)); }, 1000);
+    if (urls.length > 1){window.setTimeout(function () { downloadFiles(urls.slice(1)); }, 1000);}
 }
 
 // debug logging (for mobile)
 _LOG_ = false;
 
 function log(msg) {
-  
-  if (!_LOG_) return;
-  
+
+  if (!_LOG_) {
+    return;
+  }
+
   var now = new Date();
   var timestamp = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
       + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':'
