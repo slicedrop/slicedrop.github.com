@@ -84,8 +84,14 @@ jQuery(document).ready(function() {
 
   } else if ('scene' in argsParsed) {
 
-    console.log('Found scene ' + argsParsed['scene']);
-    loadScene(argsParsed['scene']);
+    // we have a scene
+    var _scene = document.location.href.split('=');
+    _scene.shift(); // remove first part (slicedrop.com?scene)
+
+    _scene = _scene.join('=');
+
+    console.log('Found scene ' + _scene);
+    loadScene(_scene);
 
   } else if ('url' in argsParsed) {
 
