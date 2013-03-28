@@ -21,7 +21,7 @@ function share() {
 function authorize(client) {
 
   client.authDriver(new Dropbox.Drivers.Popup({
-    receiverUrl : window.location.href + "/loginok.html",
+    receiverUrl : window.location.origin + window.location.pathname + "/loginok.html",
     useQuery : true
   }));
 
@@ -30,8 +30,9 @@ function authorize(client) {
 
   client.authenticate(function(error, client) {
 
-    if ( error )
+    if ( error ) {
       return showError(error);
+    }
 
     // second step is to display user information
     displayUserInfo(client);
@@ -44,8 +45,9 @@ function displayUserInfo(client) {
 
   client.getUserInfo(function(error, userInfo) {
 
-    if ( error )
+    if ( error ) {
       return showError(error);
+    }
 
     $('#sharemsg').html('Hi, ' + userInfo.name + '!');
 
@@ -65,8 +67,9 @@ function createSceneFolder(client) {
       + now.getSeconds();
   client.mkdir(foldername, function(error) {
 
-    if ( error )
+    if ( error ) {
       return showError(error);
+    }
 
     // next step is to upload data
     uploadData(client, foldername);
@@ -84,7 +87,23 @@ function uploadData(client, foldername) {
 
     for ( var f in _data[d].filedata) {
 
-      var _filename = _data[d].file[f].name;
+      var _filename = '';
+      var _filedata = '';
+
+      if (typeof _data[d].file[f] == "string") {
+
+        // this means the data was not 'dropped'
+        // therefor, we don't have HTML5 File objects here
+
+        _filename = basename(_data[d].file[f]);
+        _filedata = _data[d].filedata[f];
+
+      } else {
+
+        _filename = _data[d].file[f].name;
+        _filedata = _data[d].file[f];
+
+      }
 
       // if there is no file extension, be sure to pass .DCM
       // since it is DICOM
@@ -98,7 +117,7 @@ function uploadData(client, foldername) {
 
       }
 
-      _toUpload.push([ d, _filename, _data[d].file[f] ]);
+      _toUpload.push([ d, _filename, _filedata]);
 
     }
 
@@ -124,8 +143,9 @@ function uploadData(client, foldername) {
     // write data
     client.writeFile(foldername + '/' + u[1], u[2], function(error, stat) {
 
-      if ( error )
+      if ( error ) {
         return showError(error);
+      }
 
       _pending--;
 
@@ -147,19 +167,20 @@ function grabSlicedrop(client, foldername, _toUpload) {
 
   // first we store the current version of the slicedrop web app with the data
   $.ajax({
-    url : window.location.href,
+    url : window.location.origin + window.location.pathname,
     cache : false
   }).done(function(html) {
 
     // replace paths to point to slicedrop.com
-    html = html.replace(/'css/g, "'" + window.location.href + "/css");
-    html = html.replace(/'js/g, "'" + window.location.href + "/js");
-    html = html.replace(/'gfx/g, "'" + window.location.href + "/gfx");
+    html = html.replace(/'css/g, "'" + window.location.origin + window.location.pathname + "/css");
+    html = html.replace(/'js/g, "'" + window.location.origin + window.location.pathname + "/js");
+    html = html.replace(/'gfx/g, "'" + window.location.origin + window.location.pathname + "/gfx");
 
     client.writeFile(foldername + '/index.html', html, function(error, stat) {
 
-      if ( error )
+      if ( error ) {
         return showError(error);
+      }
 
       // now write the JSON scene
       writeScene(client, foldername, _toUpload);
@@ -267,8 +288,9 @@ function writeScene(client, foldername, _toUpload) {
       downloadHack : true
     }, function(error, url) {
 
-      if ( error )
+      if ( error ) {
         return showError(error);
+      }
 
       var _url = url.url;
 
@@ -317,8 +339,9 @@ function writeScene(client, foldername, _toUpload) {
         client.writeFile(foldername + '/scene.json', _sceneJSON, function(
             error, stat) {
 
-          if ( error )
+          if ( error ) {
             return showError(error);
+          }
 
           client.makeUrl(foldername + '/scene.json', {
             downloadHack : true
@@ -332,8 +355,9 @@ function writeScene(client, foldername, _toUpload) {
               downloadHack : true
             }, function(error, url) {
 
-              if ( error )
+              if ( error ) {
                 return showError(error);
+              }
 
               createShortURL(url.url + '?scene=' + _sceneUrl);
 
@@ -417,3 +441,23 @@ var showError = function(error) {
   }
   $('#sharemsg').html($('#sharemsg').html() + '<br>Please try again!');
 };
+
+// from php.js
+function basename (path, suffix) {
+  // http://kevin.vanzonneveld.net
+  // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // +   improved by: Ash Searle (http://hexmen.com/blog/)
+  // +   improved by: Lincoln Ramsay
+  // +   improved by: djmix
+  // *     example 1: basename('/www/site/home.htm', '.htm');
+  // *     returns 1: 'home'
+  // *     example 2: basename('ecra.php?p=1');
+  // *     returns 2: 'ecra.php?p=1'
+  var b = path.replace(/^.*[\/\\]/g, '');
+
+  if (typeof(suffix) == 'string' && b.substr(b.length - suffix.length) == suffix) {
+    b = b.substr(0, b.length - suffix.length);
+  }
+
+  return b;
+}
