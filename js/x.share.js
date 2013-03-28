@@ -7,6 +7,9 @@ function initialize_sharing() {
 // entry point when user clicks on "share via Dropbox"
 function share() {
 
+  // browser compatibility fix for window.location.origin
+  if (!window.location.origin){window.location.origin = window.location.protocol+"//"+window.location.host;}
+
   var client = new Dropbox.Client({
     // this key has to change for each app
     key : "Q60cVmMyg/A=|pQC3I1F1qW3kRyF3Q2s78saA2VpYpQQwBez7IsFKgQ==",
