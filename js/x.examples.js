@@ -52,7 +52,7 @@ function loadFile(file) {
     // it's a volume
     volume = new X.volume();
     volume.file = _file;
-    _data.volume.file = volume.file;
+    _data.volume.file = [volume.file];
     ren3d.add(volume);
 
   } else if (_data['mesh']['extensions'].indexOf(_fileExtension) >= 0) {
@@ -60,7 +60,7 @@ function loadFile(file) {
     // it's a mesh
     mesh = new X.mesh();
     mesh.file = _file;
-    _data.mesh.file = mesh.file;
+    _data.mesh.file = [mesh.file];
     ren3d.add(mesh);
 
   } else if (_data['fibers']['extensions'].indexOf(_fileExtension) >= 0) {
@@ -68,7 +68,7 @@ function loadFile(file) {
     // it's a fibers thingie
     fibers = new X.fibers();
     fibers.file = _file;
-    _data.fibers.file = fibers.file;
+    _data.fibers.file = [fibers.file];
     ren3d.add(fibers);
 
   } else {
@@ -80,6 +80,27 @@ function loadFile(file) {
   ren3d.render();
 
   configurator = function() {
+
+    // all files were loaded so re-attach the filedata so the
+    // dropbox sharing can work
+      if (_data.volume.file.length > 0) {
+
+        _data.volume.filedata = [volume.filedata];
+
+      }
+      if (_data.mesh.file.length > 0) {
+
+        _data.mesh.filedata = [mesh.filedata];
+
+      }
+      if (_data.fibers.file.length > 0) {
+
+        _data.fibers.filedata = [fibers.filedata];
+
+      }
+
+      // show the dropbox icon
+      $('#share').show();
 
   };
 
