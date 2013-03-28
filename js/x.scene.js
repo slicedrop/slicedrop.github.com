@@ -5,7 +5,11 @@ function loadScene(sceneUrl) {
     url: sceneUrl
   }).done(function(_scene) {
 
-    scene = JSON.parse(_scene);
+    if (typeof _scene == "object") {
+      scene = _scene;
+    } else {
+      scene = JSON.parse(_scene);
+    }
 
     // now switch to the viewer
     switchToViewer();
