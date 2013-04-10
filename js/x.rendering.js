@@ -48,14 +48,14 @@ function initializeRenderers(){
     ren3d.interactor.onMouseWheel = function(e) {
 
       if (RT.linked) {
-        
+
         clearTimeout(RT._updater);
         RT._updater = setTimeout(RT.pushCamera.bind(this, 'ren3d'), 150);
-        
+
       }
 
     };
-    
+
     // webgl is enabled
     window.console.log('WebGL supported.');
 
@@ -222,7 +222,7 @@ function initializeRenderers(){
       RT._updater2 = setTimeout(RT.pushVolume.bind(RT, 'windowHigh', volume.windowHigh), 150);
 
     }
-    
+
   };
 
   sliceX.onWindowLevel = _updateWLSlider;
@@ -290,7 +290,7 @@ function read(files) {
   createData();
 
   // show share button
-  $('#share').show();
+  //$('#share').show();
 
   for ( var i = 0; i < files.length; i++) {
 
@@ -560,9 +560,9 @@ function onTouchStartZ() {
 };
 
 function onTouchStart3D() {
-  
+
   onTouchStart('ren3d');
-  
+
 }
 
 function onTouchEndX() {
@@ -590,16 +590,16 @@ function onTouchEnd3D() {
 }
 
 function onTouchStart(renderer) {
-  
+
   log('Touch start');
-  
+
   _touch_started = Date.now();
-  
+
   if (RT.linked) {
     clearInterval(RT._updater);
-    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);    
+    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);
   }
-  
+
 }
 
 function onTouchEnd(rend,container) {
@@ -607,7 +607,7 @@ function onTouchEnd(rend,container) {
   if (RT.linked){
     clearInterval(RT._updater);
   }
-  
+
   _touch_ended = Date.now();
 
   if (typeof _touch_started == 'undefined') {
@@ -615,18 +615,18 @@ function onTouchEnd(rend,container) {
   }
 
   if (_touch_ended - _touch_started < 200) {
-    
+
     var _old_2d_content = eval('_current_' + container + '_content');
     eval('var cont = '+rend+'.container');
 
     showLarge(jQuery(cont), _old_2d_content);
 
     if (RT.linked) {
-      
-      RT._updater = setInterval(RT.pushUI.bind(RT, rend, container), 150);  
-      
+
+      RT._updater = setInterval(RT.pushUI.bind(RT, rend, container), 150);
+
     }
-    
+
   }
 
 };
