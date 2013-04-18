@@ -156,41 +156,13 @@ function uploadData(client, foldername) {
 
         // all data files uploaded
         $('#sharemsg').html($('#sharemsg').html() + 'Done!');
-        grabSlicedrop(client, foldername, _toUpload);
+        writeScene(client, foldername, _toUpload);
 
       }
 
     });
 
   }
-
-}
-
-function grabSlicedrop(client, foldername, _toUpload) {
-
-  // first we store the current version of the slicedrop web app with the data
-  $.ajax({
-    url : window.location.origin + window.location.pathname,
-    cache : false
-  }).done(function(html) {
-
-    // replace paths to point to slicedrop.com
-    html = html.replace(/'css/g, "'" + window.location.origin + window.location.pathname + "/css");
-    html = html.replace(/'js/g, "'" + window.location.origin + window.location.pathname + "/js");
-    html = html.replace(/'gfx/g, "'" + window.location.origin + window.location.pathname + "/gfx");
-
-    client.writeFile(foldername + '/index.html', html, function(error, stat) {
-
-      if ( error ) {
-        return showError(error);
-      }
-
-      // now write the JSON scene
-      writeScene(client, foldername, _toUpload);
-
-    });
-
-  });
 
 }
 
@@ -354,17 +326,7 @@ function writeScene(client, foldername, _toUpload) {
 
             var _sceneUrl = url.url;
 
-            client.makeUrl(foldername + '/index.html', {
-              downloadHack : true
-            }, function(error, url) {
-
-              if ( error ) {
-                return showError(error);
-              }
-
-              createShortURL(url.url + '?scene=' + _sceneUrl);
-
-            });
+            createShortURL('http://slicedrop.com/?scene=' + _sceneUrl);
 
           });
 
