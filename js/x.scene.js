@@ -361,7 +361,7 @@ function loadScene(sceneUrl) {
                   typeof scene.labelmap.file != 'undefined') {
                 if (scene.labelmap.file.length > 0) {
 
-                  _data.labelmap.filedata = labelmap.filedata;
+                  _data.labelmap.filedata = volume.labelmap.filedata;
 
                 }
               }
@@ -369,7 +369,7 @@ function loadScene(sceneUrl) {
                   typeof scene.colortable.file != 'undefined') {
                 if (scene.colortable.file.length > 0) {
 
-                  _data.colortable.filedata = colortable.filedata;
+                  _data.colortable.filedata = volume.labelmap.colortable.filedata;
 
                 }
               }
