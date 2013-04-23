@@ -217,49 +217,49 @@ function initExamples() {
 
   jQuery('#14yroldImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?P9";
+    window.location.href = "http://my.slicedrop.com/?WA";
 
   });
 
   jQuery('#avfImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?St";
+    window.location.href = "http://my.slicedrop.com/?r8";
 
   });
 
   jQuery('#2yroldImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?XE";
+    window.location.href = "http://my.slicedrop.com/?bC";
 
   });
 
   jQuery('#brainstemImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?Fi";
+    window.location.href = "http://my.slicedrop.com/?ux";
 
   });
 
   jQuery('#14yroldlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?P9";
+    window.location.href = "http://my.slicedrop.com/?WA";
 
   });
 
   jQuery('#avflink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?St";
+    window.location.href = "http://my.slicedrop.com/?r8";
 
   });
 
   jQuery('#2yroldlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?XE";
+    window.location.href = "http://my.slicedrop.com/?bC";
 
   });
 
   jQuery('#brainstemlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?Fi";
+    window.location.href = "http://my.slicedrop.com/?ux";
 
   });
 
