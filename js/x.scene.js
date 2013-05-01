@@ -116,9 +116,9 @@ function loadScene(sceneUrl) {
               if (typeof scene.camera != 'undefined') {
                 // restore the cameras
                 ren3d.camera.view = new Float32Array(scene.camera.ren3d);
-                sliceX.camera.view = new Float32Array(scene.camera.sliceX);
-                sliceY.camera.view = new Float32Array(scene.camera.sliceY);
-                sliceZ.camera.view = new Float32Array(scene.camera.sliceZ);
+                sliceAx.camera.view = new Float32Array(scene.camera.sliceAx);
+                sliceSag.camera.view = new Float32Array(scene.camera.sliceSag);
+                sliceCor.camera.view = new Float32Array(scene.camera.sliceCor);
               }
 
               //
@@ -134,21 +134,21 @@ function loadScene(sceneUrl) {
                         scene.volume.transform);
                   }
 
-                  if (typeof scene.volume.indexX != 'undefined') {
-                    volume.indexX = scene.volume.indexX;
+                  if (typeof scene.volume.indexIS != 'undefined') {
+                    volume.indexIS = scene.volume.indexIS;
                   }
-                  if (typeof scene.volume.indexY != 'undefined') {
-                    volume.indexY = scene.volume.indexY;
+                  if (typeof scene.volume.indexLR != 'undefined') {
+                    volume.indexLR = scene.volume.indexLR;
                   }
-                  if (typeof scene.volume.indexZ != 'undefined') {
-                    volume.indexZ = scene.volume.indexZ;
+                  if (typeof scene.volume.indexPA != 'undefined') {
+                    volume.indexPA = scene.volume.indexPA;
                   }
                   jQuery("#yellow_slider").slider("option", "value",
-                      volume.indexX);
+                      volume.indexLR);
                   jQuery("#red_slider")
-                      .slider("option", "value", volume.indexY);
+                      .slider("option", "value", volume.indexAX);
                   jQuery("#green_slider").slider("option", "value",
-                      volume.indexZ);
+                      volume.indexPA);
 
                   if (typeof scene.volume.volumeRendering != 'undefined') {
                     if (scene.volume.volumeRendering) {

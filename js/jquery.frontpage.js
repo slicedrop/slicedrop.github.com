@@ -147,16 +147,16 @@ jQuery(document).ready(function() {
 });
 
 var _current_3d_content = null;
-var _current_X_content = null;
-var _current_Y_content = null;
-var _current_Z_content = null;
+var _current_Ax_content = null;
+var _current_Sag_content = null;
+var _current_Cor_content = null;
 
 
 function showLarge(el2, new3d_content) {
 
   // jump out if the renderers were not set up
-  if (!_current_3d_content || !_current_X_content || !_current_Y_content ||
-      !_current_Z_content) {
+  if (!_current_3d_content || !_current_Ax_content || !_current_Sag_content ||
+      !_current_Cor_content) {
 
     console.log('nothing to do');
 
@@ -180,9 +180,9 @@ function showLarge(el2, new3d_content) {
   // adjust the XTK containers
 
   var _2dcontainerId = el2.attr('id');
-  var _orientation = _2dcontainerId.substr(-1);
+  var _orientation = _2dcontainerId.replace("slice","");
 
-  if (_orientation == 'd') {
+  if (_orientation == 'ren3d') {
     return;
   }
 

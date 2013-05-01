@@ -48,14 +48,14 @@ function initializeRenderers(){
     ren3d.interactor.onMouseWheel = function(e) {
 
       if (RT.linked) {
-        
+
         clearTimeout(RT._updater);
         RT._updater = setTimeout(RT.pushCamera.bind(this, 'ren3d'), 150);
-        
+
       }
 
     };
-    
+
     // webgl is enabled
     window.console.log('WebGL supported.');
 
@@ -76,28 +76,28 @@ function initializeRenderers(){
   }
 
 
-   sliceX = new X.renderer2D();
-   sliceX.container = 'sliceX';
-   sliceX.orientation = 'X';
-   sliceX.init();
+   sliceAx = new X.renderer2D();
+   sliceAx.container = 'sliceAx';
+   sliceAx.orientation = 'AXIAL';
+   sliceAx.init();
    // observe the on touch thingie to enlarge
-   sliceX.interactor.onTouchStart = sliceX.interactor.onMouseDown = onTouchStartX;
-   sliceX.interactor.onTouchEnd = sliceX.interactor.onMouseUp = onTouchEndX;
+   sliceAx.interactor.onTouchStart = sliceAx.interactor.onMouseDown = onTouchStartAx;
+   sliceAx.interactor.onTouchEnd = sliceAx.interactor.onMouseUp = onTouchEndAx;
 
-   sliceY = new X.renderer2D();
-   sliceY.container = 'sliceY';
-   sliceY.orientation = 'Y';
-   sliceY.init();
+   sliceSag = new X.renderer2D();
+   sliceSag.container = 'sliceSag';
+   sliceSag.orientation = 'SAGITTAL';
+   sliceSag.init();
    // observe the on touch thingie to enlarge
-   sliceY.interactor.onTouchStart = sliceY.interactor.onMouseDown = onTouchStartY;
-   sliceY.interactor.onTouchEnd = sliceY.interactor.onMouseUp = onTouchEndY;
+   sliceSag.interactor.onTouchStart = sliceSag.interactor.onMouseDown = onTouchStartSag;
+   sliceSag.interactor.onTouchEnd = sliceSag.interactor.onMouseUp = onTouchEndSag;
 
-   sliceZ = new X.renderer2D();
-   sliceZ.container = 'sliceZ';
+   sliceCor = new X.renderer2D();
+   sliceCor.container = 'sliceCor';
 
    if (!_webgl_supported) {
 
-     sliceZ.container = '3d';
+     sliceCor.container = '3d';
 
      // move the green slider to the 3d view
      var el1 = jQuery('#3d');
@@ -107,21 +107,21 @@ function initializeRenderers(){
 
    } else {
 
-     sliceZ.container = 'sliceZ';
+     sliceCor.container = 'sliceCor';
 
    }
-   sliceZ.orientation = 'Z';
-   sliceZ.init();
+   sliceCor.orientation = 'CORONAL';
+   sliceCor.init();
 
    // observe the on touch thingie to enlarge
-   sliceZ.interactor.onTouchStart = sliceZ.interactor.onMouseDown = onTouchStartZ;
-   sliceZ.interactor.onTouchEnd = sliceZ.interactor.onMouseUp = onTouchEndZ;
+   sliceCor.interactor.onTouchStart = sliceCor.interactor.onMouseDown = onTouchStartCor;
+   sliceCor.interactor.onTouchEnd = sliceCor.interactor.onMouseUp = onTouchEndCor;
 
 
    if (!_webgl_supported) {
 
      // now our ren3d is sliceZ
-     ren3d = sliceZ;
+     ren3d = sliceCor;
 
    }
 
@@ -132,13 +132,13 @@ function initializeRenderers(){
     if (_data.volume.file.length > 0) {
 
       // show any volume also in 2d
-       sliceX.add(volume);
-       sliceY.add(volume);
+       sliceAx.add(volume);
+       sliceSag.add(volume);
        // don't add it again if webgl is not supported
-       if (_webgl_supported){sliceZ.add(volume);}
-       sliceX.render();
-       sliceY.render();
-       sliceZ.render();
+       if (_webgl_supported){sliceCor.add(volume);}
+       sliceAx.render();
+       sliceSag.render();
+       sliceCor.render();
 
     }
 
@@ -155,50 +155,50 @@ function initializeRenderers(){
   //
   // link the 2d renderers to the 3d one by setting the onScroll
   // method. this means, once you scroll in 2d, it upates 3d as well
-  var _updateThreeDX = function() {
+  var _updateThreeDSag = function() {
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#yellow_slider').slider("option", "value",volume.indexX);
+      jQuery('#yellow_slider').slider("option", "value",volume.indexLR);
       // jQuery('#red_slider').slider("option", "value",volume.indexY);
       // jQuery('#green_slider').slider("option", "value",volume.indexZ);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexX), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexLR', volume.indexLR), 150);
 
       }
 
     }
 
   };
-  var _updateThreeDY = function() {
+  var _updateThreeDAx = function() {
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#red_slider').slider("option", "value",volume.indexY);
+      jQuery('#red_slider').slider("option", "value",volume.indexIS);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexY), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexIS', volume.indexIS), 150);
 
       }
 
     }
 
   };
-  var _updateThreeDZ = function() {
+  var _updateThreeDCor = function() {
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#green_slider').slider("option", "value",volume.indexZ);
+      jQuery('#green_slider').slider("option", "value",volume.indexPA);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexZ', volume.indexZ), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexPA', volume.indexPA), 150);
 
       }
 
@@ -206,9 +206,9 @@ function initializeRenderers(){
 
   };
 
-  sliceX.onScroll = _updateThreeDX;
-  sliceY.onScroll = _updateThreeDY;
-  sliceZ.onScroll = _updateThreeDZ;
+  sliceAx.onScroll = _updateThreeDAx;
+  sliceSag.onScroll = _updateThreeDSag;
+  sliceCor.onScroll = _updateThreeDCor;
 
   var _updateWLSlider = function() {
 
@@ -222,12 +222,12 @@ function initializeRenderers(){
       RT._updater2 = setTimeout(RT.pushVolume.bind(RT, 'windowHigh', volume.windowHigh), 150);
 
     }
-    
+
   };
 
-  sliceX.onWindowLevel = _updateWLSlider;
-  sliceY.onWindowLevel = _updateWLSlider;
-  sliceZ.onWindowLevel = _updateWLSlider;
+  sliceAx.onWindowLevel = _updateWLSlider;
+  sliceSag.onWindowLevel = _updateWLSlider;
+  sliceCor.onWindowLevel = _updateWLSlider;
 
 };
 
@@ -533,7 +533,7 @@ function parse(data) {
 
   }
 
-  ren3d.camera.position = [0,0,500];
+  ren3d.camera.position = [0,500,0];
   ren3d.render();
 
 };
@@ -541,45 +541,45 @@ function parse(data) {
 //
 // Interaction callbacks
 //
-function onTouchStartX() {
+function onTouchStartAx() {
 
-  onTouchStart('sliceX');
-
-};
-
-function onTouchStartY() {
-
-  onTouchStart('sliceY');
+  onTouchStart('sliceAx');
 
 };
 
-function onTouchStartZ() {
+function onTouchStartSag() {
 
-  onTouchStart('sliceZ');
+  onTouchStart('sliceSag');
+
+};
+
+function onTouchStartCor() {
+
+  onTouchStart('sliceCor');
 
 };
 
 function onTouchStart3D() {
-  
+
   onTouchStart('ren3d');
-  
+
 }
 
-function onTouchEndX() {
+function onTouchEndAx() {
 
-  onTouchEnd('sliceX','X');
-
-};
-
-function onTouchEndY() {
-
-  onTouchEnd('sliceY','Y');
+  onTouchEnd('sliceAx','Ax');
 
 };
 
-function onTouchEndZ() {
+function onTouchEndSag() {
 
-  onTouchEnd('sliceZ','Z');
+  onTouchEnd('sliceSag','Sag');
+
+};
+
+function onTouchEndCor() {
+
+  onTouchEnd('sliceCor','Cor');
 
 };
 
@@ -590,16 +590,16 @@ function onTouchEnd3D() {
 }
 
 function onTouchStart(renderer) {
-  
+
   log('Touch start');
-  
+
   _touch_started = Date.now();
-  
+
   if (RT.linked) {
     clearInterval(RT._updater);
-    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);    
+    RT._updater = setInterval(RT.pushCamera.bind(this, renderer), 150);
   }
-  
+
 }
 
 function onTouchEnd(rend,container) {
@@ -607,7 +607,7 @@ function onTouchEnd(rend,container) {
   if (RT.linked){
     clearInterval(RT._updater);
   }
-  
+
   _touch_ended = Date.now();
 
   if (typeof _touch_started == 'undefined') {
@@ -615,18 +615,18 @@ function onTouchEnd(rend,container) {
   }
 
   if (_touch_ended - _touch_started < 200) {
-    
+
     var _old_2d_content = eval('_current_' + container + '_content');
     eval('var cont = '+rend+'.container');
 
     showLarge(jQuery(cont), _old_2d_content);
 
     if (RT.linked) {
-      
-      RT._updater = setInterval(RT.pushUI.bind(RT, rend, container), 150);  
-      
+
+      RT._updater = setInterval(RT.pushUI.bind(RT, rend, container), 150);
+
     }
-    
+
   }
 
 };

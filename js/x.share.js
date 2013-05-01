@@ -175,9 +175,9 @@ function writeScene(client, foldername, _toUpload) {
   var _scene = {
     camera : {
       ren3d : Array.apply([], ren3d.camera.view),
-      sliceX : Array.apply([], sliceX.camera.view),
-      sliceY : Array.apply([], sliceY.camera.view),
-      sliceZ : Array.apply([], sliceZ.camera.view)
+      sliceAx : Array.apply([], sliceAx.camera.view),
+      sliceSag : Array.apply([], sliceSag.camera.view),
+      sliceCor : Array.apply([], sliceCor.camera.view)
     },
     volume : {
       file : []
@@ -202,9 +202,9 @@ function writeScene(client, foldername, _toUpload) {
   // store properties regarding volume, mesh, fibers
   if ( _data.volume.file.length > 0 ) {
 
-    _scene.volume.indexX = volume.indexX;
-    _scene.volume.indexY = volume.indexY;
-    _scene.volume.indexZ = volume.indexZ;
+    _scene.volume.indexIS = volume.indexIS;
+    _scene.volume.indexLR = volume.indexLR;
+    _scene.volume.indexPA = volume.indexPA;
     _scene.volume.lowerThreshold = volume.lowerThreshold;
     _scene.volume.upperThreshold = volume.upperThreshold;
     _scene.volume.opacity = volume.opacity;
