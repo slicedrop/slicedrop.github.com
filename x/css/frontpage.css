@@ -1,0 +1,132 @@
+/*
+
+    .----.                    _..._                                                     .-'''-.                           
+   / .--./    .---.        .-'_..._''.                          _______                '   _    \                         
+  ' '         |   |.--.  .' .'      '.\     __.....__           \  ___ `'.           /   /` '.   \_________   _...._      
+  \ \         |   ||__| / .'            .-''         '.    ,.--. ' |--.\  \         .   |     \  '\        |.'      '-.   
+   `.`'--.    |   |.--.. '             /     .-''"'-.  `. //    \| |    \  ' .-,.--.|   '      |  '\        .'```'.    '. 
+     `'-. `.  |   ||  || |            /     /________\   \\\    /| |     |  '|  .-. \    \     / /  \      |       \     \
+         `. \ |   ||  || |            |                  | `'--' | |     |  || |  | |`.   ` ..' /    |     |        |    |
+           \ '|   ||  |. '            \    .-------------' ,.--. | |     ' .'| |  | |   '-...-'`     |      \      /    . 
+            | |   ||  | \ '.          .\    '-.____...---.//    \| |___.' /' | |  '-                 |     |\`'-.-'   .'  
+            | |   ||__|  '. `._____.-'/ `.             .' \\    /_______.'/  | |                     |     | '-....-'`    
+           / /'---'        `-.______ /    `''-...... -'    `'--'\_______|/   | |                    .'     '.             
+     /...-'.'                       `                                        |_|                  '-----------'           
+    /--...-'                                                                                                              
+    
+    Slice:Drop - Instantly view scientific and medical imaging data in 3D.
+    
+     http://slicedrop.com
+     
+    Copyright (c) 2012 The Slice:Drop and X Toolkit Developers <dev@goXTK.com>
+    
+    Slice:Drop is licensed under the MIT License:
+      http://www.opensource.org/licenses/mit-license.php    
+      
+    CREDITS: http://slicedrop.com/LICENSE
+     
+*/
+
+body {
+	background: #fff;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #000;
+	padding: 0;
+	height: 100%;
+	margin: 0;
+}
+
+.viewerBody {
+	background: #000;
+	color: #fff;
+  overflow: hidden !important;	
+}
+
+.footer {
+	border-top: 1px solid #e5e5e5;
+	margin-top: 100px;
+}
+
+.paddingated {
+	padding-top: 10px;
+	padding-left: 10px;
+	font-size: 11px;
+}
+
+.marginated {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+#drop-box-overlay {
+	margin: 1px;
+	padding: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	position: fixed;
+	background-color: #222222;
+	display: none;
+	z-index: 50;
+	opacity: 0.9;
+}
+
+#drop-box-overlay h1 {
+	padding: 2em;
+	top: 38%;
+	left: 40%;
+	position: absolute;
+	border: 2px solid #5e5e5e;
+	background-color: #c2c2c2;
+	-moz-border-radius: 4px 4px;
+	-webkit-border-radius: 4px 4px;
+	border-bottom-left-radius: 4px 4px;
+	border-bottom-right-radius: 4px 4px;
+	border-top-left-radius: 4px 4px;
+	border-top-right-radius: 4px 4px;
+	color: #222222;
+	font-size: 150%;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+
+.dropzone {
+	margin-top: 100px;
+	width: 660px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.dropzone span {
+	font-size: 2em;
+}
+
+.thumbnails li {
+	width: 200px;
+}
+
+.examples {
+	position: absolute;
+	top: 0px;
+	right: 100px;
+	width: 415px;
+	height: 200px;
+}
+
+.examples div {
+	background-color: #000;
+	margin-right: 3px;
+	color: #fff;
+	padding: 10px;
+}
+
+.viewexample {
+	float: right;
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+.selectexample {
+	border-top:medium solid #3A87AD;
+}

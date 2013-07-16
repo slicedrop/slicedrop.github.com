@@ -1,0 +1,239 @@
+/*
+
+    .----.                    _..._                                                     .-'''-.                           
+   / .--./    .---.        .-'_..._''.                          _______                '   _    \                         
+  ' '         |   |.--.  .' .'      '.\     __.....__           \  ___ `'.           /   /` '.   \_________   _...._      
+  \ \         |   ||__| / .'            .-''         '.    ,.--. ' |--.\  \         .   |     \  '\        |.'      '-.   
+   `.`'--.    |   |.--.. '             /     .-''"'-.  `. //    \| |    \  ' .-,.--.|   '      |  '\        .'```'.    '. 
+     `'-. `.  |   ||  || |            /     /________\   \\\    /| |     |  '|  .-. \    \     / /  \      |       \     \
+         `. \ |   ||  || |            |                  | `'--' | |     |  || |  | |`.   ` ..' /    |     |        |    |
+           \ '|   ||  |. '            \    .-------------' ,.--. | |     ' .'| |  | |   '-...-'`     |      \      /    . 
+            | |   ||  | \ '.          .\    '-.____...---.//    \| |___.' /' | |  '-                 |     |\`'-.-'   .'  
+            | |   ||__|  '. `._____.-'/ `.             .' \\    /_______.'/  | |                     |     | '-....-'`    
+           / /'---'        `-.______ /    `''-...... -'    `'--'\_______|/   | |                    .'     '.             
+     /...-'.'                       `                                        |_|                  '-----------'           
+    /--...-'                                                                                                              
+    
+    Slice:Drop - Instantly view scientific and medical imaging data in 3D.
+    
+     http://slicedrop.com
+     
+    Copyright (c) 2012 The Slice:Drop and X Toolkit Developers <dev@goXTK.com>
+    
+    Slice:Drop is licensed under the MIT License:
+      http://www.opensource.org/licenses/mit-license.php    
+      
+    CREDITS: http://slicedrop.com/LICENSE
+     
+*/
+#blacklogo {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+#download {
+	display: none;
+	position: absolute;
+	top: 10px;
+	right: 21%;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+#downloadlogo {
+	opacity: 0.7;
+	float: right;
+}
+
+#linkselectedlogo {
+	opacity: 0.7;
+	float: left;
+	margin-right: 10px;
+}
+
+#linklogo {
+	opacity: 0.7;
+	float: left;
+	margin-right: 10px;
+}
+
+#share {
+	display: none;
+	position: absolute;
+	top: 10px;
+	right: 21%;
+	font-size: 10px;
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+#sharemsg {
+	margin-right: 40px;
+	text-align: right;
+}
+
+#sharelogo {
+	opacity: 0.7;
+	float: right
+}
+
+.threeDRenderer {
+	background-color: #000;
+	position: absolute;
+}
+
+#log {
+	position: absolute;
+	opacity: 0.3;
+	margin-left: 170px;
+	display:none;
+}
+
+#body.landscape.webgl_enabled>#viewer>.threeDRenderer {
+	height: 100%;
+	width: 80%;
+}
+
+#body.landscape.webgl_disabled>#viewer>.threeDRenderer {
+	height: 100%;
+	width: 70%;
+}
+
+#body.portrait.webgl_enabled>#viewer>.threeDRenderer {
+	width: 100%;
+	height: 80%;
+}
+
+#body.portrait.webgl_disabled>#viewer>.threeDRenderer {
+	width: 100%;
+	height: 70%;
+}
+
+.twoDRenderer {
+	border-left: thin solid #666;
+	background-color: #000;
+	position: absolute;
+}
+
+/* 
+
+Landscape mode for 2D renderers 
+
+*/
+#body.landscape.webgl_enabled>#viewer>.twoDRenderer {
+	width: 20%;
+	height: 33.333%;
+	right: 0%;
+}
+
+#body.landscape.webgl_disabled>#viewer>.twoDRenderer {
+	width: 30%;
+	height: 50%;
+	right: 0%;
+}
+
+#body.landscape.webgl_enabled>#viewer>#sliceAx {
+	top: 0%;
+}
+
+#body.landscape.webgl_enabled>#viewer>#sliceSag {
+	top: 33.333%;
+}
+
+#body.landscape.webgl_enabled>#viewer>#sliceCor {
+	top: 66.666%;
+}
+
+#body.landscape.webgl_disabled>#viewer>#sliceAx {
+	top: 0%;
+}
+
+#body.landscape.webgl_disabled>#viewer>#sliceSag {
+	top: 50%;
+}
+
+#body.landscape.webgl_disabled>#viewer>#sliceCor {
+	display: none;
+}
+
+/* 
+
+Portrait mode for 2D renderers 
+
+*/
+#body.portrait.webgl_enabled>#viewer>.twoDRenderer {
+	height: 20%;
+	width: 33.333%;
+	bottom: 0%;
+}
+
+#body.portrait.webgl_disabled>#viewer>.twoDRenderer {
+	height: 30%;
+	width: 50%;
+	bottom: 0%;
+}
+
+#body.portrait.webgl_enabled>#viewer>#sliceAx {
+	left: 0%;
+}
+
+#body.portrait.webgl_enabled>#viewer>#sliceSag {
+	left: 33.333%;
+}
+
+#body.portrait.webgl_enabled>#viewer>#sliceCor {
+	left: 66.666%;
+}
+
+#body.portrait.webgl_disabled>#viewer>#sliceAx {
+	left: 0%;
+}
+
+#body.portrait.webgl_disabled>#viewer>#sliceSag {
+	left: 50%;
+}
+
+#body.portrait.webgl_disabled>#viewer>#sliceCor {
+	display: none;
+}
+
+#yellow_slider {
+	margin-top: 2px;
+	background: yellow;
+}
+
+#red_slider {
+	margin-top: 2px;
+	background: red;
+}
+
+#green_slider {
+	margin-top: 2px;
+	background: green;
+}
+
+.xtk-progress-bar {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.ren2d_icon {
+	cursor: pointer;
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	top: 12px;
+	border: thin dotted #484848;
+	opacity: 0.5;
+}
+
+.ren2d_icon_flip {
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH";
+}

@@ -1,0 +1,149 @@
+/*
+
+    .----.                    _..._                                                     .-'''-.                           
+   / .--./    .---.        .-'_..._''.                          _______                '   _    \                         
+  ' '         |   |.--.  .' .'      '.\     __.....__           \  ___ `'.           /   /` '.   \_________   _...._      
+  \ \         |   ||__| / .'            .-''         '.    ,.--. ' |--.\  \         .   |     \  '\        |.'      '-.   
+   `.`'--.    |   |.--.. '             /     .-''"'-.  `. //    \| |    \  ' .-,.--.|   '      |  '\        .'```'.    '. 
+     `'-. `.  |   ||  || |            /     /________\   \\\    /| |     |  '|  .-. \    \     / /  \      |       \     \
+         `. \ |   ||  || |            |                  | `'--' | |     |  || |  | |`.   ` ..' /    |     |        |    |
+           \ '|   ||  |. '            \    .-------------' ,.--. | |     ' .'| |  | |   '-...-'`     |      \      /    . 
+            | |   ||  | \ '.          .\    '-.____...---.//    \| |___.' /' | |  '-                 |     |\`'-.-'   .'  
+            | |   ||__|  '. `._____.-'/ `.             .' \\    /_______.'/  | |                     |     | '-....-'`    
+           / /'---'        `-.______ /    `''-...... -'    `'--'\_______|/   | |                    .'     '.             
+     /...-'.'                       `                                        |_|                  '-----------'           
+    /--...-'                                                                                                              
+    
+    Slice:Drop - Instantly view scientific and medical imaging data in 3D.
+    
+     http://slicedrop.com
+     
+    Copyright (c) 2012 The Slice:Drop and X Toolkit Developers <dev@goXTK.com>
+    
+    Slice:Drop is licensed under the MIT License:
+      http://www.opensource.org/licenses/mit-license.php    
+      
+    CREDITS: http://slicedrop.com/LICENSE
+     
+*/
+
+.tabbox {
+	width: 200x;
+	height: 150px;
+}
+
+.tabbox a {
+	display: block;
+	height: 16px;
+	line-height: 14px;
+	float: left;
+/* 	width: 50px; */
+	text-decoration: none;
+	color: #fff;
+  -moz-border-radius: 2px 2px 0px 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -webkit-border-top-right-radius: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -khtml-border-bottom-right-radius: 0px;
+  -khtml-border-top-right-radius: 2px;
+  -khtml-border-top-left-radius: 2px;
+	font-size: x-small;
+	letter-spacing: 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	margin-top: -16px;
+}
+
+.tabbox a.selected {
+	background: #AFAFAF;
+	color: #222;
+	font-weight: bold;
+}
+
+.tabContent {
+	display: block;
+	width: 178px;
+	height: 134px;
+	margin-top: 16px;
+	padding: 10px;
+	border: 1px solid #AFAFAF;
+  -moz-border-radius: 0px 2px 2px 0px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -khtml-border-bottom-right-radius: 2px;
+  -khtml-border-top-right-radius: 2px;	
+}
+
+.navigation {
+	position: fixed;
+	margin: 0px;
+	padding: 0px;
+	top: 70px;
+	left: 0px;
+	list-style: none;
+	z-index: 9999;
+}
+
+.navigationLi {
+	width: 100px;
+}
+
+.menu {
+	display: block;
+	margin-top: 25px;
+	margin-left: -195px;
+	width: 200px;
+	height: 150px;
+	background-color: #000;
+	opacity: 0.8;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80 );
+}
+
+.menuDisabled {
+	opacity: 0.2;
+}
+
+.caption {
+  float: right;
+  position: relative;
+  right: 0px;
+  width: 10px;
+  height: 70px;
+  margin: -3px;
+  font-size: smaller;
+  letter-spacing: 1px;
+  -moz-transform: rotate(90deg); /* FF3.5+ */
+  -o-transform: rotate(90deg); /* Opera 10.5 */
+  -webkit-transform: rotate(90deg);
+}
+
+.menuLabel {
+  letter-spacing: 1px;
+  font-size: x-small;
+  font-weight: bold;  
+}
+
+.pin {
+  float: right;
+  position: relative;
+  margin-top: 0px;
+  right: 0px;
+  top: 0px;
+}
+
+.pinicon {
+	cursor:pointer;
+}
+
+.fiberstabs {
+	cursor:pointer;
+}
+
+.meshtabs {
+	cursor:pointer;
+}
+
+.show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }
+
+.hide-icon { width: 16px; height: 18px; background-image: url(../gfx/hide.png); }
