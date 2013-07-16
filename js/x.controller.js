@@ -45,7 +45,9 @@ function setupUi() {
     jQuery('#windowlevel-volume').dragslider("option", "max", volume.max);
     jQuery('#windowlevel-volume').dragslider("option", "min", volume.min);
     jQuery('#windowlevel-volume').dragslider("option", "values",
-        [volume.min, volume.max]);
+        [volume.min, volume.max/5]);
+
+    volume.windowHigh = volume.max/5;
 
     // update 3d opacity
     jQuery('#opacity-volume').slider("option", "value", 20);
@@ -102,7 +104,7 @@ function setupUi() {
     jQuery('#opacity-mesh').slider("option", "value", 100);
     mesh.opacity = 1.0; // re-propagate
 
-    mesh.color = [0, 0, 1];
+    mesh.color = [1, 1, 1];
 
     jQuery('#mesh .menu').removeClass('menuDisabled');
 
