@@ -161,14 +161,14 @@ function initializeRenderers(){
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#yellow_slider').slider("option", "value",volume.indexLR);
+      jQuery('#red_slider').slider("option", "value",volume.indexX);
       // jQuery('#red_slider').slider("option", "value",volume.indexY);
       // jQuery('#green_slider').slider("option", "value",volume.indexZ);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexLR', volume.indexLR), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexX), 150);
 
       }
 
@@ -179,12 +179,12 @@ function initializeRenderers(){
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#red_slider').slider("option", "value",volume.indexIS);
+      jQuery('#blue_slider').slider("option", "value",volume.indexZ);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexIS', volume.indexIS), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexZ', volume.indexZ), 150);
 
       }
 
@@ -195,12 +195,12 @@ function initializeRenderers(){
 
     if (_data.volume.file.length > 0) {
 
-      jQuery('#green_slider').slider("option", "value",volume.indexPA);
+      jQuery('#green_slider').slider("option", "value",volume.indexY);
 
       if (RT.linked) {
 
         clearTimeout(RT._updater);
-        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexPA', volume.indexPA), 150);
+        RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexY), 150);
 
       }
 

@@ -45,9 +45,9 @@ function setupUi() {
     jQuery('#windowlevel-volume').dragslider("option", "max", volume.max);
     jQuery('#windowlevel-volume').dragslider("option", "min", volume.min);
     jQuery('#windowlevel-volume').dragslider("option", "values",
-        [volume.min, volume.max/5]);
+        [volume.min, volume.max/2]);
 
-    volume.windowHigh = volume.max/5;
+    volume.windowHigh = volume.max/2;
 
     // update 3d opacity
     jQuery('#opacity-volume').slider("option", "value", 20);
@@ -55,19 +55,26 @@ function setupUi() {
     volume.modified();
 
     // update 2d slice sliders
-    var dim = volume.dimensionsRAS;
+    var dim = volume.range;
+
+    // ax
+    jQuery("#blue_slider").slider("option", "disabled", false);
+    jQuery("#blue_slider").slider("option", "min", 0);
+    jQuery("#blue_slider").slider("option", "max", dim[2] - 1);
+    jQuery("#blue_slider").slider("option", "value", volume.indexZ);
+
+    // sag
     jQuery("#red_slider").slider("option", "disabled", false);
     jQuery("#red_slider").slider("option", "min", 0);
-    jQuery("#red_slider").slider("option", "max", dim[2] - 1);
-    jQuery("#red_slider").slider("option", "value", volume.indexIS);
-    jQuery("#yellow_slider").slider("option", "disabled", false);
-    jQuery("#yellow_slider").slider("option", "min", 0);
-    jQuery("#yellow_slider").slider("option", "max", dim[0] - 1);
-    jQuery("#yellow_slider").slider("option", "value", volume.indexLR);
+    jQuery("#red_slider").slider("option", "max", dim[0] - 1);
+    jQuery("#red_slider").slider("option", "value", volume.indexY);
+
+    // cor
     jQuery("#green_slider").slider("option", "disabled", false);
     jQuery("#green_slider").slider("option", "min", 0);
     jQuery("#green_slider").slider("option", "max", dim[1] - 1);
-    jQuery("#green_slider").slider("option", "value", volume.indexPA);
+    jQuery("#green_slider").slider("option", "value", volume.indexY);
+
 
     jQuery('#volume .menu').removeClass('menuDisabled');
 
@@ -75,7 +82,7 @@ function setupUi() {
 
     // no volume
     jQuery('#volume .menu').addClass('menuDisabled');
-    jQuery("#yellow_slider").slider("option", "disabled", true);
+    jQuery("#blue_slider").slider("option", "disabled", true);
     jQuery("#red_slider").slider("option", "disabled", true);
     jQuery("#green_slider").slider("option", "disabled", true);
 
@@ -255,13 +262,13 @@ function volumeslicingSag(event, ui) {
     return;
   }
 
-  volume.indexLR = Math
-      .floor(jQuery('#yellow_slider').slider("option", "value"));
+  volume.indexY = Math
+      .floor(jQuery('#blue_slider').slider("option", "value"));
 
   if (RT.linked) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexLR', volume.indexLR), 150);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexY), 150);
 
   }
 
@@ -273,12 +280,12 @@ function volumeslicingAx(event, ui) {
     return;
   }
 
-  volume.indexIS = Math.floor(jQuery('#red_slider').slider("option", "value"));
+  volume.indexX = Math.floor(jQuery('#red_slider').slider("option", "value"));
 
   if (RT.linked) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexIS', volume.indexIS), 150);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexX), 150);
 
   }
 

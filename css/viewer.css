@@ -198,9 +198,9 @@ Portrait mode for 2D renderers
 	display: none;
 }
 
-#yellow_slider {
+#blue_slider {
 	margin-top: 2px;
-	background: yellow;
+	background: blue;
 }
 
 #red_slider {

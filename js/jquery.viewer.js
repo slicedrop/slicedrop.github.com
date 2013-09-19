@@ -33,15 +33,15 @@ jQuery(function() {
 
 
   // create the 2d sliders
-  jQuery("#red_slider").slider({
+  jQuery("#blue_slider").slider({
     slide: volumeslicingAx
   });
-  jQuery("#red_slider .ui-slider-handle").unbind('keydown');
+  jQuery("#blue_slider .ui-slider-handle").unbind('keydown');
 
-  jQuery("#yellow_slider").slider({
+  jQuery("#red_slider").slider({
     slide: volumeslicingSag
   });
-  jQuery("#yellow_slider .ui-slider-handle").unbind('keydown');
+  jQuery("#red_slider .ui-slider-handle").unbind('keydown');
 
   jQuery("#green_slider").slider({
     slide: volumeslicingCor
