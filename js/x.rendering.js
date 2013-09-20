@@ -142,7 +142,7 @@ function initializeRenderers(){
 
     }
 
-    ren3d.resetBoundingBox();
+    //ren3d.resetBoundingBox();
 
     window.console.timeEnd('Loadtime');
 
