@@ -474,6 +474,15 @@ function parse(data) {
 
    }
 
+   // add callbacks for computing
+   volume.onComputing = function(direction) {
+     console.log('computing', direction);
+   }
+
+   volume.onComputingEnd = function(direction) {
+     console.log('computing end', direction);
+   }
+
    if (data['colortable']['file'].length > 0) {
 
      // we have a color table
