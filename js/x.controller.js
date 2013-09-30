@@ -185,6 +185,10 @@ function volumerenderingOnOff(bool) {
     return;
   }
 
+  if (bool) {
+    volume.lowerThreshold = 10;
+  }
+
   volume.volumeRendering = bool;
 
   if (RT.linked) {
