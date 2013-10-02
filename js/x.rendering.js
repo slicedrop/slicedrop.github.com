@@ -479,6 +479,10 @@ function parse(data) {
      console.log('computing', direction);
    }
 
+   volume.onComputingProgress = function(value) {
+     console.log(value);
+   }
+
    volume.onComputingEnd = function(direction) {
      console.log('computing end', direction);
    }

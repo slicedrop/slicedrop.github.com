@@ -67,7 +67,7 @@ function setupUi() {
     jQuery("#red_slider").slider("option", "disabled", false);
     jQuery("#red_slider").slider("option", "min", 0);
     jQuery("#red_slider").slider("option", "max", dim[0] - 1);
-    jQuery("#red_slider").slider("option", "value", volume.indexY);
+    jQuery("#red_slider").slider("option", "value", volume.indexX);
 
     // cor
     jQuery("#green_slider").slider("option", "disabled", false);
@@ -186,7 +186,7 @@ function volumerenderingOnOff(bool) {
   }
 
   if (bool) {
-    volume.lowerThreshold = 10;
+    volume.lowerThreshold = (volume.min + (volume.max/10));
   }
 
   volume.volumeRendering = bool;
@@ -266,13 +266,13 @@ function volumeslicingSag(event, ui) {
     return;
   }
 
-  volume.indexY = Math
-      .floor(jQuery('#blue_slider').slider("option", "value"));
+  volume.indexX = Math
+      .floor(jQuery('#red_slider').slider("option", "value"));
 
   if (RT.linked) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexY), 150);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexY', volume.indexX), 150);
 
   }
 
@@ -284,12 +284,12 @@ function volumeslicingAx(event, ui) {
     return;
   }
 
-  volume.indexX = Math.floor(jQuery('#red_slider').slider("option", "value"));
+  volume.indexZ = Math.floor(jQuery('#blue_slider').slider("option", "value"));
 
   if (RT.linked) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexX), 150);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexX', volume.indexZ), 150);
 
   }
 
@@ -301,12 +301,12 @@ function volumeslicingCor(event, ui) {
     return;
   }
 
-  volume.indexPA = Math.floor(jQuery('#green_slider').slider("option", "value"));
+  volume.indexY = Math.floor(jQuery('#green_slider').slider("option", "value"));
 
   if (RT.linked) {
 
     clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexPA', volume.indexPA), 150);
+    RT._updater = setTimeout(RT.pushVolume.bind(RT, 'indexPA', volume.indexY), 150);
 
   }
 
