@@ -83,6 +83,7 @@ function initializeRenderers(){
    // observe the on touch thingie to enlarge
    sliceAx.interactor.onTouchStart = sliceAx.interactor.onMouseDown = onTouchStartAx;
    sliceAx.interactor.onTouchEnd = sliceAx.interactor.onMouseUp = onTouchEndAx;
+   sliceAx.onSliceNavigation = onSliceNavigation;
 
    sliceSag = new X.renderer2D();
    sliceSag.container = 'sliceSag';
@@ -91,6 +92,7 @@ function initializeRenderers(){
    // observe the on touch thingie to enlarge
    sliceSag.interactor.onTouchStart = sliceSag.interactor.onMouseDown = onTouchStartSag;
    sliceSag.interactor.onTouchEnd = sliceSag.interactor.onMouseUp = onTouchEndSag;
+   sliceSag.onSliceNavigation = onSliceNavigation;
 
    sliceCor = new X.renderer2D();
    sliceCor.container = 'sliceCor';
@@ -116,7 +118,7 @@ function initializeRenderers(){
    // observe the on touch thingie to enlarge
    sliceCor.interactor.onTouchStart = sliceCor.interactor.onMouseDown = onTouchStartCor;
    sliceCor.interactor.onTouchEnd = sliceCor.interactor.onMouseUp = onTouchEndCor;
-
+   sliceCor.onSliceNavigation = onSliceNavigation;
 
    if (!_webgl_supported) {
 
@@ -476,15 +478,15 @@ function parse(data) {
 
    // add callbacks for computing
    volume.onComputing = function(direction) {
-     console.log('computing', direction);
+     //console.log('computing', direction);
    }
 
    volume.onComputingProgress = function(value) {
-     console.log(value);
+     //console.log(value);
    }
 
    volume.onComputingEnd = function(direction) {
-     console.log('computing end', direction);
+     //console.log('computing end', direction);
    }
 
    if (data['colortable']['file'].length > 0) {
@@ -550,6 +552,18 @@ function parse(data) {
 
   ren3d.camera.position = [0,500,0];
   ren3d.render();
+
+};
+
+function onSliceNavigation() {
+
+
+  jQuery('#red_slider').slider("option", "value",volume.indexX);
+
+  jQuery('#green_slider').slider("option", "value",volume.indexY);
+
+  jQuery('#blue_slider').slider("option", "value",volume.indexZ);
+
 
 };
 
