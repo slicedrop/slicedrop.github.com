@@ -133,27 +133,27 @@ Landscape mode for 2D renderers
 	right: 0%;
 }
 
-#body.landscape.webgl_enabled>#viewer>#sliceX {
+#body.landscape.webgl_enabled>#viewer>#sliceAx {
 	top: 0%;
 }
 
-#body.landscape.webgl_enabled>#viewer>#sliceY {
+#body.landscape.webgl_enabled>#viewer>#sliceSag {
 	top: 33.333%;
 }
 
-#body.landscape.webgl_enabled>#viewer>#sliceZ {
+#body.landscape.webgl_enabled>#viewer>#sliceCor {
 	top: 66.666%;
 }
 
-#body.landscape.webgl_disabled>#viewer>#sliceX {
+#body.landscape.webgl_disabled>#viewer>#sliceAx {
 	top: 0%;
 }
 
-#body.landscape.webgl_disabled>#viewer>#sliceY {
+#body.landscape.webgl_disabled>#viewer>#sliceSag {
 	top: 50%;
 }
 
-#body.landscape.webgl_disabled>#viewer>#sliceZ {
+#body.landscape.webgl_disabled>#viewer>#sliceCor {
 	display: none;
 }
 
@@ -174,33 +174,33 @@ Portrait mode for 2D renderers
 	bottom: 0%;
 }
 
-#body.portrait.webgl_enabled>#viewer>#sliceX {
+#body.portrait.webgl_enabled>#viewer>#sliceAx {
 	left: 0%;
 }
 
-#body.portrait.webgl_enabled>#viewer>#sliceY {
+#body.portrait.webgl_enabled>#viewer>#sliceSag {
 	left: 33.333%;
 }
 
-#body.portrait.webgl_enabled>#viewer>#sliceZ {
+#body.portrait.webgl_enabled>#viewer>#sliceCor {
 	left: 66.666%;
 }
 
-#body.portrait.webgl_disabled>#viewer>#sliceX {
+#body.portrait.webgl_disabled>#viewer>#sliceAx {
 	left: 0%;
 }
 
-#body.portrait.webgl_disabled>#viewer>#sliceY {
+#body.portrait.webgl_disabled>#viewer>#sliceSag {
 	left: 50%;
 }
 
-#body.portrait.webgl_disabled>#viewer>#sliceZ {
+#body.portrait.webgl_disabled>#viewer>#sliceCor {
 	display: none;
 }
 
-#yellow_slider {
+#blue_slider {
 	margin-top: 2px;
-	background: yellow;
+	background: #0064cd;
 }
 
 #red_slider {
@@ -236,4 +236,32 @@ Portrait mode for 2D renderers
 	transform: scaleX(-1);
 	filter: FlipH;
 	-ms-filter: "FlipH";
+}
+
+.left_annotation {
+	margin-top: 50%;
+	position: absolute;
+	left: 10px;
+	opacity: 0.7;
+}
+
+.right_annotation {
+	margin-top: 50%;
+	position: absolute;
+	right: 10px;
+	opacity: 0.7;
+}
+
+.top_annotation {
+	top:15px;
+	margin-left: 50%;
+	position: absolute;
+	opacity: 0.7;
+}
+
+.bottom_annotation {
+	bottom:7px;
+	margin-left: 50%;
+	position: absolute;
+	opacity: 0.7;
 }

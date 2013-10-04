@@ -26,28 +26,30 @@ RT.link = function() {
 
     // the events
     RT._link.bind('client-ui-sync', function(data) {
-      
+
       var _old_2d_content = eval('_current_' + data.container + '_content');
       eval('var cont = '+data.rend+'.container');
 
       showLarge(jQuery(cont), _old_2d_content);
 
-    });    
+    });
     RT._link.bind('client-camera-sync', function(data) {
-      
+
       eval(data.target).camera.view = new Float32Array(data.value);
 
     });
     RT._link.bind('client-volume-sync', function(data) {
 
-      if (_data.volume.file.length == 0) return;
-      
+      if (_data.volume.file.length == 0) {
+        return;
+      }
+
       volume[data.target] = data.value;
-      
+
       // propagate back to UI
-      jQuery("#yellow_slider").slider("option", "value", volume.indexX);
-      jQuery("#red_slider").slider("option", "value", volume.indexY);
-      jQuery("#green_slider").slider("option", "value", volume.indexZ);
+      jQuery("#yellow_slider").slider("option", "value", volume.indexLR);
+      jQuery("#red_slider").slider("option", "value", volume.indexIS);
+      jQuery("#green_slider").slider("option", "value", volume.indexPA);
 
       if (volume.volumeRendering) {
         jQuery('#slicing').removeClass('ui-state-active');
@@ -64,30 +66,32 @@ RT.link = function() {
         jQuery('#opacity-label').hide();
         jQuery('#opacity-volume').hide();
       }
-      
-      jQuery('#opacity-volume').slider("option", "value", volume.opacity * 100);          
+
+      jQuery('#opacity-volume').slider("option", "value", volume.opacity * 100);
       jQuery('#threshold-volume').dragslider("option", "values", [volume.lowerThreshold, volume.upperThreshold]);
       jQuery('#windowlevel-volume').dragslider("option", "values", [volume.windowLow, volume.windowHigh]);
-      
+
       var bgColor = ((1 << 24) + (volume.minColor[0] * 255 << 16) +
           (volume.minColor[1] * 255 << 8) + volume.minColor[2] * 255)
           .toString(16).substr(1);
-      
+
       var fgColor = ((1 << 24) + (volume.maxColor[0] * 255 << 16) +
           (volume.maxColor[1] * 255 << 8) + volume.maxColor[2] * 255)
           .toString(16).substr(1);
-      
+
       jQuery('#bgColorVolume').miniColors("value", bgColor);
-      jQuery('#fgColorVolume').miniColors("value", fgColor);      
-      
-      
+      jQuery('#fgColorVolume').miniColors("value", fgColor);
+
+
     });
     RT._link.bind('client-labelmap-sync', function(data) {
 
-      if (_data.labelmap.file.length == 0) return;
-      
+      if (_data.labelmap.file.length == 0) {
+        return;
+      }
+
       volume.labelmap[data.target] = data.value;
-      
+
       // propagate back to UI
       if (!volume.labelmap.visible) {
         $('#labelmapvisibility').removeClass('show-icon');
@@ -98,72 +102,80 @@ RT.link = function() {
       }
       jQuery('#opacity-labelmap').slider("option", "value", volume.labelmap.opacity * 100);
 
-    });    
+    });
     RT._link.bind('client-mesh-sync', function(data) {
 
-      if (_data.mesh.file.length == 0) return;
-      
+      if (_data.mesh.file.length == 0) {
+        return;
+      }
+
       mesh[data.target] = data.value;
 
       // propagate back to UI
       if (!mesh.visible) {
         $('#meshvisibility').removeClass('show-icon');
-        $('#meshvisibility').addClass('hide-icon');          
+        $('#meshvisibility').addClass('hide-icon');
       } else {
         $('#meshvisibility').addClass('show-icon');
-        $('#meshvisibility').removeClass('hide-icon');        
-      }      
+        $('#meshvisibility').removeClass('hide-icon');
+      }
       jQuery('#opacity-mesh').slider("option", "value", mesh.opacity * 100);
       var meshColor = ((1 << 24) + (mesh.color[0] * 255 << 16) +
           (mesh.color[1] * 255 << 8) + mesh.color[2] * 255)
-          .toString(16).substr(1);        
+          .toString(16).substr(1);
       jQuery('#meshColor').miniColors("value", meshColor);
-      
-    });        
+
+    });
     RT._link.bind('client-scalars-sync', function(data) {
 
-      if (_data.scalars.file.length == 0) return;
-      
+      if (_data.scalars.file.length == 0) {
+        return;
+      }
+
       mesh.scalars[data.target] = data.value;
-      
+
       // propagate back to UI
       jQuery("#threshold-scalars").dragslider("option", "values",
-          [mesh.scalars.lowerThreshold * 100, mesh.scalars.upperThreshold * 100]);      
+          [mesh.scalars.lowerThreshold * 100, mesh.scalars.upperThreshold * 100]);
 
       var scalarsminColor = ((1 << 24) + (mesh.scalars.minColor[0] * 255 << 16) +
           (mesh.scalars.minColor[1] * 255 << 8) + mesh.scalars.minColor[2] * 255)
-          .toString(16).substr(1);        
+          .toString(16).substr(1);
       jQuery('#scalarsMinColor').miniColors("value", scalarsminColor);
-              
+
       var scalarsmaxColor = ((1 << 24) + (mesh.scalars.maxColor[0] * 255 << 16) +
           (mesh.scalars.maxColor[1] * 255 << 8) + mesh.scalars.maxColor[2] * 255)
-          .toString(16).substr(1);        
-      jQuery('#scalarsMaxColor').miniColors("value", scalarsmaxColor);      
-      
-    });    
+          .toString(16).substr(1);
+      jQuery('#scalarsMaxColor').miniColors("value", scalarsmaxColor);
+
+    });
     RT._link.bind('client-fibers-sync', function(data) {
 
-      if (_data.fibers.file.length == 0) return;
-      
+      if (_data.fibers.file.length == 0) {
+        return;
+      }
+
       fibers[data.target] = data.value;
-      
+
       if (!fibers.visible) {
         $('#fibersvisibility').removeClass('show-icon');
-        $('#fibersvisibility').addClass('hide-icon');          
+        $('#fibersvisibility').addClass('hide-icon');
       } else {
         $('#fibersvisibility').addClass('show-icon');
         $('#fibersvisibility').removeClass('hide-icon');
-      }      
+      }
 
-    });    
+    });
     RT._link.bind('client-fibersscalars-sync', function(data) {
 
-      if (_data.fibers.file.length == 0) return;
-      
+      if (_data.fibers.file.length == 0) {
+        return;
+      }
+
       fibers.scalars[data.target] = data.value;
       jQuery('#threshold-fibers').dragslider("option", "values", [fibers.scalars.lowerThreshold, fibers.scalars.upperThreshold]);
 
-    });    
+    });
 
     // we are online
     RT.linked = true;
@@ -258,12 +270,12 @@ RT.pushFibersScalars = function(target, value) {
 };
 
 RT.pushUI = function(rend, container) {
-  
+
   RT._link.trigger('client-ui-sync', {
     'rend' : rend,
     'container' : container
   });
-  
+
 };
 
 // compare two arrays
