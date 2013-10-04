@@ -237,3 +237,31 @@ Portrait mode for 2D renderers
 	filter: FlipH;
 	-ms-filter: "FlipH";
 }
+
+.left_annotation {
+	margin-top: 50%;
+	position: absolute;
+	left: 10px;
+	opacity: 0.7;
+}
+
+.right_annotation {
+	margin-top: 50%;
+	position: absolute;
+	right: 10px;
+	opacity: 0.7;
+}
+
+.top_annotation {
+	top:15px;
+	margin-left: 50%;
+	position: absolute;
+	opacity: 0.7;
+}
+
+.bottom_annotation {
+	bottom:7px;
+	margin-left: 50%;
+	position: absolute;
+	opacity: 0.7;
+}
