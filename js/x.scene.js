@@ -116,9 +116,13 @@ function loadScene(sceneUrl) {
               if (typeof scene.camera != 'undefined') {
                 // restore the cameras
                 ren3d.camera.view = new Float32Array(scene.camera.ren3d);
-                sliceAx.camera.view = new Float32Array(scene.camera.sliceAx);
-                sliceSag.camera.view = new Float32Array(scene.camera.sliceSag);
-                sliceCor.camera.view = new Float32Array(scene.camera.sliceCor);
+
+                if (typeof scene.camera.sliceAx != 'undefined')
+                  sliceAx.camera.view = new Float32Array(scene.camera.sliceAx);
+                if (typeof scene.camera.sliceSag != 'undefined')
+                  sliceSag.camera.view = new Float32Array(scene.camera.sliceSag);
+                if (typeof scene.camera.sliceCor != 'undefined')
+                  sliceCor.camera.view = new Float32Array(scene.camera.sliceCor);
               }
 
               //
