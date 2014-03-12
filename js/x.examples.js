@@ -29,6 +29,11 @@
 
 function loadFile(file) {
 
+  // Remove trailing slash so we can detect extension
+  if (file.slice(-1) === "/") {
+      file = file.slice(0, -1);
+  }
+
   var _file = 'http://x.babymri.org/?' + file;
 
   if (file.substring(0,4) == 'http') {
