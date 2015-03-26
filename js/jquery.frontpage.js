@@ -217,49 +217,49 @@ function initExamples() {
 
   jQuery('#14yroldImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?WA";
+    window.location.href = "http://x.babymri.org/example1/?scene=http://x.babymri.org/example1/scene.json";
 
   });
 
   jQuery('#avfImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?r8";
+    window.location.href = "http://x.babymri.org/example2/?scene=http://x.babymri.org/example2/scene.json";
 
   });
 
   jQuery('#2yroldImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?bC";
+    window.location.href = "http://x.babymri.org/example3/?scene=http://x.babymri.org/example3/scene.json";
 
   });
 
   jQuery('#brainstemImage').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?ux";
+    window.location.href = "http://x.babymri.org/example4/?scene=http://x.babymri.org/example4/scene.json";
 
   });
 
   jQuery('#14yroldlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?WA";
+    window.location.href = "http://x.babymri.org/example1/?scene=http://x.babymri.org/example1/scene.json";
 
   });
 
   jQuery('#avflink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?r8";
+    window.location.href = "http://x.babymri.org/example2/?scene=http://x.babymri.org/example2/scene.json";
 
   });
 
   jQuery('#2yroldlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?bC";
+    window.location.href = "http://x.babymri.org/example3/?scene=http://x.babymri.org/example3/scene.json";
 
   });
 
   jQuery('#brainstemlink').click(function() {
 
-    window.location.href = "http://my.slicedrop.com/?ux";
+    window.location.href = "http://x.babymri.org/example4/?scene=http://x.babymri.org/example4/scene.json";
 
   });
 
