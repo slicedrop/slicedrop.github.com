@@ -58,5 +58,5 @@ We are very keen on your feedback, so please <a href="mailto:dev@goXTK.com">emai
 > <a href="http://childrenshospital.org/FNNDSC"><img src="http://xtk.github.com/chb_logo.png" alt="Boston Children's Hospital Boston" title="Children's Hospital"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 > <a href="http://hms.harvard.edu"><img src="http://xtk.github.com/hms_logo.png" alt="Harvard Medical School" title="Harvard Medical School"></a>
 
-> <a href="http://bostonbuilt.org"><img src='http://bostonbuilt.org/icon.php?q=built_in_boston_color_fancy.png&u=slicedrop.com' width=130></a>
+> <a href="https://www.umb.edu"><img src="https://www.umb.edu/assets/images/UMASSB0STON_ID_blue.png?1560890493" ></a>
  
