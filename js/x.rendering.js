@@ -280,8 +280,8 @@ function createData() {
    'fibers': {
      'file': [],
      'filedata': [],
-     'extensions': ['TRK']
-   },
+     'extensions': ['TRK', 'TKO']
+   }
   };
 
 }
@@ -401,8 +401,17 @@ function read(files) {
        reader.onerror = errorHandler;
        reader.onload = (loadHandler)(v,u); // bind the current type
 
-       // start reading this file
-       reader.readAsArrayBuffer(u);
+       if (u.name.toLowerCase().endsWith('tko')) {
+
+        // Trako Yay!!
+        reader.readAsText(u);
+
+       } else {
+
+         // start reading this file
+         reader.readAsArrayBuffer(u);
+
+       }  
 
 
      });
@@ -536,6 +545,8 @@ function parse(data) {
 
   if (data['fibers']['file'].length > 0) {
 
+
+
    // we have fibers
    fibers = new X.fibers();
    fibers.file = data['fibers']['file'].map(function(v) {
@@ -544,6 +555,19 @@ function parse(data) {
 
    });
    fibers.filedata = data['fibers']['filedata'];
+
+   // special case for trako
+
+   if (fibers.file.toLowerCase().endsWith('tko')) {
+
+    console.log('Found Trako! Yay!');
+    
+    tko_json = JSON.parse(fibers.filedata);
+
+    var xtk_tr = new xtkTrakoReader();
+    fibers = xtk_tr.parse(tko_json);
+
+   }
 
    // add the fibers
    ren3d.add(fibers);
