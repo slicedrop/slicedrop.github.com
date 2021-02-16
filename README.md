@@ -47,7 +47,7 @@ Slice:Drop is licensed under the MIT License:
   <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">http://www.opensource.org/licenses/mit-license.php</a>
 
 ## Publications
-* Hähn D, Rannou N, Grant PE, Pienaar R: <b>Slice:Drop</b>. IEEE VisWeek, SciVis Poster Session, September 2012. <a href="http://f1000.com/posters/browse/summary/1092719">Poster</a>.
+* Hähn D, Rannou N, Grant PE, Pienaar R: <b>Slice:Drop</b>. IEEE VisWeek, SciVis Poster Session, September 2012. <a href="https://f1000research.com/posters/1092719">Poster</a>.
 * <a href="https://github.com/xtk/X/wiki/X:publications">more..</a>
 
 ## Feedback
