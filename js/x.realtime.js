@@ -10,11 +10,14 @@ RT.link = function() {
     var _location = (window.location != window.parent.location) ? document.referrer
         : document.location;
     // here we make sure that location is a string
-    var channelname = 'mydrop-' + (_location+"").split('?')[1];
+    var channelname = 'mydrop-' + btoa((_location+"").split('?')[1]);
 
     console.log('Linking via channel ' + channelname + '...');
 
-    RT.pusher = new Pusher('7d039f97f26780edd35e');
+    RT.pusher = new Pusher('bb9db0457c7108272899', {
+      cluster: 'us2',
+      userAuthentication: { endpoint: "http://x.babymri.org/auth.php"}
+    });
     Pusher.channel_auth_endpoint = 'http://x.babymri.org/auth.php';
 
     RT.channel = 'private-' + channelname;
