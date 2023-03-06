@@ -14,14 +14,13 @@ RT.link = function() {
 
     console.log('Linking via channel ' + channelname + '...');
 
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true; // for debugging
 
     RT.pusher = new Pusher('bb9db0457c7108272899', {
       cluster: 'us2',
       userAuthentication: { endpoint: "http://x.babymri.org/auth.php"},
       authEndpoint: "http://x.babymri.org/auth.php"
     });
-    // Pusher.channel_auth_endpoint = 'http://x.babymri.org/auth.php';
 
     RT.channel = 'private-' + channelname;
     RT._link = RT.pusher.subscribe(RT.channel);
