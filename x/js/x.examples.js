@@ -29,7 +29,7 @@
 
 function loadFile(file) {
 
-  var _file = 'http://x.babymri.org/?' + file;
+  var _file = 'https://fly.cs.umb.edu/data/X/' + file;
 
   if (file.substring(0,4) == 'http') {
     // external url detected

@@ -93,7 +93,7 @@ function loadScene(sceneUrl) {
 
             // check if this scene is already stored on dropbox
 
-            if (sceneUrl.substring(0, 21) == 'http://dl.dropbox.com' || sceneUrl.substring(0,28) == 'http://x.babymri.org/example') {
+            if (sceneUrl.substring(0, 21) == 'http://dl.dropbox.com' || sceneUrl.substring(0,28) == 'https://fly.cs.umb.edu/data/X/example') {
               // if yes, show the collaborative icons
 
               // artwork from http://www.iconlet.com/info/94982_download_258x258
