@@ -6,6 +6,8 @@ class DropZoneHandler {
     this.dropText = document.getElementById("dropText");
     this.fileInput = document.getElementById("fileInput");
     this.drawerContainer = document.querySelector(".drawer-container");
+    this.landingContainer = document.getElementById("landingContainer");
+    this.viewerContainer = document.getElementById("viewerContainer");
     this.initialize();
   }
 
@@ -23,6 +25,12 @@ class DropZoneHandler {
     this.dropZone.addEventListener("drop", this.handleDrop.bind(this));
     this.fileInput.addEventListener("change", this.handleFileSelect.bind(this));
   }
+
+  showViewer() {
+    this.landingContainer.classList.add("hidden");
+    this.viewerContainer.classList.remove("hidden");
+    this.drawerContainer.classList.add("visible");
+}
 
   handleDragEnter(e) {
     e.preventDefault();
@@ -57,6 +65,7 @@ class DropZoneHandler {
       this.dropZone.classList.add("hidden");
       this.drawerContainer.classList.add("visible");
       viewer.updateDrawerStates(); // Force update after all files are loaded
+      this.showViewer();
     }
   }
 
@@ -70,6 +79,7 @@ class DropZoneHandler {
       this.dropZone.classList.add("hidden");
       this.drawerContainer.classList.add("visible");
       viewer.updateDrawerStates(); // Force update after all files are loaded
+      this.showViewer();
     }
   }
 }

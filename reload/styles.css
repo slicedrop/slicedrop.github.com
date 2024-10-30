@@ -11,24 +11,257 @@ body {
   height: 100%;
 }
 
-/* Drop Zone Styles */
-.drop-zone {
-  position: absolute;
-  top: 0;
-  left: 0;
+.landing-container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.landing-container.hidden {
+  display: none;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.header {
+  width: 90%;
+  margin: 40px auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header-text h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.header-text p {
+  font-size: 1.3rem;
+  margin: 10px 0 0;
+  color: #888;
+}
+
+/*****************************************************/
+.examples-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.examples-container h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.examples-grid {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+}
+
+.example-card {
+  width: 80px; /* Thumbnail size */
+  cursor: pointer;
+}
+
+.example-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #e4e4e4;
+  transition: transform 0.2s ease;
+}
+
+.example-card:hover img {
+  transform: translateY(-2px);
+}
+
+/* Caption container centered below the row of images */
+.caption-container {
+  margin-top: 10px;
+  width: calc(80px * 4 + 15px * 3); /* Width of the four thumbnails plus gaps */
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.caption-container p {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.view-example-button {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.view-example-button:hover {
+  background-color: #0056b3;
+}
+/*****************************************************/
+
+
+.format-info {
+  width: 100%;
+  margin: 60px auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
+  padding: 0 40px;
 }
 
-.drop-zone.dragging {
-  background-color: rgba(0, 0, 0, 0.9);
+.format-card {
+  flex: 0 1 300px; /* Fixed width but allows shrinking if needed */
+  border-radius: 8px;
+  text-align: center;
 }
+
+.format-card:hover {
+  transform: translateY(-2px);
+}
+
+.format-card img {
+  width: 100%;
+  height: auto;
+  max-width: 160px; /* Control maximum size */
+  margin: 0 auto 15px;
+  display: block;
+  border-radius: 4px;
+}
+
+.format-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+}
+
+
+.format-card p {
+  color: #888;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+
+.footer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  border-top: 1px solid #333;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .format-info {
+      flex-direction: column;
+      gap: 20px;
+  }
+
+  .format-card {
+      width: 100%;
+      max-width: 400px;
+  }
+}
+
+.separator {
+  color: #333;
+}
+
+.viewer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 2000;
+}
+
+.viewer-container.hidden {
+  display: none;
+}
+
+/* Drop Zone Styles */
+.drop-zone {
+  width: 100%;
+  max-width: 600px;
+  background-color: #000; /* Changed to black to blend with background */
+  border: 2px solid #333; /* Added subtle border */
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.dropzone-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 60px auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.drop-zone.dragging {
+  background-color: #0a0a0a; /* Slightly lighter black when dragging */
+  border-color: #444;
+}
+
 
 .drop-zone.hidden {
   display: none;
@@ -47,19 +280,21 @@ body {
 
 .drop-zone__separator {
   color: #666;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   font-family: sans-serif;
 }
 
 .drop-zone__button {
   background-color: #2563eb;
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
   font-family: sans-serif;
   transition: background-color 0.3s ease;
+  display: inline-block;
 }
+
 
 .drop-zone__button:hover {
   background-color: #1d4ed8;
