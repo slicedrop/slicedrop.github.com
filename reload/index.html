@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NiiVue Viewer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="drawer-container">
+      <div class="drawer">
+        <div class="drawer-header">
+          <span class="drawer-tab-text">Volume</span>
+          <i class="fa-solid fa-thumbtack pin-icon"></i>
+        </div>
+        <div class="drawer-content">
+          <div class="slice-row">
+            <div class="slice-type-control">
+              <label for="sliceType" class="control-label">Slice Type</label>
+              <select id="sliceType" class="control-select">
+                <option value="axial">Axial</option>
+                <option value="coronal">Coronal</option>
+                <option value="sagittal">Sagittal</option>
+                <option value="3d">3D</option>
+                <option value="multi" selected>Multi</option>
+              </select>
+            </div>
+            <div class="color-picker-column">
+              <input
+                type="color"
+                id="startColor"
+                value="#000000"
+                class="color-picker"
+              />
+              <input
+                type="color"
+                id="endColor"
+                value="#FFFFFF"
+                class="color-picker"
+              />
+            </div>
+          </div>
+
+          <div class="control-group checkbox-container" id="viewControls">
+            <label class="checkbox-label">
+              <input type="checkbox" id="smoothCheck" class="checkbox-input" />
+              Smooth
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="invertCheck" class="checkbox-input" />
+              Invert
+            </label>
+          </div>
+
+          <div class="control-group">
+            <label for="gammaSlider" class="control-label">Gamma</label>
+            <div class="slider-container">
+              <input
+                type="range"
+                id="gammaSlider"
+                class="slider"
+                min="10"
+                max="400"
+                value="100"
+                step="1"
+              />
+              <span class="slider-value" id="gammaValue">1.00</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Threshold</label>
+            <div class="threshold-container">
+              <div class="threshold-slider">
+                <input type="range" id="threshold" class="slider" />
+                <span class="slider-value" id="thresholdValue">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="clipperControls"
+            class="control-group clipper-section hidden"
+          >
+            <label class="control-label">Clipper</label>
+            <div class="clipper-grid">
+              <div class="clipper-control">
+                <label class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    id="shadeVolumeCheck"
+                    class="checkbox-input"
+                  />
+                  Shade
+                </label>
+              </div>
+
+              <div class="clipper-control">
+                <label class="sub-label">Color</label>
+                <input
+                  type="color"
+                  id="clipColorPicker"
+                  class="color-picker"
+                  value="#808080"
+                />
+              </div>
+
+              <div class="clipper-sliders">
+                <div class="clipper-slider-control">
+                  <label class="sub-label">Opacity</label>
+                  <div class="slider-container">
+                    <input
+                      type="range"
+                      id="clipOpacitySlider"
+                      class="slider"
+                      min="1"
+                      max="255"
+                      value="128"
+                    />
+                    <span class="slider-value" id="opacityValue">0.50</span>
+                  </div>
+                </div>
+
+                <div class="clipper-slider-control">
+                  <label class="sub-label">Thickness</label>
+                  <div class="slider-container">
+                    <input
+                      type="range"
+                      id="thicknessSlider"
+                      class="slider"
+                      min="1"
+                      max="173"
+                      value="173"
+                    />
+                    <span class="slider-value" id="thicknessValue">1.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer">
+        <div class="drawer-header">
+          <i class="fa-solid fa-thumbtack pin-icon"></i>
+          <span class="drawer-tab-text">Mesh</span>
+        </div>
+
+        <div class="drawer-content">
+          <div class="control-group mesh-controls">
+            <div class="mesh-control">
+              <label class="sub-label">Opacity</label>
+              <div class="slider-container">
+                <input
+                  type="range"
+                  id="meshOpacitySlider"
+                  class="slider"
+                  min="0"
+                  max="10"
+                  value="7"
+                />
+                <span class="slider-value" id="meshOpacityValue">0.7</span>
+              </div>
+            </div>
+
+            <div class="mesh-control checkbox-wrapper">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="reverseFacesCheck"
+                  class="checkbox-input"
+                />
+                Reverse Faces
+              </label>
+            </div>
+
+            <div class="mesh-control color-row">
+              <div class="color-group">
+                <div class="color-controls">
+                  <input
+                    type="color"
+                    id="meshColorPicker"
+                    class="color-picker"
+                    value="#dea4a4"
+                  />
+                  <button
+                    id="meshVisibilityBtn"
+                    class="action-button icon-button"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                  <button id="saveBitmapBtn" class="action-button">
+                    Save Bitmap
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shaders section in new row -->
+          <div class="control-group shader-section">
+            <label class="control-label">Shaders</label>
+            <select id="shaderSelect" class="control-select">
+              <option value="" selected>Default</option>
+              <!-- Shader options will be populated dynamically -->
+            </select>
+          </div>
+
+          <div class="control-group shader-section">
+            <label class="control-label">Matcap</label>
+            <select id="matcapSelect" class="control-select">
+              <option value="">None</option>
+              <option value="Shiny">Shiny</option>
+              <option value="Cortex">Cortex</option>
+              <option value="Cream">Cream</option>
+              <option value="Fuzzy">Fuzzy</option>
+              <option value="Peach">Peach</option>
+              <option value="Plastic">Plastic</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer">
+        <div class="drawer-header">
+          <i class="fa-solid fa-thumbtack pin-icon"></i>
+          <span class="drawer-tab-text">Fibers</span>
+        </div>
+
+        <div class="drawer-content">
+          <!-- Visibility Button -->
+          <div class="control-group">
+            <div class="button-container">
+              <button id="fiberVisibilityBtn" class="action-button icon-button">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Radius Slider -->
+          <div class="control-group">
+            <label class="sub-label">Radius</label>
+            <div class="slider-container">
+              <input
+                type="range"
+                id="fiberRadius"
+                class="slider"
+                min="0"
+                max="20"
+                value="0"
+              />
+              <span class="slider-value" id="radiusValue">0.0</span>
+            </div>
+          </div>
+
+          <!-- Length Slider -->
+          <div class="control-group">
+            <label class="sub-label">Length</label>
+            <div class="slider-container">
+              <input
+                type="range"
+                id="fiberLengthSlider"
+                class="slider"
+                min="1"
+                max="80"
+                value="3"
+              />
+              <span class="slider-value" id="lengthValue">3</span>
+            </div>
+          </div>
+
+          <!-- Dither Slider -->
+          <div class="control-group">
+            <label class="sub-label">Dither</label>
+            <div class="slider-container">
+              <input
+                type="range"
+                id="fiberDitherSlider"
+                class="slider"
+                min="0"
+                max="10"
+                value="1"
+              />
+              <span class="slider-value" id="ditherValue">0.1</span>
+            </div>
+          </div>
+
+          <!-- Fiber Coloration Dropdown -->
+          <div class="control-group">
+            <label class="sub-label">Fiber Coloration</label>
+            <select id="fiberColor" class="control-select">
+              <option value="Global">Global direction</option>
+              <option value="Local">Local direction</option>
+              <option value="Fixed">Fixed</option>
+              <option value="DPV0">First Per Vertex Type</option>
+              <option value="DPS0">First Per Streamline Type</option>
+            </select>
+          </div>
+
+          <!-- Fiber Reduction Dropdown -->
+          <div class="control-group">
+            <label class="sub-label">Fiber Reduction</label>
+            <select id="fiberDecimation" class="control-select">
+              <option value="1">100%</option>
+              <option value="2">50%</option>
+              <option value="4">25%</option>
+              <option value="10">10%</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="dropZone" class="drop-zone">
+      <div class="drop-zone__content">
+        <div id="dropText" class="drop-zone__text">
+          Drag & drop your file here
+        </div>
+        <div class="drop-zone__separator">or</div>
+        <label class="drop-zone__button">
+          Choose File
+          <input
+            type="file"
+            id="fileInput"
+            class="hidden"
+            accept=".nii,.nii.gz,.mz3"
+          />
+        </label>
+      </div>
+    </div>
+    <canvas id="gl1"></canvas>
+
+    <script type="module" src="./viewer.js"></script>
+    <script type="module" src="./dropHandler.js"></script>
+  </body>
+</html>
