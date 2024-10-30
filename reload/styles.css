@@ -50,6 +50,9 @@ body {
   flex-shrink: 0; /* Prevent header from shrinking */
 }
 
+.logo {
+  width: 15%;
+}
 .header-content {
   display: flex;
   align-items: center;
