@@ -19,8 +19,9 @@ body {
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 0;
-  overflow-x: hidden;
+  justify-content: space-between;
+  padding: 2vh 0; /* Use viewport height units for padding */
+  overflow: hidden;
 }
 
 .landing-container.hidden {
@@ -31,8 +32,9 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 40px;
+  justify-content: center; /* Center content vertically */
+  gap: 4vh; /* Use viewport height for spacing */
+  padding: 0 40px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -40,11 +42,12 @@ body {
 
 .header {
   width: 90%;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .header-content {
@@ -68,7 +71,6 @@ body {
   color: #888;
 }
 
-
 /*****************************************************/
 .examples-container {
   display: flex;
@@ -76,6 +78,8 @@ body {
   align-items: center;
   border-radius: 8px;
   z-index: 1000;
+  margin: 0;
+    padding: 0;
 }
 
 .examples-container h2 {
@@ -147,18 +151,17 @@ body {
 }
 /*****************************************************/
 
-
 .format-info {
   width: 100%;
-  margin: 60px auto;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 40px;
+  gap: 30px;
 }
 
 .format-card {
-  flex: 0 1 300px; /* Fixed width but allows shrinking if needed */
+  flex: 0 1 150px;
   border-radius: 8px;
   text-align: center;
 }
@@ -170,7 +173,7 @@ body {
 .format-card img {
   width: 100%;
   height: auto;
-  max-width: 160px; /* Control maximum size */
+  max-width: 120px;
   margin: 0 auto 15px;
   display: block;
   border-radius: 4px;
@@ -183,7 +186,6 @@ body {
   font-weight: 600;
 }
 
-
 .format-card p {
   color: #888;
   margin: 0;
@@ -191,7 +193,6 @@ body {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
 }
-
 
 .footer {
   max-width: 1200px;
@@ -207,6 +208,9 @@ body {
   gap: 20px;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 20px 0
 }
 
 .footer-links a {
@@ -221,15 +225,41 @@ body {
 
 @media (max-width: 768px) {
   .format-info {
-      flex-direction: column;
-      gap: 20px;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .format-card {
-      width: 100%;
-      max-width: 400px;
+    width: 100%;
+    max-width: 400px;
   }
 }
+
+@media (max-height: 800px) {
+  .header {
+      padding: 1vh 40px;
+  }
+
+  .main-content {
+      gap: 2vh;
+  }
+
+  .format-card img {
+      max-width: 120px; /* Smaller images on shorter screens */
+  }
+}
+
+
+@media (max-height: 600px) {
+  .dropzone-section {
+      transform: scale(0.9);
+  }
+
+  .format-info {
+      transform: scale(0.9);
+  }
+}
+
 
 .separator {
   color: #333;
@@ -262,20 +292,19 @@ body {
 }
 
 .dropzone-section {
-  max-width: 1200px;
+  max-width: 600px;
   width: 100%;
-  margin: 60px auto;
+  margin: 0 auto;
   padding: 0 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-
 
 .drop-zone.dragging {
   background-color: #0a0a0a; /* Slightly lighter black when dragging */
   border-color: #444;
 }
-
 
 .drop-zone.hidden {
   display: none;
@@ -297,7 +326,6 @@ body {
   margin: 1rem 0;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
-
 }
 
 .drop-zone__button {
@@ -311,7 +339,6 @@ body {
   transition: background-color 0.3s ease;
   display: inline-block;
 }
-
 
 .drop-zone__button:hover {
   background-color: #1d4ed8;
@@ -409,7 +436,7 @@ body {
 }
 
 .drawer::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -465,7 +492,6 @@ body {
   color: #00a8ff;
   transform: rotate(0deg);
 }
-
 
 /* Control Styles */
 .control-group + .control-group {
@@ -626,7 +652,6 @@ body {
   text-align: right;
 }
 
-
 .threshold-container {
   display: flex;
   flex-direction: column;
@@ -732,9 +757,9 @@ body {
 }
 
 .clipper-section {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #404040;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #404040;
 }
 
 .clipper-grid {
@@ -779,20 +804,20 @@ body {
 }
 
 .clipper-control .sub-label {
-    display: block;
-    color: #fff;
-    font-family: sans-serif;
-    font-size: 14px;
-    margin-bottom: 2px;
+  display: block;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 14px;
+  margin-bottom: 2px;
 }
 
 .clipper-control .checkbox-label {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .clipper-control .color-picker {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .slider-grid {
@@ -817,7 +842,6 @@ body {
 .hidden {
   display: none !important;
 }
-
 
 /* Mesh Controls */
 .mesh-controls {
@@ -914,4 +938,3 @@ body {
 .shader-section .control-select {
   width: 100%;
 }
-
