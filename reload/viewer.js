@@ -543,7 +543,7 @@ export class NiiVueViewer {
           // Set shader to Matcap and load the selected texture
           this.viewer.setMeshShader(compatibleMesh.mesh.id, "Matcap");
           this.viewer.loadMatCapTexture(
-            "../reload/matcaps/" + selectedMatcap + ".jpg"
+            "../slicedrop.github.com/reload/matcaps/" + selectedMatcap + ".jpg"
           );
         } else {
           // Reset to default shader when "None" is selected
