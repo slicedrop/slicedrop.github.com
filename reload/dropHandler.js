@@ -36,14 +36,14 @@ class DropZoneHandler {
     e.preventDefault();
     e.stopPropagation();
     this.dropZone.classList.add("dragging");
-    this.dropText.textContent = "Drop to load file";
+    this.dropText.textContent = "Drop to load files";
   }
 
   handleDragLeave(e) {
     e.preventDefault();
     e.stopPropagation();
     this.dropZone.classList.remove("dragging");
-    this.dropText.textContent = "Drag & drop your file here";
+    this.dropText.textContent = "Drag & drop your files here";
   }
 
   handleDragOver(e) {
