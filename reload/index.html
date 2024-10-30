@@ -3,13 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NiiVue Viewer</title>
+    <title>Slice:Drop - 3D Scientific Visualization</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-
   </head>
   <body>
     <!-- Landing page container -->
@@ -17,43 +22,57 @@
       <!-- Header -->
       <header class="header">
         <div class="header-content">
-          <img src="/images/test.png" alt="Slice:Drop Logo" class="logo" />
+          <img src="../images/test.png" alt="Slice:Drop Logo" class="logo" />
           <div class="header-text">
             <h1>Slice:Drop</h1>
             <p>Instantly view scientific and medical imaging data in 3D</p>
           </div>
         </div>
-        
 
         <div class="examples-container">
           <h2>Try the examples...</h2>
-          
+
           <!-- Row of example images -->
           <div class="examples-grid">
-            <div class="example-card" data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++">
-              <img src="/images/14yrold.png" alt="Brain MRI Example" />
+            <div
+              class="example-card"
+              data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++"
+            >
+              <img src="./images/14yrold.png" alt="Brain MRI Example" />
             </div>
-        
-            <div class="example-card" data-caption="A contrast-enhanced 3D MR image showing an arteriovenous fistula, a bypass created by joining an artery and a vein, located in an arm. Loading time: +">
-              <img src="/images/avf_small.png" alt="Arteriovenous Fistula" />
+
+            <div
+              class="example-card"
+              data-caption="A contrast-enhanced 3D MR image showing an arteriovenous fistula, a bypass created by joining an artery and a vein, located in an arm. Loading time: +"
+            >
+              <img src="./images/avf_small.png" alt="Arteriovenous Fistula" />
             </div>
-        
-            <div class="example-card" data-caption="The surface of the left hemisphere of a 2-year-old healthy brain. The scalar overlay shows the bending energy based on Curvedness. Loading time: ++">
-              <img src="/images/2yrold_small.png" alt="Brain Surface" />
+
+            <div
+              class="example-card"
+              data-caption="The surface of the left hemisphere of a 2-year-old healthy brain. The scalar overlay shows the bending energy based on Curvedness. Loading time: ++"
+            >
+              <img src="./images/2yrold_small.png" alt="Brain Surface" />
             </div>
-        
-            <div class="example-card" data-caption="A region of the brainstem of a human adult including an automatically generated segmentation as a label map colorized using an anatomical color table. Loading time: +">
-              <img src="/images/brainstem_small.png" alt="Brainstem" />
+
+            <div
+              class="example-card"
+              data-caption="A region of the brainstem of a human adult including an automatically generated segmentation as a label map colorized using an anatomical color table. Loading time: +"
+            >
+              <img src="./images/brainstem_small.png" alt="Brainstem" />
             </div>
           </div>
-        
+
           <!-- Caption container -->
           <div class="caption-container">
-            <p id="dynamic-caption">A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++</p>
+            <p id="dynamic-caption">
+              A 14-year-old healthy male brain. The patient was scanned using a
+              structural MRI and a diffusion MRI to highlight connecting brain
+              fibers. Loading time: +++
+            </p>
             <button class="view-example-button">View Example</button>
           </div>
         </div>
-        
       </header>
 
       <div class="main-content">
@@ -81,17 +100,17 @@
         <!-- Format Info Section -->
         <section class="format-info">
           <div class="format-card">
-            <img src="/images/fibers.png" alt="Fibers Format" />
+            <img src="./images/fibers.png" alt="Fibers Format" />
             <h3>Fibers</h3>
             <p>(.trk / .tko)</p>
           </div>
           <div class="format-card">
-            <img src="/images/dicom.png" alt="Volumes Format" />
+            <img src="./images/dicom.png" alt="Volumes Format" />
             <h3>Volumes</h3>
             <p>(.nii / .nii.gz / DICOM)</p>
           </div>
           <div class="format-card">
-            <img src="/images/surface.png" alt="Models Format" />
+            <img src="./images/surface.png" alt="Models Format" />
             <h3>Models</h3>
             <p>(.obj / .vtk / .stl / FreeSurfer)</p>
           </div>
@@ -103,7 +122,7 @@
         <div class="footer-links">
           <a href="https://github.com/your-repo" target="_blank">Source Code</a>
           <span class="separator">|</span>
-          <a href="/credits">Credits</a>
+          <a href="/credits"></a>
           <span class="separator">|</span>
           <a href="mailto:feedback@example.com">Send Feedback</a>
         </div>
@@ -433,13 +452,15 @@
     <script type="module" src="./dropHandler.js"></script>
     <script>
       // Set the default caption to the first example
-      document.getElementById('dynamic-caption').innerText = document.querySelector('.example-card').getAttribute('data-caption');
-    
+      document.getElementById("dynamic-caption").innerText = document
+        .querySelector(".example-card")
+        .getAttribute("data-caption");
+
       // Update caption on hover
-      document.querySelectorAll('.example-card').forEach((card) => {
-        card.addEventListener('mouseenter', (event) => {
-          const captionText = event.currentTarget.getAttribute('data-caption');
-          document.getElementById('dynamic-caption').innerText = captionText;
+      document.querySelectorAll(".example-card").forEach((card) => {
+        card.addEventListener("mouseenter", (event) => {
+          const captionText = event.currentTarget.getAttribute("data-caption");
+          document.getElementById("dynamic-caption").innerText = captionText;
         });
       });
     </script>

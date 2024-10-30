@@ -4,6 +4,7 @@ body {
   height: 100vh;
   background-color: #000;
   overflow: hidden;
+  font-family: "Manrope", sans-serif;
 }
 
 #gl1 {
@@ -53,15 +54,20 @@ body {
 }
 
 .header-text h1 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
   font-size: 3rem;
   margin: 0;
 }
 
 .header-text p {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
   font-size: 1.3rem;
   margin: 10px 0 0;
   color: #888;
 }
+
 
 /*****************************************************/
 .examples-container {
@@ -73,10 +79,10 @@ body {
 }
 
 .examples-container h2 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #fff;
-  text-align: center;
 }
 
 .examples-grid {
@@ -112,6 +118,8 @@ body {
   color: #fff;
   text-align: center;
   font-size: 0.9rem;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -171,6 +179,8 @@ body {
 .format-card h3 {
   margin: 0 0 5px;
   font-size: 1.2rem;
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
 }
 
 
@@ -178,6 +188,8 @@ body {
   color: #888;
   margin: 0;
   font-size: 0.9rem;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
 }
 
 
@@ -193,6 +205,8 @@ body {
   display: flex;
   justify-content: center;
   gap: 20px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
 }
 
 .footer-links a {
@@ -273,15 +287,17 @@ body {
 
 .drop-zone__text {
   color: white;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-family: sans-serif;
 }
 
 .drop-zone__separator {
   color: #666;
   margin: 1rem 0;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+
 }
 
 .drop-zone__button {
@@ -290,7 +306,8 @@ body {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
   transition: background-color 0.3s ease;
   display: inline-block;
 }
@@ -339,7 +356,8 @@ body {
   color: #fff;
   writing-mode: vertical-rl;
   text-transform: uppercase;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
   font-size: 14px;
   letter-spacing: 1px;
   transition: transform 0.3s ease;
@@ -457,7 +475,8 @@ body {
 .control-label {
   display: block;
   color: #fff;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
   font-size: 14px;
   margin-bottom: 8px;
 }
@@ -469,7 +488,8 @@ body {
   border: 1px solid #404040;
   border-radius: 4px;
   color: #fff;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
   font-size: 14px;
   cursor: pointer;
   outline: none;
@@ -629,7 +649,8 @@ body {
 
 .slider-value {
   color: #fff;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
   font-size: 14px;
   min-width: 45px;
   text-align: right;
@@ -670,7 +691,8 @@ body {
   display: flex;
   align-items: center;
   color: #fff;
-  font-family: sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
   font-size: 14px;
   cursor: pointer;
   user-select: none;
@@ -861,6 +883,8 @@ body {
   border-radius: 4px;
   color: #fff;
   padding: 8px 20px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s ease;

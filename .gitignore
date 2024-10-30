@@ -27,3 +27,5 @@
 
 # nfs
 *.nfs*
+
+.vscode/
