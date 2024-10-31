@@ -26,11 +26,58 @@ class DropZoneHandler {
     this.fileInput.addEventListener("change", this.handleFileSelect.bind(this));
   }
 
+  injectPowerBoost() {
+    const loadBoostlet = (url) => {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              resolve(xhr.response);
+            } else {
+              reject(new Error("Failed to load PowerBoost"));
+            }
+          }
+        };
+        xhr.send(null);
+      });
+    };
+
+    const compileAndExecuteBoostlet = (code) => {
+      // Remove any existing script to avoid duplicates
+      const existingScript = document.getElementById("powerboost-script");
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      // Create and execute the script
+      const script = document.createElement("script");
+      script.id = "powerboost-script";
+      script.textContent = `(function(){${code.trim()}})();`;
+      document.body.appendChild(script);
+    };
+
+    const baseurl =
+      "https://raw.githubusercontent.com/mpsych/powerboost/refs/heads/main/";
+    const scriptName = "floatingUI.js";
+
+    // Load and execute PowerBoost
+    loadBoostlet(baseurl + scriptName)
+      .then(compileAndExecuteBoostlet)
+      .catch((error) => console.error("Error loading PowerBoost:", error));
+  }
+
   showViewer() {
     this.landingContainer.classList.add("hidden");
     this.viewerContainer.classList.remove("hidden");
     this.drawerContainer.classList.add("visible");
-}
+
+    setTimeout(() => {
+        this.injectPowerBoost();
+    }, 100);
+    
+  }
 
   handleDragEnter(e) {
     e.preventDefault();

@@ -20,6 +20,9 @@ export class NiiVueViewer {
     this.setupMeshVisibility();
     this.acceptedFiberFormats = [".trk", ".tko"];
     this.setupFiberControls();
+
+    // Make viewer accessible globally as nv
+    window.nv = this.viewer;
   }
 
   updateDrawerStates() {
