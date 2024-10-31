@@ -16,7 +16,7 @@ export class NiiVueViewer {
     this.setupMeshControls();
     this.setupShaderControl();
     this.setupMatcapControl();
-    this.acceptedMeshFormats = [".obj", ".vtk", ".stl", ".mz3"];
+    this.acceptedMeshFormats = [".obj", ".vtk", ".stl", ".mz3", ".smoothwm"];
     this.setupMeshVisibility();
     this.acceptedFiberFormats = [".trk", ".tko"];
     this.setupFiberControls();
@@ -546,7 +546,7 @@ export class NiiVueViewer {
           // Set shader to Matcap and load the selected texture
           this.viewer.setMeshShader(compatibleMesh.mesh.id, "Matcap");
           this.viewer.loadMatCapTexture(
-            "../matcaps/" + selectedMatcap + ".jpg"
+            "../reload/matcaps/" + selectedMatcap + ".jpg"
           );
         } else {
           // Reset to default shader when "None" is selected

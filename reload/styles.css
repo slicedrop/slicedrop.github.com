@@ -41,9 +41,7 @@ body {
 }
 
 .header {
-  width: 90%;
-  margin: 0 auto;
-  padding: 0 40px;
+  width: 97%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -82,7 +80,7 @@ body {
   border-radius: 8px;
   z-index: 1000;
   margin: 0;
-    padding: 0;
+  padding: 0;
 }
 
 .examples-container h2 {
@@ -164,7 +162,7 @@ body {
 }
 
 .format-card {
-  flex: 0 1 150px;
+  flex: 0 200px;
   border-radius: 8px;
   text-align: center;
 }
