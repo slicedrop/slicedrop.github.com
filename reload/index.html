@@ -14,6 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
       rel="stylesheet"
     />
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -22,7 +24,11 @@
       <!-- Header -->
       <header class="header">
         <div class="header-content">
-          <img src="./images/SliceDropReloaded.svg" alt="Slice:Drop Logo" class="logo" />
+          <img
+            src="./images/SliceDropReloaded.svg"
+            alt="Slice:Drop Logo"
+            class="logo"
+          />
           <div class="header-text">
             <h1>Slice:Drop</h1>
             <p>Instantly view scientific and medical imaging data in 3D</p>
@@ -34,16 +40,14 @@
 
           <!-- Row of example images -->
           <div class="examples-grid">
-            <div
-              class="example-card"
-              data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++"
-            >
+            <div class="example-card" data-example="1" data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++">
               <img src="./images/14yrold.png" alt="Brain MRI Example" />
             </div>
 
             <div
               class="example-card"
               data-caption="A contrast-enhanced 3D MR image showing an arteriovenous fistula, a bypass created by joining an artery and a vein, located in an arm. Loading time: +"
+              data-example="2"
             >
               <img src="./images/avf_small.png" alt="Arteriovenous Fistula" />
             </div>
@@ -51,6 +55,7 @@
             <div
               class="example-card"
               data-caption="The surface of the left hemisphere of a 2-year-old healthy brain. The scalar overlay shows the bending energy based on Curvedness. Loading time: ++"
+              data-example="3"
             >
               <img src="./images/2yrold_small.png" alt="Brain Surface" />
             </div>
@@ -58,6 +63,7 @@
             <div
               class="example-card"
               data-caption="A region of the brainstem of a human adult including an automatically generated segmentation as a label map colorized using an anatomical color table. Loading time: +"
+              data-example="4"
             >
               <img src="./images/brainstem_small.png" alt="Brainstem" />
             </div>
@@ -70,7 +76,6 @@
               structural MRI and a diffusion MRI to highlight connecting brain
               fibers. Loading time: +++
             </p>
-            <button class="view-example-button">View Example</button>
           </div>
         </div>
       </header>
@@ -90,7 +95,8 @@
                   type="file"
                   id="fileInput"
                   class="hidden"
-                  accept=".nii,.nii.gz,.mz3"
+                  multiple
+
                 />
               </label>
             </div>
@@ -120,7 +126,11 @@
       <!-- Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="https://github.com/slicedrop/slicedrop.github.com" target="_blank">Source Code</a>
+          <a
+            href="https://github.com/slicedrop/slicedrop.github.com"
+            target="_blank"
+            >Source Code</a
+          >
           <span class="separator">|</span>
           <a href="https://mpsych.org/" target="_blank">Machine Psychology</a>
           <span class="separator">|</span>
@@ -451,6 +461,22 @@
     <script type="module" src="./viewer.js"></script>
     <script type="module" src="./dropHandler.js"></script>
     <script>
+      // Add performance stats
+      const script = document.createElement("script");
+      script.onload = function () {
+        const stats = new Stats();
+        stats.dom.style.top = "0";
+        stats.dom.style.right = "0";
+        stats.dom.style.left = "";
+        document.body.appendChild(stats.dom);
+        requestAnimationFrame(function loop() {
+          stats.update();
+          requestAnimationFrame(loop);
+        });
+      };
+      script.src = "https://mrdoob.github.io/stats.js/build/stats.min.js";
+      document.head.appendChild(script);
+
       // Set the default caption to the first example
       document.getElementById("dynamic-caption").innerText = document
         .querySelector(".example-card")

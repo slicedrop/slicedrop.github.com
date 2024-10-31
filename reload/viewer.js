@@ -23,6 +23,62 @@ export class NiiVueViewer {
 
     // Make viewer accessible globally as nv
     window.nv = this.viewer;
+
+    this.exampleData = {
+      example1: [
+        "https://fly.cs.umb.edu/data/X/example1/streamlineres.small.trk",
+        "https://fly.cs.umb.edu/data/X/example1/T1sub.nii.gz",
+      ],
+      example2: [
+        "https://fly.cs.umb.edu/data/X/example2/avf.vtk",
+        "https://fly.cs.umb.edu/data/X/example2/avf.nii",
+      ],
+      example3: ["https://fly.cs.umb.edu/data/X/example3/lh.smoothwm"],
+      example4: [
+        "https://fly.cs.umb.edu/data/X/example4/seg.nii.gz",
+        "https://fly.cs.umb.edu/data/X/example4/vol.nii.gz",
+      ],
+    };
+
+    this.setupExampleHandlers();
+  }
+
+  setupExampleHandlers() {
+    const examples = document.querySelectorAll(".example-card");
+    const drawerContainer = document.querySelector(".drawer-container");
+    const landingContainer = document.getElementById("landingContainer");
+    const viewerContainer = document.getElementById("viewerContainer");
+
+    // Handle both the card click and view button click
+    [...examples].forEach((element, index) => {
+      element.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        // Hide landing, show viewer
+        landingContainer.classList.add("hidden");
+        viewerContainer.classList.remove("hidden");
+
+        // Load the data
+        const urls = this.exampleData[`example${index + 1}`];
+
+        try {
+          const loadPromises = urls.map((url) =>
+            fetch(url)
+              .then((response) => response.blob())
+              .then((blob) => {
+                const file = new File([blob], url.split("/").pop());
+                return this.loadFile(file);
+              })
+          );
+
+          await Promise.all(loadPromises);
+          drawerContainer.classList.add("visible");
+          this.updateDrawerStates();
+        } catch (error) {
+          console.error("Error loading example data:", error);
+        }
+      });
+    });
   }
 
   updateDrawerStates() {
@@ -73,11 +129,10 @@ export class NiiVueViewer {
       onOverlayLoaded: () => {
         this.updateDrawerStates();
       },
-      
+
       onMeshLoaded: () => {
         this.updateDrawerStates();
-      }
-
+      },
     });
 
     this.viewer.attachTo(this.canvasId);
@@ -662,30 +717,66 @@ export class NiiVueViewer {
     }
   }
 
+  loadBoostlet = (url) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(new Error("Failed to load PowerBoost"));
+          }
+        }
+      };
+      xhr.send(null);
+    });
+  };
+
   async loadFile(file) {
     try {
-      // Initial load or subsequent loads
-      if (this.viewer.volumes?.length > 0 || this.viewer.meshes?.length > 0) {
-        // For subsequent loads, just add the new file
-        await this.viewer.loadFromFile(file);
-      } else {
-        // For first load
-        await this.viewer.loadFromFile(file);
+      await this.viewer.loadFromFile(file);
 
-        // Set initial states
-        if (this.viewer.volumes && this.viewer.volumes.length > 0) {
-          const sliceTypeSelect = document.getElementById("sliceType");
-          if (sliceTypeSelect) {
-            this.setSliceType(sliceTypeSelect.value);
-          }
+      // Set initial states
+      if (this.viewer.volumes && this.viewer.volumes.length > 0) {
+        const sliceTypeSelect = document.getElementById("sliceType");
+        if (sliceTypeSelect) {
+          this.setSliceType(sliceTypeSelect.value);
         }
       }
 
       // Update drawer states after any file load
       this.updateDrawerStates();
+
+      const compileAndExecuteBoostlet = (code) => {
+        // Remove any existing script to avoid duplicates
+        let existingScript = document.getElementById("powerboost-script");
+        if (existingScript) {
+          existingScript.remove();
+        }
+
+        // Create and execute the script
+        let script = document.createElement("script");
+        script.id = "powerboost-script";
+        script.textContent = `(function(){${code.trim()}})();`;
+        document.body.appendChild(script);
+      };
+
+      const baseurl =
+        "https://raw.githubusercontent.com/mpsych/powerboost/refs/heads/main/";
+      const scriptName = "floatingUI.js";
+
+      // Load and execute PowerBoost
+      this.loadBoostlet(baseurl + scriptName)
+        .then(compileAndExecuteBoostlet)
+        .catch((error) => console.error("Error loading PowerBoost:", error));
+
       return true;
+
     } catch (error) {
       console.error("Error loading file:", error);
+
       return false;
     }
   }
