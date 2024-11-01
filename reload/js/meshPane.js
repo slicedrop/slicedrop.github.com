@@ -142,7 +142,8 @@ export class MeshPane {
       if (compatibleMesh && ev.value !== 'none') {
         this.viewer.setMeshShader(compatibleMesh.mesh.id, 'Matcap');
         this.viewer.loadMatCapTexture(
-          './matcaps/' + ev.value + '.jpg'
+          // capitalizing the first letter of the ev.value
+          './matcaps/' + ev.value.charAt(0).toUpperCase() + ev.value.slice(1) + '.jpg'
         );
       }
     });
