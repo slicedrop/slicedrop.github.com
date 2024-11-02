@@ -1,13 +1,14 @@
 import viewer from "./viewer.js";
 
-class DropZoneHandler {
-  constructor() {
+export class DropZoneHandler {
+  constructor(viewer) {
     this.dropZone = document.getElementById("dropZone");
     this.dropText = document.getElementById("dropText");
     this.fileInput = document.getElementById("fileInput");
     this.drawerContainer = document.querySelector(".drawer-container");
     this.landingContainer = document.getElementById("landingContainer");
     this.viewerContainer = document.getElementById("viewerContainer");
+    this.viewer = viewer;
     this.initialize();
   }
 
@@ -58,13 +59,13 @@ class DropZoneHandler {
 
     const files = Array.from(e.dataTransfer.files);
     const results = await Promise.all(
-      files.map((file) => viewer.loadFile(file))
+      files.map((file) => this.viewer.loadFile(file))
     );
 
     if (results.some(Boolean)) {
       this.dropZone.classList.add("hidden");
       this.drawerContainer.classList.add("visible");
-      viewer.updateDrawerStates(); // Force update after all files are loaded
+      this.viewer.updateDrawerStates(); // Force update after all files are loaded
       this.showViewer();
     }
   }
@@ -72,17 +73,16 @@ class DropZoneHandler {
   async handleFileSelect(e) {
     const files = Array.from(e.target.files);
     const results = await Promise.all(
-      files.map((file) => viewer.loadFile(file))
+      files.map((file) => this.viewer.loadFile(file))
     );
 
     if (results.some(Boolean)) {
       this.dropZone.classList.add("hidden");
       this.drawerContainer.classList.add("visible");
-      viewer.updateDrawerStates(); // Force update after all files are loaded
+      this.viewer.updateDrawerStates(); // Force update after all files are loaded
       this.showViewer();
     }
   }
 }
 
-// Initialize drop zone handler
-new DropZoneHandler();
+export default DropZoneHandler;
