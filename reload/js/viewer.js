@@ -2,6 +2,7 @@ import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
 import { VolumePane } from './volumePane.js';
 import { MeshPane } from './meshPane.js';
 import { FiberPane } from './fiberPane.js';
+import { getFirstCompatibleFiber, getFirstCompatibleMesh } from './utils.js';
 
 export class NiiVueViewer {
   constructor(canvasId) {
@@ -12,11 +13,6 @@ export class NiiVueViewer {
 
     window.nv = this.viewer;
     this.setupPinControls();
-
-    this.acceptedMeshFormats = [".obj", ".vtk", ".stl", ".mz3", ".smoothwm"];
-    this.acceptedFiberFormats = [".trk", ".tko"];
-
-    
 
     this.exampleData = {
       example1: [
@@ -96,7 +92,7 @@ export class NiiVueViewer {
     }
 
     // Check for compatible meshes
-    const compatibleMesh = this.getFirstCompatibleMesh();
+    const compatibleMesh = getFirstCompatibleMesh(this.viewer);
     if (compatibleMesh) {
       meshDrawer?.classList.add("active");
       console.log("Mesh drawer activated");
@@ -105,7 +101,7 @@ export class NiiVueViewer {
     }
 
     // Check for compatible fibers
-    const compatibleFiber = this.getFirstCompatibleFiber();
+    const compatibleFiber = getFirstCompatibleFiber(this.viewer);
     if (compatibleFiber) {
       fiberDrawer?.classList.add("active");
       console.log("Fiber drawer activated");
@@ -138,33 +134,6 @@ export class NiiVueViewer {
     const volumePane = new VolumePane(this.viewer);
     const meshPane = new MeshPane(this.viewer);
     const fiberPane = new FiberPane(this.viewer);
-  }
-
-
-  getFirstCompatibleMesh() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = "." + mesh.name.split(".").pop().toLowerCase();
-      if (this.acceptedMeshFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
-  }
-
-  getFirstCompatibleFiber() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = "." + mesh.name.split(".").pop().toLowerCase();
-      if (this.acceptedFiberFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
   }
 
   setupPinControls() {

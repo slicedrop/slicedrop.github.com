@@ -1,8 +1,9 @@
+import { getFirstCompatibleFiber } from './utils.js';
+
 export class FiberPane {
   constructor(viewer) {
     this.viewer = viewer;
     this.pane = new Pane({
-      title: 'Fibers',
       expanded: true,
       container: document.querySelector('.drawer:nth-child(3) .drawer-content'),
     });
@@ -33,6 +34,8 @@ export class FiberPane {
     };
 
     this.setupControls();
+
+    
   }
 
   setupControls() {
@@ -40,7 +43,7 @@ export class FiberPane {
     this.pane.addButton({
       title: 'Toggle Visibility',
     }).on('click', () => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
       if (compatibleFiber) {
         compatibleFiber.mesh.visible = !compatibleFiber.mesh.visible;
         this.viewer.updateGLVolume();
@@ -56,11 +59,13 @@ export class FiberPane {
     // Radius Control
     propertiesFolder.addBinding(this.state, 'radius', {
       min: 0,
-      max: 2.0,
+      max: 3.0,
       step: 0.1,
       label: 'Radius'
     }).on('change', (ev) => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
+      
+      console.log(compatibleFiber);
       if (compatibleFiber) {
         this.viewer.setMeshProperty(
           compatibleFiber.mesh.id,
@@ -76,7 +81,7 @@ export class FiberPane {
       min: 0,
       label: 'Length'
     }).on('change', (ev) => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
       if (compatibleFiber) {
         this.viewer.setMeshProperty(
           compatibleFiber.mesh.id,
@@ -92,7 +97,7 @@ export class FiberPane {
       step: 0.1,
       label: 'Dither'
     }).on('change', (ev) => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
       if (compatibleFiber) {
         this.viewer.setMeshProperty(
           compatibleFiber.mesh.id,
@@ -113,7 +118,7 @@ export class FiberPane {
       options: this.colorationOptions,
       label: 'Color Mode'
     }).on('change', (ev) => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
       if (compatibleFiber) {
         this.viewer.setMeshProperty(
           compatibleFiber.mesh.id,
@@ -128,7 +133,7 @@ export class FiberPane {
       options: this.reductionOptions,
       label: 'Reduction'
     }).on('change', (ev) => {
-      const compatibleFiber = this.getFirstCompatibleFiber();
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
       if (compatibleFiber) {
         this.viewer.setMeshProperty(
           compatibleFiber.mesh.id,
@@ -137,21 +142,6 @@ export class FiberPane {
         );
       }
     });
-  }
-
-  getFirstCompatibleFiber() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    const acceptedFormats = ['.trk', '.tko'];
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = '.' + mesh.name.split('.').pop().toLowerCase();
-      if (acceptedFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
   }
 
   // Method to show/hide the pane based on fiber availability

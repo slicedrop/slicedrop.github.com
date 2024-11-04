@@ -1,8 +1,9 @@
+import { getFirstCompatibleMesh } from './utils.js';
+
 export class MeshPane {
   constructor(viewer) {
     this.viewer = viewer;
     this.pane = new Pane({
-      title: 'Mesh',
       expanded: true,
       container: document.querySelector('.drawer:nth-child(2) .drawer-content'),
     });
@@ -34,7 +35,7 @@ export class MeshPane {
     this.pane.addButton({
       title: 'Toggle Visibility',
     }).on('click', () => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         compatibleMesh.mesh.visible = !compatibleMesh.mesh.visible;
         this.viewer.updateGLVolume();
@@ -54,7 +55,7 @@ export class MeshPane {
       step: 0.1,
       label: 'Opacity'
     }).on('change', (ev) => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         this.viewer.setMeshLayerProperty(
           compatibleMesh.mesh.id,
@@ -69,7 +70,7 @@ export class MeshPane {
     basicFolder.addBinding(this.state, 'reverseFaces', {
       label: 'Reverse Faces'
     }).on('change', (ev) => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = tgetFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         this.viewer.reverseFaces(compatibleMesh.mesh.id);
       }
@@ -81,7 +82,7 @@ export class MeshPane {
       expanded: true,
       label: 'Color'
     }).on('change', (ev) => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         const color = this.hexToRgb(ev.value);
         this.viewer.setMeshProperty(compatibleMesh.mesh.id, 'rgba255', [
@@ -118,7 +119,7 @@ export class MeshPane {
       options: shaderOptions,
       label: 'Shader Type'
     }).on('change', (ev) => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         this.viewer.setMeshShader(compatibleMesh.mesh.id, ev.value);
         
@@ -138,7 +139,7 @@ export class MeshPane {
       label: 'Matcap Style',
       hidden: true
     }).on('change', (ev) => {
-      const compatibleMesh = this.getFirstCompatibleMesh();
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh && ev.value !== 'none') {
         this.viewer.setMeshShader(compatibleMesh.mesh.id, 'Matcap');
         this.viewer.loadMatCapTexture(
@@ -147,21 +148,6 @@ export class MeshPane {
         );
       }
     });
-  }
-
-  getFirstCompatibleMesh() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    const acceptedFormats = ['.obj', '.vtk', '.stl', '.mz3', '.smoothwm'];
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = '.' + mesh.name.split('.').pop().toLowerCase();
-      if (acceptedFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
   }
 
   hexToRgb(hex) {

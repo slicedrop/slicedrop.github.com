@@ -2,7 +2,6 @@ export class VolumePane {
   constructor(viewer) {
     this.viewer = viewer;
     this.pane = new Pane({
-      title: 'Volume',
       expanded: true,
       container: document.querySelector('.drawer:first-child .drawer-content'),
     });
