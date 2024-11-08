@@ -20,7 +20,10 @@
     <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
     <script type="module">
       import { Pane } from "https://cdn.jsdelivr.net/npm/tweakpane@4.0.3/dist/tweakpane.min.js";
+      ;
+
       window.Pane = Pane;
+
     </script>
     <script type="module" src="./js/index.js"></script>
   </head>
@@ -175,34 +178,6 @@
     </div>
 
     <script>
-      // Add event listener for 'F' to activate stats like a toggle
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "F" || event.key === "f") {
-          let stats = document.getElementById("statsPanel");
-          if (stats) {
-            stats.style.display =
-              stats.style.display === "none" ? "block" : "none";
-          } else {
-            const statsGui = document.createElement("script");
-            statsGui.onload = function () {
-              stats = new Stats();
-              stats.dom.id = "statsPanel";
-              stats.dom.style.top = "0";
-              stats.dom.style.right = "0";
-              stats.dom.style.left = "";
-              document.body.appendChild(stats.dom);
-              requestAnimationFrame(function loop() {
-                stats.update();
-                requestAnimationFrame(loop);
-              });
-            };
-            statsGui.src =
-              "https://mrdoob.github.io/stats.js/build/stats.min.js";
-            document.head.appendChild(statsGui);
-          }
-        }
-      });
-
       // Set the default caption to the first example
       document.getElementById("dynamic-caption").innerText = document
         .querySelector(".example-card")

@@ -2,7 +2,8 @@ import { getFirstCompatibleMesh } from './utils.js';
 
 export class MeshPane {
   constructor(viewer) {
-    this.viewer = viewer;
+    this.mainViewer = viewer;
+    this.viewer = viewer.viewer;
     this.pane = new Pane({
       expanded: true,
       container: document.querySelector('.drawer:nth-child(2) .drawer-content'),
@@ -32,6 +33,12 @@ export class MeshPane {
   }
 
   setupControls() {
+
+    const updateUtilities = () => {
+      this.mainViewer.updateSceneState();
+
+  };
+
     this.pane.addButton({
       title: 'Toggle Visibility',
     }).on('click', () => {
@@ -64,16 +71,20 @@ export class MeshPane {
           ev.value
         );
       }
+
+      updateUtilities();
     });
 
     // Reverse Faces Control
     basicFolder.addBinding(this.state, 'reverseFaces', {
       label: 'Reverse Faces'
     }).on('change', (ev) => {
-      const compatibleMesh = tgetFirstCompatibleMesh(this.viewer);
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
         this.viewer.reverseFaces(compatibleMesh.mesh.id);
       }
+
+      updateUtilities();
     });
 
     // Color Control
@@ -92,13 +103,8 @@ export class MeshPane {
           255
         ]);
       }
-    });
 
-    // Save Bitmap Button
-    basicFolder.addButton({
-      title: 'Save Bitmap',
-    }).on('click', () => {
-      this.viewer.saveScene('Screenshot.png');
+      updateUtilities();
     });
 
     // Shader Controls Folder
@@ -131,6 +137,8 @@ export class MeshPane {
           this.state.matcap = 'None';
         }
       }
+
+      updateUtilities();
     });
 
     // Matcap Control (hidden by default)
@@ -147,6 +155,8 @@ export class MeshPane {
           './matcaps/' + ev.value.charAt(0).toUpperCase() + ev.value.slice(1) + '.jpg'
         );
       }
+
+      updateUtilities();
     });
   }
 

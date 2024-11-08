@@ -1,18 +1,23 @@
 import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
-import { VolumePane } from './volumePane.js';
-import { MeshPane } from './meshPane.js';
-import { FiberPane } from './fiberPane.js';
-import { getFirstCompatibleFiber, getFirstCompatibleMesh } from './utils.js';
+import { VolumePane } from "./volumePane.js";
+import { MeshPane } from "./meshPane.js";
+import { FiberPane } from "./fiberPane.js";
+import { UtilitiesPane } from "./utilitiesPane.js";
+import { getFirstCompatibleFiber, getFirstCompatibleMesh } from "./utils.js";
 
 export class NiiVueViewer {
   constructor(canvasId) {
     this.canvasId = canvasId;
-    
 
+    this.loadedVolumes = [];
+    this.loadedMeshes = [];
+    this.loadedFibers = [];
     this.initialize();
 
     window.nv = this.viewer;
     this.setupPinControls();
+
+    this.utilitiesPane = new UtilitiesPane(this);
 
     this.exampleData = {
       example1: [
@@ -29,7 +34,6 @@ export class NiiVueViewer {
         "https://fly.cs.umb.edu/data/X/example4/vol.nii.gz",
       ],
     };
-
 
     this.setupExampleHandlers();
   }
@@ -120,7 +124,6 @@ export class NiiVueViewer {
       onOverlayLoaded: () => {
         this.updateDrawerStates();
       },
-
       onMeshLoaded: () => {
         this.updateDrawerStates();
       },
@@ -130,10 +133,14 @@ export class NiiVueViewer {
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
 
-    // Initialize controls
-    const volumePane = new VolumePane(this.viewer);
-    const meshPane = new MeshPane(this.viewer);
-    const fiberPane = new FiberPane(this.viewer);
+    const volumePane = new VolumePane(this);
+    this.loadedVolumes.push({ pane: volumePane });
+
+    const meshPane = new MeshPane(this);
+    this.loadedMeshes.push({ pane: meshPane });
+
+    const fiberPane = new FiberPane(this);
+    this.loadedFibers.push({ pane: fiberPane });
   }
 
   setupPinControls() {
@@ -191,6 +198,12 @@ export class NiiVueViewer {
       : null;
   }
 
+  updateSceneState() {
+    this.utilitiesPane.updateJSON();
+
+    console.log("Utilities updated");
+  }
+
   async loadFile(file) {
     try {
       await this.viewer.loadFromFile(file);
@@ -204,7 +217,7 @@ export class NiiVueViewer {
       }
 
       // Update drawer states after any file load
-      this.updateDrawerStates();
+      this.updateSceneState();
 
       const compileAndExecuteBoostlet = (code) => {
         // Remove any existing script to avoid duplicates
@@ -247,7 +260,6 @@ export class NiiVueViewer {
         .catch((error) => console.error("Error loading PowerBoost:", error));
 
       return true;
-
     } catch (error) {
       console.error("Error loading file:", error);
 

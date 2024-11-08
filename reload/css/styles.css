@@ -523,3 +523,7 @@ body {
 .drawer-content::-webkit-scrollbar-thumb:hover {
   background: #505050;
 }
+
+.utilities-pane .tp-lblv_v {
+  width: 75%;
+}
