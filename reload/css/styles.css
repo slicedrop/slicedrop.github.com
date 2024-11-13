@@ -20,6 +20,14 @@
   --tp-label-foreground-color: hsla(0, 0%, 100%, 0.95);
   --tp-monitor-background-color: hsla(0, 0%, 0%, 0.30);
   --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.30);
+    /** Max height of dropdown panel. */
+    --tp-plugin-thumbnail-list-height: 400px;
+
+    /** Fixed width of dropdown panel. */
+    --tp-plugin-thumbnail-list-width: 200px;
+  
+    /** Width/height of (square) thumbnail. */
+    --tp-plugin-thumbnail-list-thumb-size: 20px;
 }
 
 body {

@@ -77,40 +77,60 @@ export class NiiVueViewer {
   }
 
   updateDrawerStates() {
-    console.log("Updating drawer states..."); // Debug log
+    console.log("Updating drawer states...");
 
     const volumeDrawer = document.querySelector(".drawer:nth-child(1)");
     const meshDrawer = document.querySelector(".drawer:nth-child(2)");
     const fiberDrawer = document.querySelector(".drawer:nth-child(3)");
 
-    // Log current state
-    console.log("Volumes:", this.viewer.volumes?.length);
-    console.log("Meshes:", this.viewer.meshes?.length);
-
     // Check for volumes
     if (this.viewer.volumes && this.viewer.volumes.length > 0) {
       volumeDrawer?.classList.add("active");
+      volumeDrawer?.classList.remove("inactive");
       console.log("Volume drawer activated");
     } else {
       volumeDrawer?.classList.remove("active");
+      volumeDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (volumeDrawer) {
+        volumeDrawer.style.width = "40px";
+        volumeDrawer.classList.remove("pinned");
+        volumeDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
 
     // Check for compatible meshes
     const compatibleMesh = getFirstCompatibleMesh(this.viewer);
     if (compatibleMesh) {
       meshDrawer?.classList.add("active");
+      meshDrawer?.classList.remove("inactive");
       console.log("Mesh drawer activated");
     } else {
       meshDrawer?.classList.remove("active");
+      meshDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (meshDrawer) {
+        meshDrawer.style.width = "40px";
+        meshDrawer.classList.remove("pinned");
+        meshDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
 
     // Check for compatible fibers
     const compatibleFiber = getFirstCompatibleFiber(this.viewer);
     if (compatibleFiber) {
       fiberDrawer?.classList.add("active");
+      fiberDrawer?.classList.remove("inactive");
       console.log("Fiber drawer activated");
     } else {
       fiberDrawer?.classList.remove("active");
+      fiberDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (fiberDrawer) {
+        fiberDrawer.style.width = "40px";
+        fiberDrawer.classList.remove("pinned");
+        fiberDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
   }
 
@@ -145,33 +165,42 @@ export class NiiVueViewer {
 
   setupPinControls() {
     const pinIcons = document.querySelectorAll(".pin-icon");
+    const drawers = document.querySelectorAll(".drawer");
+
+    // Add inactive class to all drawers initially
+    drawers.forEach(drawer => {
+      drawer.classList.add('inactive');
+    });
 
     pinIcons.forEach((pin) => {
       pin.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent drawer from closing
-
+        e.stopPropagation();
         const drawer = pin.closest(".drawer");
-        const isPinned = drawer.classList.toggle("pinned");
-        pin.classList.toggle("pinned");
+        
+        // Only allow pinning if drawer is active
+        if (drawer.classList.contains('active')) {
+          const isPinned = drawer.classList.toggle("pinned");
+          pin.classList.toggle("pinned");
 
-        // If we're unpinning and not hovering, close the drawer
-        if (!isPinned && !drawer.matches(":hover")) {
-          drawer.style.width = "40px";
+          if (!isPinned && !drawer.matches(":hover")) {
+            drawer.style.width = "40px";
+          }
         }
       });
     });
 
-    // Handle drawer hover when pinned
-    const drawers = document.querySelectorAll(".drawer");
+    // Handle drawer hover
     drawers.forEach((drawer) => {
       drawer.addEventListener("mouseenter", () => {
-        if (!drawer.classList.contains("pinned")) {
+        // Only expand if drawer is active and not pinned
+        if (drawer.classList.contains('active') && !drawer.classList.contains("pinned")) {
           drawer.style.width = "340px";
         }
       });
 
       drawer.addEventListener("mouseleave", () => {
-        if (!drawer.classList.contains("pinned")) {
+        // Only collapse if drawer is active and not pinned
+        if (drawer.classList.contains('active') && !drawer.classList.contains("pinned")) {
           drawer.style.width = "40px";
         }
       });
@@ -201,7 +230,7 @@ export class NiiVueViewer {
   updateSceneState() {
     this.utilitiesPane.updateJSON();
 
-    console.log("Utilities updated");
+    // console.log("Utilities updated");
   }
 
   async loadFile(file) {
