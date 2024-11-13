@@ -263,7 +263,7 @@ export class NiiVueViewer {
       };
 
       const baseurl =
-        "https://raw.githubusercontent.com/mpsych/powerboost/refs/heads/main/";
+        "https://raw.githubusercontent.com/gaiborjosue/powerboost/refs/heads/tweakpane/";
       const scriptName = "floatingUI.js";
 
       const loadBoostlet = (url) => {
