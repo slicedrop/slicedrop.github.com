@@ -7,7 +7,8 @@ export class UtilitiesPane {
   constructor(viewer) {
     this.viewer = viewer;
     this.state = {
-      json: '' // This will store the JSON representation of all pane states
+      json: '', // This will store the JSON representation of all pane states
+      wave: 0,
     };
 
     this.pane = new Pane({
@@ -75,6 +76,13 @@ export class UtilitiesPane {
       expanded: true,
     });
 
+    this.memoryGraph = performanceFolder.addBinding(this.state, "wave",{
+      readonly: true,
+      view: 'graph',  
+      label: 'Memory (MB)',
+      rows: 2,
+    })
+
     this.profiler = performanceFolder.addBlade({
       view: 'profiler',
       label: 'Profiler',
@@ -126,6 +134,11 @@ export class UtilitiesPane {
     let frames = 0;
 
     const measure = () => {
+      const usedHeap = performance.memory.usedJSHeapSize;
+      const totalHeap = performance.memory.totalJSHeapSize;
+      const memoryPercentage = (usedHeap / totalHeap) * 100;
+      this.state.wave = memoryPercentage;
+
       // Measure overall frame time
       this.profiler.measure('Frame', () => {
         const now = performance.now();
