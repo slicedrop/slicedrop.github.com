@@ -150,6 +150,9 @@ export class NiiVueViewer {
     });
 
     this.viewer.attachTo(this.canvasId);
+    this.viewer.setMultiplanarLayout(Number(0));
+    this.viewer.setHeroImage(7 * 0.1)
+    this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
 

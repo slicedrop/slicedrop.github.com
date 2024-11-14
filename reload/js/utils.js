@@ -1,4 +1,4 @@
-const acceptedFiberFormats = ['.trk', '.tko', '.trx'];
+const acceptedFiberFormats = ['.trk', '.tko', '.trx', '.tck'];
 const acceptedMeshFormats = [".obj", ".vtk", ".stl", ".mz3", ".smoothwm"];
 
 export function getFirstCompatibleFiber(viewer) {
