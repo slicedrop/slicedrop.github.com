@@ -16,6 +16,7 @@ export class FiberPane {
       dither: 0.1,
       colorationMode: "",
       colorMap: "",
+      shader: "",
       reductionLevel: "100%",
     };
 
@@ -196,6 +197,27 @@ export class FiberPane {
 
         updateUtilities();
       });
+
+    // Get available shaders from NiiVue
+    const shaderOptions = {};
+
+    this.viewer.meshShaderNames().forEach(shader => {
+      shaderOptions[shader] = shader;
+    });
+
+    // Shader Dropdown
+    visualFolder.addBinding(this.state, 'shader', {
+      options: shaderOptions,
+      label: 'Shader Type'
+    }).on('change', (ev) => {
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
+      if (compatibleFiber) {
+        this.viewer.setMeshShader(compatibleFiber.mesh.id, ev.value);
+      
+      }
+
+      updateUtilities();
+    });
   }
 
   // Method to show/hide the pane based on fiber availability
