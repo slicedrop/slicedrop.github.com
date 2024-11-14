@@ -1,22 +1,23 @@
 import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
-import { VolumePane } from './volumePane.js';
-import { MeshPane } from './meshPane.js';
-import { FiberPane } from './fiberPane.js';
+import { VolumePane } from "./volumePane.js";
+import { MeshPane } from "./meshPane.js";
+import { FiberPane } from "./fiberPane.js";
+import { UtilitiesPane } from "./utilitiesPane.js";
+import { getFirstCompatibleFiber, getFirstCompatibleMesh } from "./utils.js";
 
 export class NiiVueViewer {
   constructor(canvasId) {
     this.canvasId = canvasId;
-    
 
+    this.loadedVolumes = [];
+    this.loadedMeshes = [];
+    this.loadedFibers = [];
     this.initialize();
 
     window.nv = this.viewer;
     this.setupPinControls();
 
-    this.acceptedMeshFormats = [".obj", ".vtk", ".stl", ".mz3", ".smoothwm"];
-    this.acceptedFiberFormats = [".trk", ".tko"];
-
-    
+    this.utilitiesPane = new UtilitiesPane(this);
 
     this.exampleData = {
       example1: [
@@ -33,7 +34,6 @@ export class NiiVueViewer {
         "https://fly.cs.umb.edu/data/X/example4/vol.nii.gz",
       ],
     };
-
 
     this.setupExampleHandlers();
   }
@@ -77,40 +77,60 @@ export class NiiVueViewer {
   }
 
   updateDrawerStates() {
-    console.log("Updating drawer states..."); // Debug log
+    console.log("Updating drawer states...");
 
     const volumeDrawer = document.querySelector(".drawer:nth-child(1)");
     const meshDrawer = document.querySelector(".drawer:nth-child(2)");
     const fiberDrawer = document.querySelector(".drawer:nth-child(3)");
 
-    // Log current state
-    console.log("Volumes:", this.viewer.volumes?.length);
-    console.log("Meshes:", this.viewer.meshes?.length);
-
     // Check for volumes
     if (this.viewer.volumes && this.viewer.volumes.length > 0) {
       volumeDrawer?.classList.add("active");
+      volumeDrawer?.classList.remove("inactive");
       console.log("Volume drawer activated");
     } else {
       volumeDrawer?.classList.remove("active");
+      volumeDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (volumeDrawer) {
+        volumeDrawer.style.width = "40px";
+        volumeDrawer.classList.remove("pinned");
+        volumeDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
 
     // Check for compatible meshes
-    const compatibleMesh = this.getFirstCompatibleMesh();
+    const compatibleMesh = getFirstCompatibleMesh(this.viewer);
     if (compatibleMesh) {
       meshDrawer?.classList.add("active");
+      meshDrawer?.classList.remove("inactive");
       console.log("Mesh drawer activated");
     } else {
       meshDrawer?.classList.remove("active");
+      meshDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (meshDrawer) {
+        meshDrawer.style.width = "40px";
+        meshDrawer.classList.remove("pinned");
+        meshDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
 
     // Check for compatible fibers
-    const compatibleFiber = this.getFirstCompatibleFiber();
+    const compatibleFiber = getFirstCompatibleFiber(this.viewer);
     if (compatibleFiber) {
       fiberDrawer?.classList.add("active");
+      fiberDrawer?.classList.remove("inactive");
       console.log("Fiber drawer activated");
     } else {
       fiberDrawer?.classList.remove("active");
+      fiberDrawer?.classList.add("inactive");
+      // Reset width and unpin if inactive
+      if (fiberDrawer) {
+        fiberDrawer.style.width = "40px";
+        fiberDrawer.classList.remove("pinned");
+        fiberDrawer.querySelector('.pin-icon')?.classList.remove("pinned");
+      }
     }
   }
 
@@ -124,7 +144,6 @@ export class NiiVueViewer {
       onOverlayLoaded: () => {
         this.updateDrawerStates();
       },
-
       onMeshLoaded: () => {
         this.updateDrawerStates();
       },
@@ -134,68 +153,54 @@ export class NiiVueViewer {
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
 
-    // Initialize controls
-    const volumePane = new VolumePane(this.viewer);
-    const meshPane = new MeshPane(this.viewer);
-    const fiberPane = new FiberPane(this.viewer);
-  }
+    const volumePane = new VolumePane(this);
+    this.loadedVolumes.push({ pane: volumePane });
 
+    const meshPane = new MeshPane(this);
+    this.loadedMeshes.push({ pane: meshPane });
 
-  getFirstCompatibleMesh() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = "." + mesh.name.split(".").pop().toLowerCase();
-      if (this.acceptedMeshFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
-  }
-
-  getFirstCompatibleFiber() {
-    if (!this.viewer.meshes || this.viewer.meshes.length === 0) return null;
-
-    for (let i = 0; i < this.viewer.meshes.length; i++) {
-      const mesh = this.viewer.meshes[i];
-      const fileExtension = "." + mesh.name.split(".").pop().toLowerCase();
-      if (this.acceptedFiberFormats.includes(fileExtension)) {
-        return { mesh, index: i };
-      }
-    }
-    return null;
+    const fiberPane = new FiberPane(this);
+    this.loadedFibers.push({ pane: fiberPane });
   }
 
   setupPinControls() {
     const pinIcons = document.querySelectorAll(".pin-icon");
+    const drawers = document.querySelectorAll(".drawer");
+
+    // Add inactive class to all drawers initially
+    drawers.forEach(drawer => {
+      drawer.classList.add('inactive');
+    });
 
     pinIcons.forEach((pin) => {
       pin.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent drawer from closing
-
+        e.stopPropagation();
         const drawer = pin.closest(".drawer");
-        const isPinned = drawer.classList.toggle("pinned");
-        pin.classList.toggle("pinned");
+        
+        // Only allow pinning if drawer is active
+        if (drawer.classList.contains('active')) {
+          const isPinned = drawer.classList.toggle("pinned");
+          pin.classList.toggle("pinned");
 
-        // If we're unpinning and not hovering, close the drawer
-        if (!isPinned && !drawer.matches(":hover")) {
-          drawer.style.width = "40px";
+          if (!isPinned && !drawer.matches(":hover")) {
+            drawer.style.width = "40px";
+          }
         }
       });
     });
 
-    // Handle drawer hover when pinned
-    const drawers = document.querySelectorAll(".drawer");
+    // Handle drawer hover
     drawers.forEach((drawer) => {
       drawer.addEventListener("mouseenter", () => {
-        if (!drawer.classList.contains("pinned")) {
+        // Only expand if drawer is active and not pinned
+        if (drawer.classList.contains('active') && !drawer.classList.contains("pinned")) {
           drawer.style.width = "340px";
         }
       });
 
       drawer.addEventListener("mouseleave", () => {
-        if (!drawer.classList.contains("pinned")) {
+        // Only collapse if drawer is active and not pinned
+        if (drawer.classList.contains('active') && !drawer.classList.contains("pinned")) {
           drawer.style.width = "40px";
         }
       });
@@ -222,6 +227,12 @@ export class NiiVueViewer {
       : null;
   }
 
+  updateSceneState() {
+    this.utilitiesPane.updateJSON();
+
+    // console.log("Utilities updated");
+  }
+
   async loadFile(file) {
     try {
       await this.viewer.loadFromFile(file);
@@ -235,7 +246,7 @@ export class NiiVueViewer {
       }
 
       // Update drawer states after any file load
-      this.updateDrawerStates();
+      this.updateSceneState();
 
       const compileAndExecuteBoostlet = (code) => {
         // Remove any existing script to avoid duplicates
@@ -252,7 +263,7 @@ export class NiiVueViewer {
       };
 
       const baseurl =
-        "https://raw.githubusercontent.com/mpsych/powerboost/refs/heads/main/";
+        "https://raw.githubusercontent.com/gaiborjosue/powerboost/refs/heads/tweakpane/";
       const scriptName = "floatingUI.js";
 
       const loadBoostlet = (url) => {
@@ -278,7 +289,6 @@ export class NiiVueViewer {
         .catch((error) => console.error("Error loading PowerBoost:", error));
 
       return true;
-
     } catch (error) {
       console.error("Error loading file:", error);
 

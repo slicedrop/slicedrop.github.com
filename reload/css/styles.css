@@ -1,25 +1,33 @@
 :root {
-  --tp-base-background-color: hsla(0, 0%, 10%, 0.8);
-  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
-  --tp-button-background-color: hsla(0, 0%, 80%, 1);
-  --tp-button-background-color-active: hsla(0, 0%, 100%, 1);
-  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1);
-  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1);
-  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
-  --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
-  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
-  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
-  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.4);
-  --tp-container-foreground-color: hsla(0, 0%, 100%, 0.5);
-  --tp-groove-foreground-color: hsla(0, 0%, 0%, 0.2);
-  --tp-input-background-color: hsla(0, 0%, 0%, 0.3);
-  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.6);
-  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.5);
-  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.4);
-  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.5);
-  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.5);
-  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
-  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
+  --tp-base-background-color: hsla(0, 0%, 10%, 0.00);
+  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.00);
+  --tp-button-background-color: hsla(0, 0%, 80%, 1.00);
+  --tp-button-background-color-active: hsla(0, 0%, 100%, 1.00);
+  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1.00);
+  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1.00);
+  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.80);
+  --tp-container-background-color: hsla(0, 0%, 0%, 0.22);
+  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.28);
+  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.50);
+  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.40);
+  --tp-container-foreground-color: hsla(0, 0%, 100%, 1.00);
+  --tp-groove-foreground-color: hsla(0, 0%, 100%, 0.00);
+  --tp-input-background-color: hsla(0, 0%, 0%, 0.30);
+  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.60);
+  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.50);
+  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.40);
+  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.50);
+  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.95);
+  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.30);
+  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.30);
+    /** Max height of dropdown panel. */
+    --tp-plugin-thumbnail-list-height: 400px;
+
+    /** Fixed width of dropdown panel. */
+    --tp-plugin-thumbnail-list-width: 200px;
+  
+    /** Width/height of (square) thumbnail. */
+    --tp-plugin-thumbnail-list-thumb-size: 20px;
 }
 
 body {
@@ -368,11 +376,11 @@ body {
 /* Drawer Styles */
 .drawer {
   position: relative;
-  width: 40px;
+  width: 26px;
   height: calc((100vh - 40px - 40px) / 3);
   min-height: 200px;
-  background-color: #1a1a1a;
-  border-radius: 0 4px 4px 0;
+  background-color: #161616;
+  border-radius: 0 8px 8px 0;
   cursor: default;
   transition: width 0.3s ease, background-color 0.3s ease;
   overflow: hidden;
@@ -398,7 +406,7 @@ body {
 
 .drawer-tab-text {
   position: absolute;
-  right: 12px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%) rotate(180deg);
   color: #fff;
@@ -406,7 +414,7 @@ body {
   text-transform: uppercase;
   font-family: "Manrope", sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 10px;
   letter-spacing: 1px;
   transition: transform 0.3s ease;
   white-space: nowrap;
@@ -415,40 +423,23 @@ body {
 
 .drawer-content {
   position: absolute;
-  left: 10px;
+  left: 6px;
   top: 0;
   height: 100%;
-  width: calc(100% - 50px);
+  width: calc(100% - 32px);
   opacity: 0;
   transition: opacity 0.2s ease;
-  padding: 15px 15px 15px 5px;
+  padding: 7px 5px 2px 0px;
   box-sizing: border-box;
   overflow-y: auto;
 }
 
-.drawer-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.drawer-content::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-.drawer-content::-webkit-scrollbar-thumb {
-  background: #404040;
-  border-radius: 4px;
-}
-
-.drawer-content::-webkit-scrollbar-thumb:hover {
-  background: #505050;
-}
-
 .pin-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 6px;
+  right: 6px;
   color: #666;
-  font-size: 12px;
+  font-size: 10px;
   opacity: 0;
   transition: all 0.3s ease;
   transform: rotate(-45deg);
@@ -468,13 +459,20 @@ body {
   transition: opacity 0.3s ease;
 }
 
+.drawer:not(:hover):not(.active) {
+  width: 26px !important; /* Force width reset when not hovering and not active */
+}
+
 /* Active state hover effects */
 .drawer.active {
   cursor: pointer;
 }
 
+.drawer.active:not(.pinned):not(:hover) {
+  width: 26px !important; /* Force width reset when not hovering */
+}
+
 .drawer.active:hover {
-  width: 340px;
   background-color: #333;
 }
 
@@ -496,7 +494,6 @@ body {
 
 /* Pinned state styles */
 .drawer.pinned {
-  width: 340px;
   cursor: pointer;
 }
 
@@ -516,4 +513,25 @@ body {
 
 .hidden {
   display: none !important;
+}
+
+.drawer-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.drawer-content::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-thumb:hover {
+  background: #505050;
+}
+
+.utilities-pane .tp-lblv_v {
+  width: 75%;
 }

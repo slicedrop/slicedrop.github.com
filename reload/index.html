@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <link rel="stylesheet" href="./css/styles.css" />
 
     <title>Slice:Drop - 3D Scientific Visualization</title>
@@ -19,8 +19,11 @@
     />
     <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
     <script type="module">
-      import {Pane} from 'https://cdn.jsdelivr.net/npm/tweakpane@4.0.3/dist/tweakpane.min.js';
+      import { Pane } from "https://cdn.jsdelivr.net/npm/tweakpane@4.0.3/dist/tweakpane.min.js";
+      ;
+
       window.Pane = Pane;
+
     </script>
     <script type="module" src="./js/index.js"></script>
   </head>
@@ -46,7 +49,11 @@
 
           <!-- Row of example images -->
           <div class="examples-grid">
-            <div class="example-card" data-example="1" data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++">
+            <div
+              class="example-card"
+              data-example="1"
+              data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++"
+            >
               <img src="./images/14yrold.png" alt="Brain MRI Example" />
             </div>
 
@@ -97,13 +104,7 @@
               <div class="drop-zone__separator">or</div>
               <label class="drop-zone__button">
                 Choose File
-                <input
-                  type="file"
-                  id="fileInput"
-                  class="hidden"
-                  multiple
-
-                />
+                <input type="file" id="fileInput" class="hidden" multiple />
               </label>
             </div>
           </div>
@@ -152,9 +153,7 @@
             <span class="drawer-tab-text">Volume</span>
             <i class="fa-solid fa-thumbtack pin-icon"></i>
           </div>
-          <div class="drawer-content">
-
-          </div>
+          <div class="drawer-content"></div>
         </div>
 
         <div class="drawer">
@@ -163,9 +162,7 @@
             <span class="drawer-tab-text">Mesh</span>
           </div>
 
-          <div class="drawer-content">
-          
-          </div>
+          <div class="drawer-content"></div>
         </div>
 
         <div class="drawer">
@@ -174,30 +171,13 @@
             <span class="drawer-tab-text">Fibers</span>
           </div>
 
-          <div class="drawer-content">
-          </div>
+          <div class="drawer-content"></div>
         </div>
       </div>
       <canvas id="gl1"></canvas>
     </div>
 
     <script>
-      // Add performance stats
-      const statsGui = document.createElement("script");
-      statsGui.onload = function () {
-        const stats = new Stats();
-        stats.dom.style.top = "0";
-        stats.dom.style.right = "0";
-        stats.dom.style.left = "";
-        document.body.appendChild(stats.dom);
-        requestAnimationFrame(function loop() {
-          stats.update();
-          requestAnimationFrame(loop);
-        });
-      };
-      statsGui.src = "https://mrdoob.github.io/stats.js/build/stats.min.js";
-      document.head.appendChild(statsGui);
-
       // Set the default caption to the first example
       document.getElementById("dynamic-caption").innerText = document
         .querySelector(".example-card")

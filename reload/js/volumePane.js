@@ -1,8 +1,8 @@
 export class VolumePane {
   constructor(viewer) {
-    this.viewer = viewer;
+    this.mainViewer = viewer;
+    this.viewer = viewer.viewer;
     this.pane = new Pane({
-      title: 'Volume',
       expanded: true,
       container: document.querySelector('.drawer:first-child .drawer-content'),
     });
@@ -30,6 +30,12 @@ export class VolumePane {
   }
 
   setupControls() {
+    const updateUtilities = () => {
+        this.mainViewer.updateSceneState();
+
+    };
+
+
     // Slice Type Dropdown
     const sliceTypeFolder = this.pane.addFolder({
       title: 'Slice Type',
@@ -66,6 +72,8 @@ export class VolumePane {
           this.toggleClipperControls(false);
           break;
       }
+
+      updateUtilities();
     });
 
     // Color Controls
@@ -77,7 +85,10 @@ export class VolumePane {
       label: 'Start',
       view: 'color'
     }).on('change', (ev) => {
+
       this.updateColormap();
+      
+      updateUtilities();
     });
 
     colorFolder.addBinding(this.state, 'endColor', {
@@ -85,6 +96,8 @@ export class VolumePane {
       view: 'color'
     }).on('change', (ev) => {
       this.updateColormap();
+
+      updateUtilities();
     });
 
     // View Controls
@@ -95,6 +108,8 @@ export class VolumePane {
     viewFolder.addBinding(this.state.viewControls, 'smooth')
       .on('change', (ev) => {
         this.viewer.setInterpolation(!ev.value);
+
+        updateUtilities();
       });
 
     viewFolder.addBinding(this.state.viewControls, 'invert')
@@ -102,6 +117,8 @@ export class VolumePane {
         if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
         this.viewer.volumes[0].colormapInvert = ev.value;
         this.viewer.updateGLVolume();
+
+        updateUtilities();
       });
 
     // Gamma Control
@@ -111,6 +128,8 @@ export class VolumePane {
       step: 0.01
     }).on('change', (ev) => {
       this.viewer.setGamma(ev.value);
+
+      updateUtilities();
     });
 
     // Threshold Control
@@ -122,6 +141,8 @@ export class VolumePane {
       const volume = this.viewer.volumes[0];
       volume.cal_min = ev.value;
       this.viewer.updateGLVolume();
+
+      updateUtilities();
     });
 
     // Clipper Controls (hidden by default)
@@ -138,6 +159,8 @@ export class VolumePane {
         const currentOpacity = Math.abs(clr[3]);
         clr[3] = currentOpacity * (this.isShaded ? -1 : 1);
         this.viewer.setClipPlaneColor(clr);
+
+        updateUtilities();
       });
 
       this.clipperFolder.addBinding(this.state.clipper, 'clipColor', {
@@ -154,6 +177,8 @@ export class VolumePane {
           currentOpacity * (this.isShaded ? -1 : 1)
         ];
         this.viewer.setClipPlaneColor(clr);
+
+        updateUtilities();
       });
   
       this.clipperFolder.addBinding(this.state.clipper, 'opacity', {
@@ -168,6 +193,8 @@ export class VolumePane {
         const newOpacity = ev.value * (this.isShaded ? -1 : 1);
         clr = [...rgb, newOpacity];
         this.viewer.setClipPlaneColor(clr);
+
+        updateUtilities();
       });
   
       this.clipperFolder.addBinding(this.state.clipper, 'thickness', {
@@ -176,6 +203,8 @@ export class VolumePane {
         step: 0.01
       }).on('change', (ev) => {
         this.viewer.setClipPlaneThick(ev.value);
+
+        updateUtilities();
       });
     }
 
@@ -184,7 +213,6 @@ export class VolumePane {
   }
 
   updateColormap() {
-    if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
 
     const startColor = this.hexToRgb(this.state.startColor);
     const endColor = this.hexToRgb(this.state.endColor);
