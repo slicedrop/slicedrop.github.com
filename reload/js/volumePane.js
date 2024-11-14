@@ -12,6 +12,7 @@ export class VolumePane {
       sliceType: 'multi',
       startColor: '#000000',
       opacity: 1,
+      xray: 0,
       endColor: '#FFFFFF',
       viewControls: {
         smooth: true,
@@ -110,6 +111,18 @@ export class VolumePane {
       if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
       this.viewer.setOpacity(0, ev.value);
       this.viewer.updateGLVolume();
+
+      updateUtilities();
+    });
+
+    colorFolder.addBinding(this.state, 'xray', {
+      min: 0,
+      max: 5,
+      step: 0.01
+    }).on('change', (ev) => {
+      if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
+      this.viewer.opts.meshXRay = ev.value / 10;
+      this.viewer.drawScene();
 
       updateUtilities();
     });
