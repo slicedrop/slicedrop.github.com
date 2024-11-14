@@ -11,10 +11,12 @@ export class VolumePane {
     this.state = {
       sliceType: 'multi',
       startColor: '#000000',
+      opacity: 1,
       endColor: '#FFFFFF',
       viewControls: {
         smooth: true,
-        invert: false
+        invert: false,
+        slices: false
       },
       gamma: 1.0,
       threshold: 0,
@@ -100,9 +102,30 @@ export class VolumePane {
       updateUtilities();
     });
 
+    colorFolder.addBinding(this.state, 'opacity', {
+      min: 0,
+      max: 1,
+      step: 0.01
+    }).on('change', (ev) => {
+      if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
+      this.viewer.setOpacity(0, ev.value);
+      this.viewer.updateGLVolume();
+
+      updateUtilities();
+    });
+
     // View Controls
     const viewFolder = this.pane.addFolder({
       title: 'View Controls',
+    });
+
+    viewFolder.addBinding(this.state.viewControls, 'slices').on('change', (ev) => {
+      if (ev.value) {
+        this.viewer.setVolumeRenderIllumination(-1);
+      } else {
+        this.viewer.setVolumeRenderIllumination(0);
+      }
+      updateUtilities();
     });
 
     viewFolder.addBinding(this.state.viewControls, 'smooth')
@@ -206,6 +229,7 @@ export class VolumePane {
 
         updateUtilities();
       });
+  
     }
 
   toggleClipperControls(show) {

@@ -57,7 +57,7 @@ export class DropZoneHandler {
     const loadPromises = dataFiles.map(file => this.viewer.loadFile(file));
     await Promise.all(loadPromises);
 
-    // Then apply any JSON configurations after data is loaded
+
     for (const jsonFile of jsonFiles) {
       try {
         const content = await this.readJSONFile(jsonFile);
@@ -82,7 +82,6 @@ export class DropZoneHandler {
     const loadPromises = dataFiles.map(file => this.viewer.loadFile(file));
     await Promise.all(loadPromises);
 
-    // Then apply any JSON configurations after data is loaded
     for (const jsonFile of jsonFiles) {
       try {
         const content = await this.readJSONFile(jsonFile);
