@@ -140,6 +140,8 @@ export class NiiVueViewer {
       show3Dcrosshair: true,
       onImageLoaded: () => {
         this.updateDrawerStates();
+        this.originalImage = this.viewer.volumes[0].img.slice();
+        
       },
       onOverlayLoaded: () => {
         this.updateDrawerStates();
