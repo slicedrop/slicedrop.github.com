@@ -12,6 +12,14 @@ export class NiiVueViewer {
     this.loadedVolumes = [];
     this.loadedMeshes = [];
     this.loadedFibers = [];
+
+    this.sliders = {
+      ax: document.getElementById('axSlider'),
+      cor: document.getElementById('corSlider'),
+      sag: document.getElementById('sagSlider')
+    };
+
+  
     this.initialize();
 
     window.nv = this.viewer;
@@ -36,6 +44,69 @@ export class NiiVueViewer {
     };
 
     this.setupExampleHandlers();
+    this.setupSliders();
+    window.addEventListener('resize', () => this.resizeSliders());
+  }
+
+  setupSliders() {
+    // Handle slider input
+    const moveSlider = () => {
+      this.viewer.scene.crosshairPos = [
+        this.sliders.sag.value / 100,
+        this.sliders.cor.value / 100,
+        this.sliders.ax.value / 100
+      ];
+      this.viewer.drawScene();
+    };
+
+    // Add input listeners
+    Object.values(this.sliders).forEach(slider => {
+      slider.oninput = moveSlider;
+    });
+
+    // Handle location changes
+    this.viewer.opts.onLocationChange = () => {
+      if (this.isMultiView()) {
+        const pos = this.viewer.scene.crosshairPos;
+        this.sliders.ax.value = Math.round(pos[2] * 100);
+        this.sliders.cor.value = Math.round(pos[1] * 100);
+        this.sliders.sag.value = Math.round(pos[0] * 100);
+        this.resizeSliders();
+      }
+    };
+  }
+
+  isMultiView() {
+    const volumePane = this.loadedVolumes[0]?.pane;
+    return volumePane?.state.sliceType === 'multi';
+  }
+
+  resizeSliders() {
+    if (!this.isMultiView()) {
+      Object.values(this.sliders).forEach(slider => {
+        slider.style.visibility = 'hidden';
+      });
+      return;
+    }
+
+    const dpr = 1/this.viewer.uiData.dpr;
+    const container = document.getElementById('gl1');
+    const containerRect = container.getBoundingClientRect();
+
+    Object.entries(this.sliders).forEach(([type, slider], index) => {
+      const slice = this.viewer.screenSlices.find(s => s.axCorSag === index);
+      const ltwh = slice?.leftTopWidthHeight || [-1, 0, 0, 0];
+
+      if (ltwh[0] < 0) {
+        slider.style.visibility = 'hidden';
+        return;
+      }
+
+      slider.style.visibility = 'visible';
+      slider.style.left = `${Math.min(Math.max(ltwh[0] * dpr, 0), containerRect.width - 20)}px`;
+      slider.style.top = `${Math.min(Math.max((ltwh[1] - this.viewer.opts.tileMargin) * dpr, 0), containerRect.height - 20)}px`;
+      slider.style.width = `${Math.min(ltwh[2] * dpr, containerRect.width - parseFloat(slider.style.left))}px`;
+    });
   }
 
   setupExampleHandlers() {
@@ -142,6 +213,7 @@ export class NiiVueViewer {
         this.updateDrawerStates();
         this.originalImage = this.viewer.volumes[0].img.slice();
         
+        this.resizeSliders();
       },
       onOverlayLoaded: () => {
         this.updateDrawerStates();
@@ -149,9 +221,24 @@ export class NiiVueViewer {
       onMeshLoaded: () => {
         this.updateDrawerStates();
       },
+      onLocationChange: (data) => {
+        if (this.viewer.opts.sliceType === this.viewer.sliceTypeMultiplanar) {
+          let fracXYZ = this.viewer.scene.crosshairPos;
+          const axSlider = document.getElementById('axSlider');
+          const corSlider = document.getElementById('corSlider');
+          const sagSlider = document.getElementById('sagSlider');
+          
+          if (axSlider && corSlider && sagSlider) {
+            axSlider.value = Math.round(fracXYZ[2] * 100);
+            corSlider.value = Math.round(fracXYZ[1] * 100);
+            sagSlider.value = Math.round(fracXYZ[0] * 100);
+          }
+          this.resizeSliders();
+        }
+      }
     });
 
-    this.viewer.attachTo(this.canvasId);
+    this.viewer.attachTo('gl1');
     this.viewer.setMultiplanarLayout(Number(0));
     this.viewer.setHeroImage(7 * 0.1)
     this.viewer.opts.multiplanarEqualSize = true;
@@ -166,6 +253,14 @@ export class NiiVueViewer {
 
     const fiberPane = new FiberPane(this);
     this.loadedFibers.push({ pane: fiberPane });
+
+    // Add resize observer to handle container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      this.resizeSliders();
+    });
+    resizeObserver.observe(document.getElementById('gl1'));
+
+    this.setupSliders();
   }
 
   setupPinControls() {
