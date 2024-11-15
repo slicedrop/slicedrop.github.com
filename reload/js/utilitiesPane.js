@@ -79,7 +79,7 @@ export class UtilitiesPane {
     this.memoryGraph = performanceFolder.addBinding(this.state, "wave",{
       readonly: true,
       view: 'graph',  
-      label: 'Memory (MB)',
+      label: 'Memory (%)',
       rows: 2,
     })
 
@@ -135,7 +135,7 @@ export class UtilitiesPane {
 
     const measure = () => {
       const usedHeap = performance.memory.usedJSHeapSize;
-      const totalHeap = performance.memory.totalJSHeapSize;
+      const totalHeap = performance.memory.jsHeapSizeLimit;
       const memoryPercentage = (usedHeap / totalHeap) * 100;
       this.state.wave = memoryPercentage;
 
