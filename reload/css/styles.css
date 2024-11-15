@@ -1,25 +1,27 @@
 :root {
-  --tp-base-background-color: hsla(0, 0%, 10%, 0.00);
-  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.00);
-  --tp-button-background-color: hsla(0, 0%, 80%, 1.00);
-  --tp-button-background-color-active: hsla(0, 0%, 100%, 1.00);
-  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1.00);
-  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1.00);
-  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.80);
-  --tp-container-background-color: hsla(0, 0%, 0%, 0.22);
-  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.28);
-  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.50);
-  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.40);
-  --tp-container-foreground-color: hsla(0, 0%, 100%, 1.00);
-  --tp-groove-foreground-color: hsla(0, 0%, 100%, 0.00);
-  --tp-input-background-color: hsla(0, 0%, 0%, 0.30);
-  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.60);
-  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.50);
-  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.40);
-  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.50);
-  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.95);
-  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.30);
-  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.30);
+  --tp-base-background-color: hsla(0, 0%, 10%, 0.5);
+  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
+  --tp-button-background-color: hsla(0, 0%, 80%, 1);
+  --tp-button-background-color-active: hsla(0, 0%, 100%, 1);
+  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1);
+  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1);
+  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
+  --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-container-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-groove-foreground-color: hsla(0, 0%, 0%, 0.2);
+  --tp-input-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
+
+
     /** Max height of dropdown panel. */
     --tp-plugin-thumbnail-list-height: 400px;
 
@@ -472,9 +474,6 @@ body {
   width: 26px !important; /* Force width reset when not hovering */
 }
 
-.drawer.active:hover {
-  background-color: #333;
-}
 
 .drawer.active:hover .drawer-content {
   opacity: 1;
