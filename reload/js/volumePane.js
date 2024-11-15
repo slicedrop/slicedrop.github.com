@@ -39,6 +39,13 @@ export class VolumePane {
 
     this.setupControls();
   }
+  
+  addSliders = (show) => {
+    show ? this.mainViewer.resizeSliders() : 
+      Object.values(this.mainViewer.sliders).forEach(slider => {
+        slider.style.visibility = 'hidden';
+      });
+  }
 
   setupControls() {
     const updateUtilities = () => {
@@ -53,6 +60,14 @@ export class VolumePane {
       ],
     });
 
+    const sliceTypeConfig = {
+      axial: [this.viewer.sliceTypeAxial, false],
+      coronal: [this.viewer.sliceTypeCoronal, false],
+      sagittal: [this.viewer.sliceTypeSagittal, false],
+      '3d': [this.viewer.sliceTypeRender, true],
+      multi: [this.viewer.sliceTypeMultiplanar, false]
+    };
+    
     mainTab.pages[0]
       .addBinding(this.state, "sliceType", {
         options: {
@@ -64,31 +79,16 @@ export class VolumePane {
         },
       })
       .on("change", (ev) => {
-        switch (ev.value) {
-          case "axial":
-            this.viewer.setSliceType(this.viewer.sliceTypeAxial);
-            this.toggleClipperControls(false);
-            break;
-          case "coronal":
-            this.viewer.setSliceType(this.viewer.sliceTypeCoronal);
-            this.toggleClipperControls(false);
-            break;
-          case "sagittal":
-            this.viewer.setSliceType(this.viewer.sliceTypeSagittal);
-            this.toggleClipperControls(false);
-            break;
-          case "3d":
-            this.viewer.setSliceType(this.viewer.sliceTypeRender);
-            this.toggleClipperControls(true);
-            break;
-          case "multi":
-            this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
-            this.toggleClipperControls(false);
-            break;
-        }
+        const [sliceType, showClipper] = sliceTypeConfig[ev.value];
+        this.viewer.setSliceType(sliceType);
+        this.toggleClipperControls(showClipper);
+        this.addSliders(ev.value === 'multi');
 
+        this.mainViewer.updateDrawerStates();
         updateUtilities();
       });
+
+      
 
     mainTab.pages[1]
       .addBinding(this.state.segmentation, "clickToSegment", {

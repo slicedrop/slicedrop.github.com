@@ -20,10 +20,7 @@
     <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
     <script type="module">
       import { Pane } from "https://cdn.jsdelivr.net/npm/tweakpane@4.0.3/dist/tweakpane.min.js";
-      ;
-
       window.Pane = Pane;
-
     </script>
     <script type="module" src="./js/index.js"></script>
   </head>
@@ -174,9 +171,14 @@
           <div class="drawer-content"></div>
         </div>
       </div>
-      <canvas id="gl1"></canvas>
+        <canvas id="gl1"></canvas>
+        <input type="range" id="axSlider" min="0" max="100" data-axcorsag="0"
+               style="position: absolute; visibility: hidden;">
+        <input type="range" id="corSlider" min="0" max="100" data-axcorsag="1"
+               style="position: absolute; visibility: hidden;">
+        <input type="range" id="sagSlider" min="0" max="100" data-axcorsag="2"
+               style="position: absolute; visibility: hidden;">
     </div>
-
     <script>
       // Set the default caption to the first example
       document.getElementById("dynamic-caption").innerText = document
