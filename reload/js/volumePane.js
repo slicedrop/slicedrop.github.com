@@ -19,6 +19,9 @@ export class VolumePane {
         invert: false,
         slices: false
       },
+      segmentation: {
+        clickToSegment: false,
+      },
       gamma: 1.0,
       threshold: 0,
       clipper: {
@@ -38,13 +41,15 @@ export class VolumePane {
 
     };
 
-
-    // Slice Type Dropdown
-    const sliceTypeFolder = this.pane.addFolder({
-      title: 'Slice Type',
+    const mainTab = this.pane.addTab({
+      pages: [
+        {title: 'Slice Type'},
+        {title: 'Segmentation'},
+      ],
     });
+    
 
-    sliceTypeFolder.addBinding(this.state, 'sliceType', {
+    mainTab.pages[0].addBinding(this.state, 'sliceType', {
       options: {
         Axial: 'axial',
         Coronal: 'coronal',
@@ -77,6 +82,25 @@ export class VolumePane {
       }
 
       updateUtilities();
+    });
+
+    mainTab.pages[1].addBinding(this.state.segmentation, 'clickToSegment', {
+      label: 'Click to Segment'
+    }).on('change', (ev) => {
+      this.viewer.setDrawingEnabled(ev.value);
+      this.viewer.opts.clickToSegment = ev.value;
+      
+      if (ev.value) {
+        if (this.viewer.opts.penValue < 1 || this.viewer.opts.penValue > 6) {
+          this.viewer.setPenValue(1, true);
+        }
+      }
+    });
+
+    mainTab.pages[1].addButton({
+      title: 'Undo Segmentation'
+    }).on('click', () => {
+      this.viewer.drawUndo();
     });
 
     // Color Controls
@@ -180,6 +204,7 @@ export class VolumePane {
 
       updateUtilities();
     });
+
 
     // Clipper Controls (hidden by default)
     this.clipperFolder = this.pane.addFolder({
