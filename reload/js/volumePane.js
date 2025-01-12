@@ -231,7 +231,7 @@ export class VolumePane {
 
     // Color Controls
     const colorFolder = this.pane.addFolder({
-      title: "Color Range",
+      title: "Color Range"
     });
 
     colorFolder

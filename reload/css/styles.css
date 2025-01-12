@@ -91,13 +91,13 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
 }
 
 .header-text h1 {
   font-family: "Manrope", sans-serif;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin: 0;
 }
 
@@ -373,16 +373,34 @@ body {
   background-color: #1d4ed8;
 }
 
+.viewer-header {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* Above drawers */
+}
+
+.viewer-logo {
+  width: 80px; /* Adjust size as needed */
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.viewer-logo:hover {
+  opacity: 0.8;
+}
+
 /* Drawer Styles */
 .drawer {
   position: relative;
   width: 26px;
-  height: calc((100vh - 40px - 40px) / 3);
+  height: calc((100vh - 40px - 40px) / 3.5);
   min-height: 200px;
   background-color: #161616;
   border-radius: 0 8px 8px 0;
   cursor: default;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition: width 0.2s ease, background-color 0.2s ease;
   overflow: hidden;
 }
 
@@ -390,14 +408,14 @@ body {
 .drawer-container {
   position: fixed;
   left: 0;
-  top: 20px;
+  top: 110px;
   bottom: 20px;
   z-index: 1000;
   display: none;
   flex-direction: column;
   gap: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.1s ease;
 }
 
 .drawer-container.visible {
@@ -417,7 +435,6 @@ body {
   font-weight: 500;
   font-size: 10px;
   letter-spacing: 1px;
-  transition: transform 0.3s ease;
   white-space: nowrap;
   z-index: 2;
 }
@@ -429,7 +446,7 @@ body {
   height: 100%;
   width: calc(100% - 32px);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
   padding: 7px 5px 2px 0px;
   box-sizing: border-box;
   overflow-y: auto;

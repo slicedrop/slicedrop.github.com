@@ -240,7 +240,10 @@ export class NiiVueViewer {
 
     this.viewer.attachTo('gl1');
     this.viewer.setMultiplanarLayout(Number(0));
-    this.viewer.setHeroImage(7 * 0.1)
+    this.viewer.setHeroImage(7 * 0.1);
+    console.log(this.viewer)
+    this.viewer.opts.textHeight = 0.03;
+    this.viewer.opts.crosshairWidth = 0.5;
     this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
