@@ -171,25 +171,53 @@
           <div class="drawer-content"></div>
         </div>
       </div>
-        <canvas id="gl1"></canvas>
-        <input type="range" id="axSlider" min="0" max="100" data-axcorsag="0"
-               style="position: absolute; visibility: hidden;">
-        <input type="range" id="corSlider" min="0" max="100" data-axcorsag="1"
-               style="position: absolute; visibility: hidden;">
-        <input type="range" id="sagSlider" min="0" max="100" data-axcorsag="2"
-               style="position: absolute; visibility: hidden;">
+      <canvas id="gl1"></canvas>
+      <input
+        type="range"
+        id="axSlider"
+        min="0"
+        max="100"
+        data-axcorsag="0"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="corSlider"
+        min="0"
+        max="100"
+        data-axcorsag="1"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="sagSlider"
+        min="0"
+        max="100"
+        data-axcorsag="2"
+        style="position: absolute; visibility: hidden"
+      />
     </div>
     <script>
-      // Set the default caption to the first example
-      document.getElementById("dynamic-caption").innerText = document
-        .querySelector(".example-card")
-        .getAttribute("data-caption");
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".example-card");
+        const captionEl = document.getElementById("dynamic-caption");
 
-      // Update caption on hover
-      document.querySelectorAll(".example-card").forEach((card) => {
-        card.addEventListener("mouseenter", (event) => {
-          const captionText = event.currentTarget.getAttribute("data-caption");
-          document.getElementById("dynamic-caption").innerText = captionText;
+        // Set first card as active by default
+        cards[0].classList.add("active");
+        captionEl.innerText = cards[0].getAttribute("data-caption");
+
+        // Update active state and caption on hover
+        cards.forEach((card) => {
+          card.addEventListener("mouseenter", (event) => {
+            // Remove active class from all cards
+            cards.forEach((c) => c.classList.remove("active"));
+
+            // Add active class to hovered card
+            card.classList.add("active");
+
+            // Update caption
+            captionEl.innerText = card.getAttribute("data-caption");
+          });
         });
       });
     </script>
