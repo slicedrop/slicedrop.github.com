@@ -36,7 +36,6 @@ export class UtilitiesPane {
 
     this.setupControls();
     this.setupKeyboardToggle();
-    this.startPerformanceMonitoring();
   }
 
   setupKeyboardToggle() {
@@ -45,6 +44,7 @@ export class UtilitiesPane {
       if (event.key.toLowerCase() === 'u') {
         // Toggle the pane visibility
         this.togglePane();
+        this.startPerformanceMonitoring();
       }
     });
   }
