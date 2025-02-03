@@ -90,7 +90,7 @@ export class MeshPane {
     // Color Control
     basicFolder.addBinding(this.state, 'meshColor', {
       picker: 'inline',
-      expanded: true,
+      expanded: false,
       label: 'Color'
     }).on('change', (ev) => {
       const compatibleMesh = getFirstCompatibleMesh(this.viewer);

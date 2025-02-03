@@ -551,35 +551,66 @@ body {
   width: 75%;
 }
 
-
+/* Existing common styles for all sliders */
 input[type="range"] {
   -webkit-appearance: none;
   position: absolute;
   height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1); /* fallback background if needed */
   outline: none;
   padding: 0;
   margin: 0;
   z-index: 100;
   pointer-events: auto;
+  
 }
 
+/* Increase thumb size so they pop out more, then adjust their position */
+/* WebKit (Chrome, Safari) */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  width: 22px;  /* Increased width */
+  height: 14px; /* Increased height */
   background: #ffffff;
   cursor: pointer;
+  /* Center the thumb relative to the track:
+     (thumb height - track height) / 2 = (18px - 10px) / 2 = 4px offset */
+  margin-top: -3px;
+  margin-bottom: -3px;
 }
 
-/* For Firefox support */
+/* Firefox */
 input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border: 0;
-  border-radius: 50%;
+  width: 22px;
+  height: 14px;
   background: #ffffff;
   cursor: pointer;
+  transform: translateY(-4px);
+}
+
+/* --- Custom slider track backgrounds per slider --- */
+
+/* Blue track for the first slider */
+#axSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+#axSlider::-moz-range-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+/* Red track for the second slider */
+#corSlider::-webkit-slider-runnable-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+#corSlider::-moz-range-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+
+/* Green track for the third slider */
+#sagSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 255, 0, 0.4);
+}
+
+#sagSlider::-moz-range-track {
+  background: rgba(0, 255, 0, 0.4);
 }

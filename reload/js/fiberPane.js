@@ -76,8 +76,8 @@ export class FiberPane {
     propertiesFolder
       .addBinding(this.state, "radius", {
         min: 0,
-        max: 3.0,
-        step: 0.1,
+        max: 1.0,
+        step: 0.5,
         label: "Radius",
       })
       .on("change", (ev) => {
