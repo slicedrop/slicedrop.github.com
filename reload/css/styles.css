@@ -551,6 +551,43 @@ body {
   width: 75%;
 }
 
+#shortcut-tooltip {
+  position: fixed;
+  bottom: 20px;         /* Distance from the bottom */
+  left: 50%;           /* Distance from the left */
+  background: rgba(0, 0, 0, 0.7);  /* Semi-transparent dark background */
+  color: #fff;          /* White text */
+  padding: 12px 16px;   /* Padding for a nicer look */
+  border-radius: 6px;   /* Rounded corners */
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  z-index: 1000;        /* Ensure it's on top */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#shortcut-tooltip strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+#shortcut-tooltip ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+#shortcut-tooltip li {
+  list-style: disc;
+  margin-bottom: 4px;
+}
+
+/* Optional: Remove the bottom margin for the last list item */
+#shortcut-tooltip li:last-child {
+  margin-bottom: 0;
+}
+
+
 /* Existing common styles for all sliders */
 input[type="range"] {
   -webkit-appearance: none;
