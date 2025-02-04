@@ -604,7 +604,7 @@ input[type="range"] {
 /* WebKit (Chrome, Safari) */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 22px;  /* Increased width */
+  width: 15px;  /* Increased width */
   height: 14px; /* Increased height */
   /* White background but with some shadow to make it pop */
   background: #ffffff;
