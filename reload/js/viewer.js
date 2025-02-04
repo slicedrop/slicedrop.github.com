@@ -240,7 +240,7 @@ export class NiiVueViewer {
 
     this.viewer.attachTo('gl1');
     this.viewer.setHeroImage(7 * 0.1);
-    this.viewer.opts.textHeight = 0.04;
+    this.viewer.opts.textHeight = 0.02;
     this.viewer.opts.crosshairWidth = 0.5;
     this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
