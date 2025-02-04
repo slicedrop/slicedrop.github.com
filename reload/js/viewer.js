@@ -239,7 +239,6 @@ export class NiiVueViewer {
     });
 
     this.viewer.attachTo('gl1');
-    this.viewer.setMultiplanarLayout(Number(0));
     this.viewer.setHeroImage(7 * 0.1);
     this.viewer.opts.textHeight = 0.04;
     this.viewer.opts.crosshairWidth = 0.5;

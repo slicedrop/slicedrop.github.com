@@ -49,6 +49,8 @@ export class VolumePane {
     // Setup keyboard shortcut
     this.setupAdvancedToggle();
     
+    this.setupViewToggle();
+    
     this.setupControls();
   }
 
@@ -62,7 +64,63 @@ export class VolumePane {
         this.mainViewer.updateSceneState();
       }
     });
+
   }
+
+  setupViewToggle() {
+    const sliceTypes = ['axial', 'coronal', 'sagittal', 'multi'];
+
+    document.addEventListener('keydown', (event) => {
+      // If space is pressed
+      if (event.key === ' ') {
+        const currentSliceType = this.state.sliceType;
+
+        // Get the index of the current slice type
+        const currentIndex = sliceTypes.indexOf(currentSliceType);
+
+        // Get the next slice type
+        const nextIndex = (currentIndex + 1) % sliceTypes.length;
+
+        // Set the next slice type
+        this.state.sliceType = sliceTypes[nextIndex];
+
+        // Update the viewer
+        if (sliceTypes[nextIndex] === 'multi') {
+          this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
+        }
+
+        if (sliceTypes[nextIndex] === '3d') {
+          this.viewer.setSliceType(this.viewer.sliceTypeRender);
+        }
+
+        if (sliceTypes[nextIndex] === 'axial') {
+          this.viewer.setSliceType(this.viewer.sliceTypeAxial);
+        }
+
+        if (sliceTypes[nextIndex] === 'coronal') {
+          this.viewer.setSliceType(this.viewer.sliceTypeCoronal);
+
+        }
+
+        if (sliceTypes[nextIndex] === 'sagittal') {
+          this.viewer.setSliceType(this.viewer.sliceTypeSagittal);
+
+        }
+
+        // Toggle clipper controls
+        this.toggleClipperControls(sliceTypes[nextIndex] === '3d');
+
+        // Add sliders for multiplanar view
+        this.addSliders(sliceTypes[nextIndex] === 'multi');
+        
+        this.mainViewer.updateSceneState();
+      }
+
+    
+    });
+  }
+
+
   
   addSliders = (show) => {
     show ? this.mainViewer.resizeSliders() : 
@@ -93,8 +151,7 @@ export class VolumePane {
     //   multi: [this.viewer.sliceTypeMultiplanar, false]
     // };
     
-    // mainTab.pages[0]
-    //   .addBinding(this.state, "sliceType", {
+    // this.pane.addBinding(this.state, "sliceType", {
     //     options: {
     //       Axial: "axial",
     //       Coronal: "coronal",
@@ -112,6 +169,7 @@ export class VolumePane {
     //     this.mainViewer.updateDrawerStates();
     //     updateUtilities();
     //   });
+
 
     this.pane.addBlade({
       view: 'buttongrid',
@@ -145,6 +203,7 @@ export class VolumePane {
       updateUtilities();
     });
 
+      
     const segmentationPage = mainTab.pages[0];
 
     this.advancedControls.push(
@@ -630,10 +689,11 @@ export class VolumePane {
       cmap.R.push(r);
       cmap.G.push(g);
       cmap.B.push(b);
-      cmap.A.push(255);
+      cmap.A.push(t);
       cmap.I.push(Math.round((r + g + b) / 3));
     }
 
+    console.log(cmap);
     return cmap;
   }
 
