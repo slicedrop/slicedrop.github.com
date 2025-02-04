@@ -582,13 +582,11 @@ body {
   margin-bottom: 4px;
 }
 
-/* Optional: Remove the bottom margin for the last list item */
 #shortcut-tooltip li:last-child {
   margin-bottom: 0;
 }
 
 
-/* Existing common styles for all sliders */
 input[type="range"] {
   -webkit-appearance: none;
   position: absolute;
@@ -608,7 +606,9 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 22px;  /* Increased width */
   height: 14px; /* Increased height */
+  /* White background but with some shadow to make it pop */
   background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   cursor: pointer;
   /* Center the thumb relative to the track:
      (thumb height - track height) / 2 = (18px - 10px) / 2 = 4px offset */
