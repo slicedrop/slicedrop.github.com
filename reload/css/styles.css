@@ -617,6 +617,10 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 3px;
 }
 
+input[type="range"]:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
 /* Firefox */
 input[type="range"]::-moz-range-thumb {
   width: 22px;
@@ -628,6 +632,10 @@ input[type="range"]::-moz-range-thumb {
   margin-top: -3px;
   margin-bottom: -3px;
   border-radius: 3px;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+  cursor: grabbing;
 }
 
 /* --- Custom slider track backgrounds per slider --- */
