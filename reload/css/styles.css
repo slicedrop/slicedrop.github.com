@@ -609,11 +609,12 @@ input[type="range"]::-webkit-slider-thumb {
   /* White background but with some shadow to make it pop */
   background: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-  cursor: pointer;
+  cursor: grab;
   /* Center the thumb relative to the track:
      (thumb height - track height) / 2 = (18px - 10px) / 2 = 4px offset */
   margin-top: -3px;
   margin-bottom: -3px;
+  border-radius: 3px;
 }
 
 /* Firefox */
@@ -621,8 +622,12 @@ input[type="range"]::-moz-range-thumb {
   width: 22px;
   height: 14px;
   background: #ffffff;
-  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: grab;
   transform: translateY(-4px);
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 3px;
 }
 
 /* --- Custom slider track backgrounds per slider --- */
@@ -631,6 +636,7 @@ input[type="range"]::-moz-range-thumb {
 #axSlider::-webkit-slider-runnable-track {
   background: rgba(0, 0, 255, 0.4);
 }
+
 #axSlider::-moz-range-track {
   background: rgba(0, 0, 255, 0.4);
 }
