@@ -50,7 +50,7 @@ export class VolumePane {
     this.setupAdvancedToggle();
     
     this.setupViewToggle();
-    
+
     this.setupControls();
   }
 
@@ -689,7 +689,7 @@ export class VolumePane {
       cmap.R.push(r);
       cmap.G.push(g);
       cmap.B.push(b);
-      cmap.A.push(t);
+      cmap.A.push(255);
       cmap.I.push(Math.round((r + g + b) / 3));
     }
 
