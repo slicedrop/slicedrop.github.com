@@ -155,33 +155,39 @@
         />
       </header>
       
-      <div class="drawer-container">
-        <div class="drawer">
-          <div class="drawer-header">
-            <span class="drawer-tab-text">Volume</span>
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
+      <ul class="drawer-container">
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <span class="drawer-tab-text">Volume</span>
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+            </div>
+            <div class="drawer-content"></div>
           </div>
-          <div class="drawer-content"></div>
-        </div>
-
-        <div class="drawer">
-          <div class="drawer-header">
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
-            <span class="drawer-tab-text">Mesh</span>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Mesh</span>
+            </div>
+            <div class="drawer-content"></div>
           </div>
-
-          <div class="drawer-content"></div>
-        </div>
-
-        <div class="drawer">
-          <div class="drawer-header">
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
-            <span class="drawer-tab-text">Fibers</span>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Fibers</span>
+            </div>
+            <div class="drawer-content"></div>
           </div>
+        </li>
+      </ul>
 
-          <div class="drawer-content"></div>
-        </div>
-      </div>
+
       <canvas id="gl1"></canvas>
       <input
         type="range"

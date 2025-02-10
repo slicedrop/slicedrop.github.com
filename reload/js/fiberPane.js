@@ -6,7 +6,7 @@ export class FiberPane {
     this.viewer = viewer.viewer;
     this.pane = new Pane({
       expanded: true,
-      container: document.querySelector(".drawer:nth-child(3) .drawer-content"),
+      container: document.querySelector(".drawer-trigger:nth-child(3) .drawer-content"),
     });
 
     // Initialize state object

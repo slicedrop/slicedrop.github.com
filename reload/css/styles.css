@@ -392,18 +392,6 @@ body {
 }
 
 /* Drawer Styles */
-.drawer {
-  position: relative;
-  width: 26px;
-  height: calc((100vh - 40px - 40px) / 3.5);
-  min-height: 200px;
-  background-color: #161616;
-  border-radius: 0 8px 8px 0;
-  cursor: default;
-  transition: width 0.2s ease, background-color 0.2s ease;
-  overflow: hidden;
-}
-
 
 .drawer-container {
   position: fixed;
@@ -416,11 +404,36 @@ body {
   gap: 20px;
   opacity: 0;
   transition: opacity 0.1s ease;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .drawer-container.visible {
   display: flex;
   opacity: 1;
+}
+
+.drawer-trigger {
+  position: relative;
+  width: 126px; /* 26px (drawer) + 100px (hover area) */
+  height: calc((100vh - 40px - 40px) / 3.5);
+  min-height: 200px;
+  padding: 0;
+  margin: 0;
+  transition: width 0.2s ease; /* Add transition to match drawer */
+}
+
+.drawer {
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 100%;
+  background-color: #161616;
+  border-radius: 0 8px 8px 0;
+  cursor: default;
+  transition: width 0.2s ease, background-color 0.2s ease;
+  overflow: hidden;
 }
 
 .drawer-tab-text {
@@ -477,38 +490,55 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.drawer:not(:hover):not(.active) {
-  width: 26px !important; /* Force width reset when not hovering and not active */
+/* Base states */
+.drawer:not(.active) {
+  width: 26px !important;
 }
 
 /* Active state hover effects */
 .drawer.active {
   cursor: pointer;
 }
-
-.drawer.active:not(.pinned):not(:hover) {
-  width: 26px !important; /* Force width reset when not hovering */
+.drawer-trigger:hover {
+  width: 440px; /* 340px (expanded drawer) + 100px (extra hover area) */
 }
 
+.drawer-trigger .drawer.pinned {
+  width: 340px !important;
+}
 
+.drawer-trigger .drawer.pinned + .drawer-trigger {
+  width: 440px;
+}
+
+.drawer-trigger:hover .drawer.active:not(.pinned),
+.drawer.active:hover:not(.pinned) {
+  width: 340px !important;
+}
+
+.drawer-trigger:hover .drawer.active .drawer-content,
 .drawer.active:hover .drawer-content {
   opacity: 1;
 }
 
+.drawer-trigger:hover .drawer.active .drawer-tab-text,
 .drawer.active:hover .drawer-tab-text {
   transform: translateY(-50%) rotate(180deg) translateX(0);
 }
 
+.drawer-trigger:hover .drawer.active .pin-icon,
 .drawer.active:hover .pin-icon {
   opacity: 1;
 }
 
+.drawer-trigger:hover .drawer.active::before,
 .drawer.active:hover::before {
   opacity: 1;
 }
 
 /* Pinned state styles */
 .drawer.pinned {
+  width: 340px !important;
   cursor: pointer;
 }
 
@@ -526,10 +556,17 @@ body {
   transform: rotate(0deg);
 }
 
+/* Inactive state */
+.drawer.inactive {
+  pointer-events: none;
+}
+
+/* Utility classes */
 .hidden {
   display: none !important;
 }
 
+/* Scrollbar styles */
 .drawer-content::-webkit-scrollbar {
   width: 4px;
 }

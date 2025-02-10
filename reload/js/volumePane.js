@@ -8,7 +8,7 @@ export class VolumePane {
 
     this.pane = new Pane({
       expanded: true,
-      container: document.querySelector(".drawer:first-child .drawer-content"),
+      container: document.querySelector(".drawer-trigger:nth-child(1) .drawer-content")
     });
 
     // Initialize state object

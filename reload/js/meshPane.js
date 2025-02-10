@@ -6,7 +6,7 @@ export class MeshPane {
     this.viewer = viewer.viewer;
     this.pane = new Pane({
       expanded: true,
-      container: document.querySelector('.drawer:nth-child(2) .drawer-content'),
+      container: document.querySelector(".drawer-trigger:nth-child(2) .drawer-content"),
     });
 
     // Initialize state object
@@ -62,15 +62,16 @@ export class MeshPane {
       step: 0.1,
       label: 'Opacity'
     }).on('change', (ev) => {
+
+      console.log(this.viewer)
       const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
-        this.viewer.setMeshLayerProperty(
-          compatibleMesh.mesh.id,
-          0,
-          'opacity',
-          ev.value
+        this.viewer.setOpacity(
+          ev.value,
+          0
         );
       }
+
 
       updateUtilities();
     });
