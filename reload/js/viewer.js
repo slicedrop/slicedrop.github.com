@@ -153,22 +153,16 @@ export class NiiVueViewer {
     const volumeDrawer = document.querySelector(".drawer-trigger:nth-child(1) .drawer");
     const meshDrawer = document.querySelector(".drawer-trigger:nth-child(2) .drawer");
     const fiberDrawer = document.querySelector(".drawer-trigger:nth-child(3) .drawer");
-  
-    // Debug volume content
-    console.log("Volume drawer content:", volumeDrawer?.querySelector('.drawer-content')?.innerHTML);
+
   
     // Check for volumes
     if (this.viewer.volumes && this.viewer.volumes.length > 0) {
       volumeDrawer?.classList.add("active");
       volumeDrawer?.classList.remove("inactive");
-      console.log("Volume drawer activated");
     } else {
       volumeDrawer?.classList.remove("active");
       volumeDrawer?.classList.add("inactive");
     }
-  
-    // Debug mesh content
-    console.log("Mesh drawer content:", meshDrawer?.querySelector('.drawer-content')?.innerHTML);
   
     // Check for compatible meshes
     const compatibleMesh = getFirstCompatibleMesh(this.viewer);
@@ -180,9 +174,7 @@ export class NiiVueViewer {
       meshDrawer?.classList.remove("active");
       meshDrawer?.classList.add("inactive");
     }
-  
-    // Debug fiber content
-    console.log("Fiber drawer content:", fiberDrawer?.querySelector('.drawer-content')?.innerHTML);
+
   
     // Check for compatible fibers
     const compatibleFiber = getFirstCompatibleFiber(this.viewer);
@@ -237,6 +229,7 @@ export class NiiVueViewer {
     this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
+    this.viewer.setInterpolation(true);
 
     const volumePane = new VolumePane(this);
     this.loadedVolumes.push({ pane: volumePane });
