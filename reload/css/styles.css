@@ -1,11 +1,11 @@
 :root {
   --tp-base-background-color: hsla(0, 0%, 10%, 0.5);
   --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
-  --tp-button-background-color: hsla(0, 0%, 80%, 1);
-  --tp-button-background-color-active: hsla(0, 0%, 100%, 1);
-  --tp-button-background-color-focus: hsla(0, 0%, 95%, 1);
-  --tp-button-background-color-hover: hsla(0, 0%, 85%, 1);
-  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
+  --tp-button-background-color: hsla(0, 0%, 100%, 1.00);
+  --tp-button-background-color-active: hsla(0, 0%, 85%, 1.00);
+  --tp-button-background-color-focus: hsla(0, 0%, 90%, 1.00);
+  --tp-button-background-color-hover: hsla(0, 0%, 95%, 1.00);
+  --tp-button-foreground-color: hsla(0, 100%, 50%, 0.80);
   --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
   --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
   --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
@@ -91,13 +91,13 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
 }
 
 .header-text h1 {
   font-family: "Manrope", sans-serif;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin: 0;
 }
 
@@ -121,45 +121,57 @@ body {
 }
 
 .examples-container h2 {
-  font-family: "Manrope", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
-  margin-bottom: 10px;
 }
 
 .examples-grid {
   display: flex;
-  gap: 22px;
+  gap: 17px;
   justify-content: center;
 }
 
 .example-card {
-  width: 80px; /* Thumbnail size */
+  width: 80px;
   cursor: pointer;
+  position: relative; /* Add this for pseudo-element positioning */
+}
+
+.example-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #007bff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.example-card:hover::before,
+.example-card.active::before {
+  opacity: 1;
 }
 
 .example-card img {
   width: 100%;
   height: auto;
   border-radius: 4px;
-  border: 1px solid #e4e4e4;
-  transition: transform 0.2s ease;
 }
 
-.example-card:hover img {
-  transform: translateY(-2px);
-}
+
 
 /* Caption container centered below the row of images */
 .caption-container {
-  margin-top: 10px;
-  width: calc(80px * 4 + 15px * 3); /* Width of the four thumbnails plus gaps */
+  margin-top: 5px;
+  width: calc(80px * 4 + 12px * 3);
   background: #1a1a1a;
-  padding: 15px;
+  padding: 10px;
   border-radius: 4px;
   color: #fff;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   display: flex;
@@ -173,20 +185,6 @@ body {
   text-align: left;
 }
 
-.view-example-button {
-  background-color: #007bff;
-  color: white;
-  padding: 4px 8px;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.view-example-button:hover {
-  background-color: #0056b3;
-}
 /*****************************************************/
 
 .format-info {
@@ -204,9 +202,6 @@ body {
   text-align: center;
 }
 
-.format-card:hover {
-  transform: translateY(-2px);
-}
 
 .format-card img {
   width: 100%;
@@ -317,7 +312,7 @@ body {
   width: 100%;
   max-width: 600px;
   background-color: #000; /* Changed to black to blend with background */
-  border: 2px solid #333; /* Added subtle border */
+  border: 2px dashed #333; /* Added subtle border */
   border-radius: 8px;
   padding: 40px 20px;
   text-align: center;
@@ -337,6 +332,7 @@ body {
 .drop-zone.dragging {
   background-color: #0a0a0a; /* Slightly lighter black when dragging */
   border-color: #444;
+  border-style: solid;
 }
 
 .drop-zone.hidden {
@@ -377,35 +373,67 @@ body {
   background-color: #1d4ed8;
 }
 
-/* Drawer Styles */
-.drawer {
-  position: relative;
-  width: 26px;
-  height: calc((100vh - 40px - 40px) / 3);
-  min-height: 200px;
-  background-color: #161616;
-  border-radius: 0 8px 8px 0;
-  cursor: default;
-  transition: width 0.3s ease, background-color 0.3s ease;
-  overflow: hidden;
+.viewer-header {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* Above drawers */
 }
+
+.viewer-logo {
+  width: 80px; /* Adjust size as needed */
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.viewer-logo:hover {
+  opacity: 0.8;
+}
+
+/* Drawer Styles */
 
 .drawer-container {
   position: fixed;
   left: 0;
-  top: 20px;
+  top: 110px;
   bottom: 20px;
-  z-index: 100;
+  z-index: 1000;
   display: none;
   flex-direction: column;
   gap: 20px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.1s ease;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .drawer-container.visible {
   display: flex;
   opacity: 1;
+}
+
+.drawer-trigger {
+  position: relative;
+  width: 126px; /* 26px (drawer) + 100px (hover area) */
+  height: calc((100vh - 40px - 40px) / 3.5);
+  min-height: 200px;
+  padding: 0;
+  margin: 0;
+  transition: width 0.2s ease; /* Add transition to match drawer */
+}
+
+.drawer {
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 100%;
+  background-color: #161616;
+  border-radius: 0 8px 8px 0;
+  cursor: default;
+  transition: width 0.2s ease, background-color 0.2s ease;
+  overflow: hidden;
 }
 
 .drawer-tab-text {
@@ -420,7 +448,6 @@ body {
   font-weight: 500;
   font-size: 10px;
   letter-spacing: 1px;
-  transition: transform 0.3s ease;
   white-space: nowrap;
   z-index: 2;
 }
@@ -432,7 +459,7 @@ body {
   height: 100%;
   width: calc(100% - 32px);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
   padding: 7px 5px 2px 0px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -443,7 +470,7 @@ body {
   top: 6px;
   right: 6px;
   color: #666;
-  font-size: 10px;
+  font-size: 14px;
   opacity: 0;
   transition: all 0.3s ease;
   transform: rotate(-45deg);
@@ -463,38 +490,55 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.drawer:not(:hover):not(.active) {
-  width: 26px !important; /* Force width reset when not hovering and not active */
+/* Base states */
+.drawer:not(.active) {
+  width: 26px !important;
 }
 
 /* Active state hover effects */
 .drawer.active {
   cursor: pointer;
 }
-
-.drawer.active:not(.pinned):not(:hover) {
-  width: 26px !important; /* Force width reset when not hovering */
+.drawer-trigger:hover {
+  width: 440px; /* 340px (expanded drawer) + 100px (extra hover area) */
 }
 
+.drawer-trigger .drawer.pinned {
+  width: 340px !important;
+}
 
+.drawer-trigger .drawer.pinned + .drawer-trigger {
+  width: 440px;
+}
+
+.drawer-trigger:hover .drawer.active:not(.pinned),
+.drawer.active:hover:not(.pinned) {
+  width: 340px !important;
+}
+
+.drawer-trigger:hover .drawer.active .drawer-content,
 .drawer.active:hover .drawer-content {
   opacity: 1;
 }
 
+.drawer-trigger:hover .drawer.active .drawer-tab-text,
 .drawer.active:hover .drawer-tab-text {
   transform: translateY(-50%) rotate(180deg) translateX(0);
 }
 
+.drawer-trigger:hover .drawer.active .pin-icon,
 .drawer.active:hover .pin-icon {
   opacity: 1;
 }
 
+.drawer-trigger:hover .drawer.active::before,
 .drawer.active:hover::before {
   opacity: 1;
 }
 
 /* Pinned state styles */
 .drawer.pinned {
+  width: 340px !important;
   cursor: pointer;
 }
 
@@ -512,10 +556,17 @@ body {
   transform: rotate(0deg);
 }
 
+/* Inactive state */
+.drawer.inactive {
+  pointer-events: none;
+}
+
+/* Utility classes */
 .hidden {
   display: none !important;
 }
 
+/* Scrollbar styles */
 .drawer-content::-webkit-scrollbar {
   width: 4px;
 }
@@ -537,35 +588,117 @@ body {
   width: 75%;
 }
 
+#shortcut-tooltip {
+  position: fixed;
+  bottom: 20px;         /* Distance from the bottom */
+  left: 50%;           /* Distance from the left */
+  background: rgba(0, 0, 0, 0.7);  /* Semi-transparent dark background */
+  color: #fff;          /* White text */
+  padding: 12px 16px;   /* Padding for a nicer look */
+  border-radius: 6px;   /* Rounded corners */
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  z-index: 1000;        /* Ensure it's on top */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#shortcut-tooltip strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+#shortcut-tooltip ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+#shortcut-tooltip li {
+  list-style: disc;
+  margin-bottom: 4px;
+}
+
+#shortcut-tooltip li:last-child {
+  margin-bottom: 0;
+}
+
 
 input[type="range"] {
   -webkit-appearance: none;
   position: absolute;
   height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1); /* fallback background if needed */
   outline: none;
   padding: 0;
   margin: 0;
-  z-index: 1000;
+  z-index: 100;
   pointer-events: auto;
+  
 }
 
+/* Increase thumb size so they pop out more, then adjust their position */
+/* WebKit (Chrome, Safari) */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  width: 15px;  /* Increased width */
+  height: 14px; /* Increased height */
+  /* White background but with some shadow to make it pop */
   background: #ffffff;
-  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: grab;
+  /* Center the thumb relative to the track:
+     (thumb height - track height) / 2 = (18px - 10px) / 2 = 4px offset */
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 3px;
 }
 
-/* For Firefox support */
+input[type="range"]:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+/* Firefox */
 input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border: 0;
-  border-radius: 50%;
+  width: 22px;
+  height: 14px;
   background: #ffffff;
-  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: grab;
+  transform: translateY(-4px);
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 3px;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+/* --- Custom slider track backgrounds per slider --- */
+
+/* Blue track for the first slider */
+#axSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+#axSlider::-moz-range-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+/* Red track for the second slider */
+#corSlider::-webkit-slider-runnable-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+#corSlider::-moz-range-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+
+/* Green track for the third slider */
+#sagSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 255, 0, 0.4);
+}
+
+#sagSlider::-moz-range-track {
+  background: rgba(0, 255, 0, 0.4);
 }

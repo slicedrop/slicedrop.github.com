@@ -23,6 +23,8 @@
       window.Pane = Pane;
     </script>
     <script type="module" src="./js/index.js"></script>
+
+    <link rel="icon" href="./images/SliceDropReloaded.svg" />
   </head>
   <body>
     <!-- Landing page container -->
@@ -144,52 +146,106 @@
     </div>
 
     <div id="viewerContainer" class="viewer-container hidden">
-      <div class="drawer-container">
-        <div class="drawer">
-          <div class="drawer-header">
-            <span class="drawer-tab-text">Volume</span>
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
+      <header class="viewer-header">
+        <img 
+          src="./images/SliceDropReloaded.svg" 
+          alt="Slice:Drop Logo" 
+          class="viewer-logo"
+          onclick="location.reload()"
+        />
+      </header>
+      
+      <ul class="drawer-container">
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <span class="drawer-tab-text">Volume</span>
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+            </div>
+            <div class="drawer-content"></div>
           </div>
-          <div class="drawer-content"></div>
-        </div>
-
-        <div class="drawer">
-          <div class="drawer-header">
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
-            <span class="drawer-tab-text">Mesh</span>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Mesh</span>
+            </div>
+            <div class="drawer-content"></div>
           </div>
-
-          <div class="drawer-content"></div>
-        </div>
-
-        <div class="drawer">
-          <div class="drawer-header">
-            <i class="fa-solid fa-thumbtack pin-icon"></i>
-            <span class="drawer-tab-text">Fibers</span>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Fibers</span>
+            </div>
+            <div class="drawer-content"></div>
           </div>
+        </li>
+      </ul>
 
-          <div class="drawer-content"></div>
-        </div>
+
+      <canvas id="gl1"></canvas>
+      <input
+        type="range"
+        id="axSlider"
+        min="0"
+        max="100"
+        data-axcorsag="0"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="corSlider"
+        min="0"
+        max="100"
+        data-axcorsag="1"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="sagSlider"
+        min="0"
+        max="100"
+        data-axcorsag="2"
+        style="position: absolute; visibility: hidden"
+      />
+
+      <div id="shortcut-tooltip">
+        <strong>Hotkeys:</strong>
+        <ul>
+          <li>Key "u": Utility pane</li>
+          <li>Ctrl + Alt + a: Advanced pane modes</li>
+          <li>Space key: Toggle between views</li>
+        </ul>
       </div>
-        <canvas id="gl1"></canvas>
-        <input type="range" id="axSlider" min="0" max="100" data-axcorsag="0"
-               style="position: absolute; visibility: hidden;">
-        <input type="range" id="corSlider" min="0" max="100" data-axcorsag="1"
-               style="position: absolute; visibility: hidden;">
-        <input type="range" id="sagSlider" min="0" max="100" data-axcorsag="2"
-               style="position: absolute; visibility: hidden;">
     </div>
+    
+    
     <script>
-      // Set the default caption to the first example
-      document.getElementById("dynamic-caption").innerText = document
-        .querySelector(".example-card")
-        .getAttribute("data-caption");
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".example-card");
+        const captionEl = document.getElementById("dynamic-caption");
 
-      // Update caption on hover
-      document.querySelectorAll(".example-card").forEach((card) => {
-        card.addEventListener("mouseenter", (event) => {
-          const captionText = event.currentTarget.getAttribute("data-caption");
-          document.getElementById("dynamic-caption").innerText = captionText;
+        // Set first card as active by default
+        cards[0].classList.add("active");
+        captionEl.innerText = cards[0].getAttribute("data-caption");
+
+        // Update active state and caption on hover
+        cards.forEach((card) => {
+          card.addEventListener("mouseenter", (event) => {
+            // Remove active class from all cards
+            cards.forEach((c) => c.classList.remove("active"));
+
+            // Add active class to hovered card
+            card.classList.add("active");
+
+            // Update caption
+            captionEl.innerText = card.getAttribute("data-caption");
+          });
         });
       });
     </script>

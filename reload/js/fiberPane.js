@@ -6,7 +6,7 @@ export class FiberPane {
     this.viewer = viewer.viewer;
     this.pane = new Pane({
       expanded: true,
-      container: document.querySelector(".drawer:nth-child(3) .drawer-content"),
+      container: document.querySelector(".drawer-trigger:nth-child(3) .drawer-content"),
     });
 
     // Initialize state object
@@ -43,8 +43,27 @@ export class FiberPane {
       winter: "winter",
     };
 
+    // Keep track of advanced controls
+    this.advancedControls = [];
+    
+    // Setup keyboard shortcut
+    this.setupAdvancedToggle();
+
     this.setupControls();
   }
+
+  setupAdvancedToggle() {
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'a') {
+        const isVisible = !this.advancedControls[0]?.hidden;
+        this.advancedControls.forEach(control => {
+          control.hidden = isVisible;
+        });
+        this.mainViewer.updateSceneState();
+      }
+    });
+  }
+  
 
   setupControls() {
     const updateUtilities = () => {
@@ -76,8 +95,8 @@ export class FiberPane {
     propertiesFolder
       .addBinding(this.state, "radius", {
         min: 0,
-        max: 3.0,
-        step: 0.1,
+        max: 1.0,
+        step: 0.5,
         label: "Radius",
       })
       .on("change", (ev) => {
@@ -114,26 +133,30 @@ export class FiberPane {
 
         updateUtilities();
       });
+    
+    this.advancedControls.push(
+      // Dither Control
+      propertiesFolder
+        .addBinding(this.state, "dither", {
+          min: 0,
+          step: 0.1,
+          label: "Dither",
+        })
+        .on("change", (ev) => {
+          const compatibleFiber = getFirstCompatibleFiber(this.viewer);
+          if (compatibleFiber) {
+            this.viewer.setMeshProperty(
+              compatibleFiber.mesh.id,
+              "fiberDither",
+              ev.value
+            );
+          }
 
-    // Dither Control
-    propertiesFolder
-      .addBinding(this.state, "dither", {
-        min: 0,
-        step: 0.1,
-        label: "Dither",
-      })
-      .on("change", (ev) => {
-        const compatibleFiber = getFirstCompatibleFiber(this.viewer);
-        if (compatibleFiber) {
-          this.viewer.setMeshProperty(
-            compatibleFiber.mesh.id,
-            "fiberDither",
-            ev.value
-          );
-        }
+          updateUtilities();
+        })
+    );
 
-        updateUtilities();
-      });
+    
 
     // Visualization Settings Folder
     const visualFolder = this.pane.addFolder({
@@ -161,6 +184,7 @@ export class FiberPane {
         updateUtilities();
       });
 
+      this.advancedControls.push(
       visualFolder
       .addBinding(this.state, "colorMap", {
         options: this.colorMapOptions,
@@ -177,7 +201,9 @@ export class FiberPane {
         }
 
         updateUtilities();
-      });
+      })
+    );
+    
 
     // Reduction Level
     visualFolder
@@ -205,6 +231,7 @@ export class FiberPane {
       shaderOptions[shader] = shader;
     });
 
+    this.advancedControls.push(
     // Shader Dropdown
     visualFolder.addBinding(this.state, 'shader', {
       options: shaderOptions,
@@ -217,6 +244,11 @@ export class FiberPane {
       }
 
       updateUtilities();
+    })
+    );
+
+    this.advancedControls.forEach(control => {
+      control.hidden = true;
     });
   }
 

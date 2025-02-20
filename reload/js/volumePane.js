@@ -1,10 +1,14 @@
+import * as EssentialsPlugin from "https://cdn.jsdelivr.net/npm/@tweakpane/plugin-essentials@0.2.1/dist/tweakpane-plugin-essentials.min.js"
+
+
 export class VolumePane {
   constructor(viewer) {
     this.mainViewer = viewer;
     this.viewer = viewer.viewer;
+
     this.pane = new Pane({
       expanded: true,
-      container: document.querySelector(".drawer:first-child .drawer-content"),
+      container: document.querySelector(".drawer-trigger:nth-child(1) .drawer-content")
     });
 
     // Initialize state object
@@ -17,7 +21,7 @@ export class VolumePane {
       viewControls: {
         smooth: true,
         invert: false,
-        slices: false,
+        // slices: false,
       },
       denoise: {
         otsuLevel: 4, // Very Light 1:4
@@ -37,8 +41,86 @@ export class VolumePane {
       },
     };
 
+    this.pane.registerPlugin(EssentialsPlugin);
+
+    // Keep track of advanced controls
+    this.advancedControls = [];
+    
+    // Setup keyboard shortcut
+    this.setupAdvancedToggle();
+    
+    this.setupViewToggle();
+
     this.setupControls();
   }
+
+  setupAdvancedToggle() {
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'a') {
+        const isVisible = !this.advancedControls[0]?.hidden;
+        this.advancedControls.forEach(control => {
+          control.hidden = isVisible;
+        });
+        this.mainViewer.updateSceneState();
+      }
+    });
+
+  }
+
+  setupViewToggle() {
+    const sliceTypes = ['axial', 'coronal', 'sagittal', 'multi'];
+
+    document.addEventListener('keydown', (event) => {
+      // If space is pressed
+      if (event.key === ' ') {
+        const currentSliceType = this.state.sliceType;
+
+        // Get the index of the current slice type
+        const currentIndex = sliceTypes.indexOf(currentSliceType);
+
+        // Get the next slice type
+        const nextIndex = (currentIndex + 1) % sliceTypes.length;
+
+        // Set the next slice type
+        this.state.sliceType = sliceTypes[nextIndex];
+
+        // Update the viewer
+        if (sliceTypes[nextIndex] === 'multi') {
+          this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
+        }
+
+        if (sliceTypes[nextIndex] === '3d') {
+          this.viewer.setSliceType(this.viewer.sliceTypeRender);
+        }
+
+        if (sliceTypes[nextIndex] === 'axial') {
+          this.viewer.setSliceType(this.viewer.sliceTypeAxial);
+        }
+
+        if (sliceTypes[nextIndex] === 'coronal') {
+          this.viewer.setSliceType(this.viewer.sliceTypeCoronal);
+
+        }
+
+        if (sliceTypes[nextIndex] === 'sagittal') {
+          this.viewer.setSliceType(this.viewer.sliceTypeSagittal);
+
+        }
+
+        // Toggle clipper controls
+        this.toggleClipperControls(sliceTypes[nextIndex] === '3d');
+
+        // Add sliders for multiplanar view
+        this.addSliders(sliceTypes[nextIndex] === 'multi');
+        
+        this.mainViewer.updateSceneState();
+      }
+
+    
+    });
+  }
+
+
   
   addSliders = (show) => {
     show ? this.mainViewer.resizeSliders() : 
@@ -54,44 +136,79 @@ export class VolumePane {
 
     const mainTab = this.pane.addTab({
       pages: [
-        { title: "Slice Type" },
         { title: "Segmentation" },
         { title: "Denoise" },
       ],
     });
 
-    const sliceTypeConfig = {
-      axial: [this.viewer.sliceTypeAxial, false],
-      coronal: [this.viewer.sliceTypeCoronal, false],
-      sagittal: [this.viewer.sliceTypeSagittal, false],
-      '3d': [this.viewer.sliceTypeRender, true],
-      multi: [this.viewer.sliceTypeMultiplanar, false]
-    };
-    
-    mainTab.pages[0]
-      .addBinding(this.state, "sliceType", {
-        options: {
-          Axial: "axial",
-          Coronal: "coronal",
-          Sagittal: "sagittal",
-          "3D": "3d",
-          Multi: "multi",
-        },
-      })
-      .on("change", (ev) => {
-        const [sliceType, showClipper] = sliceTypeConfig[ev.value];
-        this.viewer.setSliceType(sliceType);
-        this.toggleClipperControls(showClipper);
-        this.addSliders(ev.value === 'multi');
+    this.advancedControls.push(mainTab);
 
-        this.mainViewer.updateDrawerStates();
-        updateUtilities();
-      });
+    // const sliceTypeConfig = {
+    //   axial: [this.viewer.sliceTypeAxial, false],
+    //   coronal: [this.viewer.sliceTypeCoronal, false],
+    //   sagittal: [this.viewer.sliceTypeSagittal, false],
+    //   '3d': [this.viewer.sliceTypeRender, true],
+    //   multi: [this.viewer.sliceTypeMultiplanar, false]
+    // };
+    
+    // this.pane.addBinding(this.state, "sliceType", {
+    //     options: {
+    //       Axial: "axial",
+    //       Coronal: "coronal",
+    //       Sagittal: "sagittal",
+    //       "3D": "3d",
+    //       Multi: "multi",
+    //     },
+    //   })
+    //   .on("change", (ev) => {
+    //     const [sliceType, showClipper] = sliceTypeConfig[ev.value];
+    //     this.viewer.setSliceType(sliceType);
+    //     this.toggleClipperControls(showClipper);
+    //     this.addSliders(ev.value === 'multi');
+
+    //     this.mainViewer.updateDrawerStates();
+    //     updateUtilities();
+    //   });
+
+
+    this.pane.addBlade({
+      view: 'buttongrid',
+      size: [2, 1],
+      cells: (x, y) => ({
+        title: [
+          ['3D', '2D'],
+        ][y][x],
+      }),
+      label: 'View',
+    }).on('click', (ev) => {
+      const selection = ev.cell.title
+      if (selection === '2D') {
+        this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
+        this.toggleClipperControls(false);
+        this.addSliders(true);
+
+        // Also make slices from viewControls true
+        this.viewer.setVolumeRenderIllumination(-1)
+
+      } else if (selection === '3D') {
+        this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
+        // or this.viewer.setSliceType(this.viewer.sliceTypeRender);
+        this.toggleClipperControls(true);
+        this.addSliders(true);
+
+        this.viewer.setVolumeRenderIllumination(0)
+      }
+
+      this.mainViewer.updateDrawerStates();
+      updateUtilities();
+    });
 
       
+    const segmentationPage = mainTab.pages[0];
 
-    mainTab.pages[1]
-      .addBinding(this.state.segmentation, "clickToSegment", {
+    this.advancedControls.push(
+      
+      segmentationPage.addBinding(this.state.segmentation, "clickToSegment", {
         label: "Click to Segment",
       })
       .on("change", (ev) => {
@@ -103,18 +220,26 @@ export class VolumePane {
             this.viewer.setPenValue(1, true);
           }
         }
-      });
+      }),
 
-    mainTab.pages[1]
-      .addButton({
+      
+      segmentationPage.addButton({
         title: "Undo Segmentation",
       })
       .on("click", () => {
         this.viewer.drawUndo();
-      });
+      }),
 
-    mainTab.pages[2]
-      .addBinding(this.state.denoise, "otsuLevel", {
+      segmentationPage.addBlade({
+        view: 'separator',
+      })
+    );
+
+    // Denoise Page
+    let denoisePage = mainTab.pages[1];
+
+    this.advancedControls.push(
+      denoisePage.addBinding(this.state.denoise, "otsuLevel", {
         label: "Dark Noise Reduction",
         options: {
           "Very Heavy 3:4": "Very Heavy 3:4",
@@ -131,30 +256,41 @@ export class VolumePane {
         } else {
           this.applyDenoise();
         }
-      });
+      }),
+    
+    denoisePage.addBlade({
+      view: 'separator',
+    }),
 
-    // Dilate checkbox
-    mainTab.pages[2].addBinding(this.state.denoise, "doDilate", {
+    denoisePage.addBinding(this.state.denoise, "doDilate", {
       label: "Dilate Dark",
-    });
+    }),
+  
 
     // Denoise checkbox
-    mainTab.pages[2].addBinding(this.state.denoise, "doDenoise", {
+    denoisePage.addBinding(this.state.denoise, "doDenoise", {
       label: "Denoise",
-    });
+    }),
 
     // Apply button
-    mainTab.pages[2]
+    denoisePage
       .addButton({
         title: "Apply",
       })
       .on("click", () => {
         this.applyDenoise();
-      });
+      })
+    );
+
+    denoisePage.addBlade({
+      view: 'separator',
+    });
+
+    
 
     // Color Controls
     const colorFolder = this.pane.addFolder({
-      title: "Color Range",
+      title: "Color Range"
     });
 
     colorFolder
@@ -212,34 +348,36 @@ export class VolumePane {
       title: "View Controls",
     });
 
-    viewFolder
-      .addBinding(this.state.viewControls, "slices")
-      .on("change", (ev) => {
-        if (ev.value) {
-          this.viewer.setVolumeRenderIllumination(-1);
-        } else {
-          this.viewer.setVolumeRenderIllumination(0);
-        }
-        updateUtilities();
-      });
+    // viewFolder
+    //   .addBinding(this.state.viewControls, "slices")
+    //   .on("change", (ev) => {
+    //     if (ev.value) {
+    //       this.viewer.setVolumeRenderIllumination(-1);
+    //     } else {
+    //       this.viewer.setVolumeRenderIllumination(0);
+    //     }
+    //     updateUtilities();
+    //   });
 
-    viewFolder
-      .addBinding(this.state.viewControls, "smooth")
-      .on("change", (ev) => {
-        this.viewer.setInterpolation(!ev.value);
+    this.advancedControls.push(
+      viewFolder
+        .addBinding(this.state.viewControls, "smooth")
+        .on("change", (ev) => {
+          this.viewer.setInterpolation(!ev.value);
 
-        updateUtilities();
-      });
+          updateUtilities();
+        }),
 
-    viewFolder
-      .addBinding(this.state.viewControls, "invert")
-      .on("change", (ev) => {
-        if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
-        this.viewer.volumes[0].colormapInvert = ev.value;
-        this.viewer.updateGLVolume();
+      viewFolder
+        .addBinding(this.state.viewControls, "invert")
+        .on("change", (ev) => {
+          if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
+          this.viewer.volumes[0].colormapInvert = ev.value;
+          this.viewer.updateGLVolume();
 
-        updateUtilities();
-      });
+          updateUtilities();
+        })
+    );
 
     // Gamma Control
     this.pane
@@ -291,7 +429,7 @@ export class VolumePane {
     this.clipperFolder
       .addBinding(this.state.clipper, "clipColor", {
         picker: "inline",
-        expanded: true,
+        expanded: false,
       })
       .on("change", (ev) => {
         const color = this.hexToRgb(ev.value);
@@ -337,6 +475,10 @@ export class VolumePane {
 
         updateUtilities();
       });
+
+    this.advancedControls.forEach(control => {
+      control.hidden = true;
+    });
   }
 
   restoreOriginal() {
@@ -551,6 +693,7 @@ export class VolumePane {
       cmap.I.push(Math.round((r + g + b) / 3));
     }
 
+    console.log(cmap);
     return cmap;
   }
 
