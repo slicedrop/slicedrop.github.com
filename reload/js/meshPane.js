@@ -62,14 +62,9 @@ export class MeshPane {
       step: 0.1,
       label: 'Opacity'
     }).on('change', (ev) => {
-
-      console.log(this.viewer)
       const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
-        this.viewer.setOpacity(
-          ev.value,
-          0
-        );
+        this.viewer.setMeshProperty(compatibleMesh.mesh.id, 'opacity', ev.value);
       }
 
 
