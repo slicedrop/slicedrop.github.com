@@ -329,19 +329,7 @@ export class VolumePane {
         updateUtilities();
       });
 
-    colorFolder
-      .addBinding(this.state, "xray", {
-        min: 0,
-        max: 5,
-        step: 0.01,
-      })
-      .on("change", (ev) => {
-        if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
-        this.viewer.opts.meshXRay = ev.value / 10;
-        this.viewer.drawScene();
-
-        updateUtilities();
-      });
+    // xray moved to advanced controls
 
     // View Controls
     const viewFolder = this.pane.addFolder({
@@ -374,6 +362,22 @@ export class VolumePane {
           if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
           this.viewer.volumes[0].colormapInvert = ev.value;
           this.viewer.updateGLVolume();
+
+          updateUtilities();
+        }),
+        
+      // Added xray to advanced controls
+      viewFolder
+        .addBinding(this.state, "xray", {
+          label: "X-Ray Depth",
+          min: 0,
+          max: 5,
+          step: 0.01,
+        })
+        .on("change", (ev) => {
+          if (!this.viewer.volumes || this.viewer.volumes.length === 0) return;
+          this.viewer.opts.meshXRay = ev.value / 10;
+          this.viewer.drawScene();
 
           updateUtilities();
         })

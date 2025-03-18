@@ -9,6 +9,7 @@ export class NiiVueViewer {
   constructor(canvasId) {
     this.canvasId = canvasId;
 
+    // Initialize empty arrays for panes
     this.loadedVolumes = [];
     this.loadedMeshes = [];
     this.loadedFibers = [];
@@ -128,6 +129,11 @@ export class NiiVueViewer {
         const urls = this.exampleData[`example${index + 1}`];
 
         try {
+          // Clear any existing panes before loading new examples
+          this.loadedVolumes = [];
+          this.loadedMeshes = [];
+          this.loadedFibers = [];
+          
           const loadPromises = urls.map((url) =>
             fetch(url)
               .then((response) => response.blob())
@@ -150,18 +156,23 @@ export class NiiVueViewer {
   updateDrawerStates() {
     console.log("Updating drawer states...");
   
-    const volumeDrawer = document.querySelector(".drawer-trigger:nth-child(1) .drawer");
-    const meshDrawer = document.querySelector(".drawer-trigger:nth-child(2) .drawer");
-    const fiberDrawer = document.querySelector(".drawer-trigger:nth-child(3) .drawer");
+    const volumeDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(1)");
+    const meshDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(2)");
+    const fiberDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(3)");
+    
+    const volumeDrawer = volumeDrawerTrigger?.querySelector(".drawer");
+    const meshDrawer = meshDrawerTrigger?.querySelector(".drawer");
+    const fiberDrawer = fiberDrawerTrigger?.querySelector(".drawer");
 
-  
     // Check for volumes
     if (this.viewer.volumes && this.viewer.volumes.length > 0) {
       volumeDrawer?.classList.add("active");
       volumeDrawer?.classList.remove("inactive");
+      volumeDrawerTrigger?.classList.remove("hidden");
     } else {
       volumeDrawer?.classList.remove("active");
       volumeDrawer?.classList.add("inactive");
+      volumeDrawerTrigger?.classList.add("hidden");
     }
   
     // Check for compatible meshes
@@ -169,22 +180,25 @@ export class NiiVueViewer {
     if (compatibleMesh) {
       meshDrawer?.classList.add("active");
       meshDrawer?.classList.remove("inactive");
+      meshDrawerTrigger?.classList.remove("hidden");
       console.log("Mesh drawer activated");
     } else {
       meshDrawer?.classList.remove("active");
       meshDrawer?.classList.add("inactive");
+      meshDrawerTrigger?.classList.add("hidden");
     }
-
   
     // Check for compatible fibers
     const compatibleFiber = getFirstCompatibleFiber(this.viewer);
     if (compatibleFiber) {
       fiberDrawer?.classList.add("active");
       fiberDrawer?.classList.remove("inactive");
+      fiberDrawerTrigger?.classList.remove("hidden");
       console.log("Fiber drawer activated, compatible fiber found:", compatibleFiber);
     } else {
       fiberDrawer?.classList.remove("active");
       fiberDrawer?.classList.add("inactive");
+      fiberDrawerTrigger?.classList.add("hidden");
       console.log("No compatible fiber found");
     }
   }
@@ -194,15 +208,25 @@ export class NiiVueViewer {
       backColor: [0, 0, 0, 0],
       show3Dcrosshair: true,
       onImageLoaded: () => {
+        this.initializeVolumePane();
         this.updateDrawerStates();
         this.originalImage = this.viewer.volumes[0].img.slice();
-        
         this.resizeSliders();
       },
       onOverlayLoaded: () => {
         this.updateDrawerStates();
       },
-      onMeshLoaded: () => {
+      onMeshLoaded: (data) => {
+        // Check if it's a fiber or a mesh based on file extension
+        const filename = data.name.toLowerCase();
+        if (filename.endsWith('.trk') || filename.endsWith('.tko') || 
+            filename.endsWith('.trx') || filename.endsWith('.tck')) {
+          this.initializeFiberPane();
+        } else if (filename.endsWith('.obj') || filename.endsWith('.vtk') || 
+                  filename.endsWith('.stl') || filename.endsWith('.mz3') || 
+                  filename.endsWith('.smoothwm')) {
+          this.initializeMeshPane();
+        }
         this.updateDrawerStates();
       },
       onLocationChange: (data) => {
@@ -229,16 +253,13 @@ export class NiiVueViewer {
     this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
+    this.viewer.opts.dragMode = this.viewer.dragModes.pan;
     this.viewer.setInterpolation(true);
 
-    const volumePane = new VolumePane(this);
-    this.loadedVolumes.push({ pane: volumePane });
-
-    const meshPane = new MeshPane(this);
-    this.loadedMeshes.push({ pane: meshPane });
-
-    const fiberPane = new FiberPane(this);
-    this.loadedFibers.push({ pane: fiberPane });
+    // Initialize empty arrays for panes
+    this.loadedVolumes = [];
+    this.loadedMeshes = [];
+    this.loadedFibers = [];
 
     // Add resize observer to handle container size changes
     const resizeObserver = new ResizeObserver(() => {
@@ -248,14 +269,49 @@ export class NiiVueViewer {
 
     this.setupSliders();
   }
+  
+  initializeVolumePane() {
+    // Only create if it doesn't exist yet and volumes are present
+    if (this.loadedVolumes.length === 0 && this.viewer.volumes && this.viewer.volumes.length > 0) {
+      const volumePane = new VolumePane(this);
+      this.loadedVolumes.push({ pane: volumePane });
+    }
+  }
+  
+  initializeMeshPane() {
+    // Only create if it doesn't exist yet and there are compatible meshes
+    if (this.loadedMeshes.length === 0) {
+      const compatibleMesh = getFirstCompatibleMesh(this.viewer);
+      if (compatibleMesh) {
+        const meshPane = new MeshPane(this);
+        this.loadedMeshes.push({ pane: meshPane });
+      }
+    }
+  }
+  
+  initializeFiberPane() {
+    // Only create if it doesn't exist yet and there are compatible fibers
+    if (this.loadedFibers.length === 0) {
+      const compatibleFiber = getFirstCompatibleFiber(this.viewer);
+      if (compatibleFiber) {
+        const fiberPane = new FiberPane(this);
+        this.loadedFibers.push({ pane: fiberPane });
+      }
+    }
+  }
 
   setupPinControls() {
     const pinIcons = document.querySelectorAll(".pin-icon");
     const drawers = document.querySelectorAll(".drawer");
+    const drawerTriggers = document.querySelectorAll(".drawer-trigger");
   
-    // Add inactive class to all drawers initially
+    // Add inactive class to all drawers initially and hide drawer triggers
     drawers.forEach(drawer => {
       drawer.classList.add('inactive');
+    });
+    
+    drawerTriggers.forEach(trigger => {
+      trigger.classList.add('hidden');
     });
   
     pinIcons.forEach((pin) => {
@@ -317,6 +373,19 @@ export class NiiVueViewer {
   async loadFile(file) {
     try {
       await this.viewer.loadFromFile(file);
+
+      // Determine file type and initialize appropriate pane
+      const filename = file.name.toLowerCase();
+      if (filename.endsWith('.nii') || filename.endsWith('.nii.gz')) {
+        this.initializeVolumePane();
+      } else if (filename.endsWith('.trk') || filename.endsWith('.tko') || 
+                filename.endsWith('.trx') || filename.endsWith('.tck')) {
+        this.initializeFiberPane();
+      } else if (filename.endsWith('.obj') || filename.endsWith('.vtk') || 
+                filename.endsWith('.stl') || filename.endsWith('.mz3') || 
+                filename.endsWith('.smoothwm')) {
+        this.initializeMeshPane();
+      }
 
       // Set initial states
       if (this.viewer.volumes && this.viewer.volumes.length > 0) {
