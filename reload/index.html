@@ -147,12 +147,25 @@
 
     <div id="viewerContainer" class="viewer-container hidden">
       <header class="viewer-header">
-        <img 
-          src="./images/SliceDropReloaded.svg" 
-          alt="Slice:Drop Logo" 
-          class="viewer-logo"
-          onclick="location.reload()"
-        />
+        <div class="header-left">
+          <img 
+            src="./images/SliceDropReloaded.svg" 
+            alt="Slice:Drop Logo" 
+            class="viewer-logo"
+            onclick="location.reload()"
+          />
+          <div class="tooltip-container">
+            <i class="fa-solid fa-circle-info info-icon"></i>
+            <div class="tooltip-content">
+              <strong>Hotkeys:</strong>
+              <ul>
+                <li>Key "u": Utility pane</li>
+                <li>Ctrl + Alt + a: Advanced pane modes</li>
+                <li>Space key: Toggle between views</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </header>
       
       <ul class="drawer-container">
@@ -214,14 +227,7 @@
         style="position: absolute; visibility: hidden"
       />
 
-      <div id="shortcut-tooltip">
-        <strong>Hotkeys:</strong>
-        <ul>
-          <li>Key "u": Utility pane</li>
-          <li>Ctrl + Alt + a: Advanced pane modes</li>
-          <li>Space key: Toggle between views</li>
-        </ul>
-      </div>
+      <!-- Tooltip moved to header area -->
     </div>
     
     

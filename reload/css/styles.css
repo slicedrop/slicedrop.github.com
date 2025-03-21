@@ -5,7 +5,7 @@
   --tp-button-background-color-active: hsla(0, 0%, 85%, 1.00);
   --tp-button-background-color-focus: hsla(0, 0%, 90%, 1.00);
   --tp-button-background-color-hover: hsla(0, 0%, 95%, 1.00);
-  --tp-button-foreground-color: hsla(0, 100%, 50%, 0.80);
+  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
   --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
   --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
   --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
@@ -381,6 +381,12 @@ body {
   z-index: 1001; /* Above drawers */
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .viewer-logo {
   width: 80px; /* Adjust size as needed */
   cursor: pointer;
@@ -389,6 +395,74 @@ body {
 
 .viewer-logo:hover {
   opacity: 0.8;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.info-icon {
+  color: #fff;
+  font-size: 16px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.info-icon:hover {
+  opacity: 1;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  position: absolute;
+  left: -60px;
+  top: 30px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 240px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  z-index: 1002;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 70px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent;
+}
+
+.tooltip-content strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.tooltip-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tooltip-content li {
+  list-style: disc;
+  margin-bottom: 4px;
+  font-size: 11px;
 }
 
 /* Drawer Styles */
@@ -421,7 +495,11 @@ body {
   min-height: 200px;
   padding: 0;
   margin: 0;
-  transition: width 0.2s ease; /* Add transition to match drawer */
+  transition: width 0.2s ease, opacity 0.3s ease; /* Add transition to match drawer */
+}
+
+.drawer-trigger.hidden {
+  display: none; /* Completely hide the drawer trigger when no data is available */
 }
 
 .drawer {
@@ -588,40 +666,7 @@ body {
   width: 75%;
 }
 
-#shortcut-tooltip {
-  position: fixed;
-  bottom: 20px;         /* Distance from the bottom */
-  left: 50%;           /* Distance from the left */
-  background: rgba(0, 0, 0, 0.7);  /* Semi-transparent dark background */
-  color: #fff;          /* White text */
-  padding: 12px 16px;   /* Padding for a nicer look */
-  border-radius: 6px;   /* Rounded corners */
-  font-family: 'Manrope', sans-serif;
-  font-size: 10px;
-  line-height: 1.4;
-  z-index: 1000;        /* Ensure it's on top */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#shortcut-tooltip strong {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 15px;
-}
-
-#shortcut-tooltip ul {
-  margin: 0;
-  padding-left: 20px;
-}
-
-#shortcut-tooltip li {
-  list-style: disc;
-  margin-bottom: 4px;
-}
-
-#shortcut-tooltip li:last-child {
-  margin-bottom: 0;
-}
+/* Shortcut tooltip styles moved to the tooltip-content class */
 
 
 input[type="range"] {

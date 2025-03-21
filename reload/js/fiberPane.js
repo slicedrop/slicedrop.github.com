@@ -1,5 +1,8 @@
-import { getFirstCompatibleFiber } from "./utils.js";
+import { getFirstCompatibleFiber, updatePaneVisibility } from "./utils.js";
 
+/**
+ * Controls panel for fiber track visualization
+ */
 export class FiberPane {
   constructor(viewer) {
     this.mainViewer = viewer;
@@ -252,13 +255,12 @@ export class FiberPane {
     });
   }
 
-  // Method to show/hide the pane based on fiber availability
+  /**
+   * Update pane visibility based on fiber availability
+   * @param {boolean} show - Whether to show the pane
+   */
   updateVisibility(show) {
-    if (show) {
-      this.pane.element.style.display = "block";
-    } else {
-      this.pane.element.style.display = "none";
-    }
+    updatePaneVisibility(this.pane, show);
   }
 }
 
