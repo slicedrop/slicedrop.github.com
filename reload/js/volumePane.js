@@ -1,6 +1,9 @@
 import * as EssentialsPlugin from "https://cdn.jsdelivr.net/npm/@tweakpane/plugin-essentials@0.2.1/dist/tweakpane-plugin-essentials.min.js"
+import { hexToRgb, generateColorMap } from './utils.js';
 
-
+/**
+ * Controls panel for volume data visualization
+ */
 export class VolumePane {
   constructor(viewer) {
     this.mainViewer = viewer;
@@ -119,7 +122,6 @@ export class VolumePane {
     
     });
   }
-
 
   
   addSliders = (show) => {
@@ -650,55 +652,20 @@ export class VolumePane {
     this.clipperFolder.hidden = !show;
   }
 
+  /**
+   * Updates the colormap based on current start/end colors
+   */
   updateColormap() {
-    const startColor = this.hexToRgb(this.state.startColor);
-    const endColor = this.hexToRgb(this.state.endColor);
+    const startColor = hexToRgb(this.state.startColor);
+    const endColor = hexToRgb(this.state.endColor);
 
     // Generate color map with interpolation
-    const cmap = this.generateColorMap(startColor, endColor);
+    const cmap = generateColorMap(startColor, endColor);
 
     const key = "CustomGradient";
     this.viewer.addColormap(key, cmap);
     this.viewer.volumes[0].colormap = key;
     this.viewer.updateGLVolume();
-  }
-
-  hexToRgb(hex) {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : null;
-  }
-
-  generateColorMap(color1, color2, steps = 256) {
-    const cmap = {
-      R: [],
-      G: [],
-      B: [],
-      A: [],
-      I: [],
-    };
-
-    for (let i = 0; i < steps; i++) {
-      const t = i / (steps - 1);
-
-      const r = Math.round(color1.r + t * (color2.r - color1.r));
-      const g = Math.round(color1.g + t * (color2.g - color1.g));
-      const b = Math.round(color1.b + t * (color2.b - color1.b));
-
-      cmap.R.push(r);
-      cmap.G.push(g);
-      cmap.B.push(b);
-      cmap.A.push(255);
-      cmap.I.push(Math.round((r + g + b) / 3));
-    }
-
-    console.log(cmap);
-    return cmap;
   }
 
   updateThresholdRange() {

@@ -1,5 +1,8 @@
-import { getFirstCompatibleMesh } from './utils.js';
+import { getFirstCompatibleMesh, hexToRgb, updatePaneVisibility } from './utils.js';
 
+/**
+ * Controls panel for 3D mesh visualization
+ */
 export class MeshPane {
   constructor(viewer) {
     this.mainViewer = viewer;
@@ -91,7 +94,7 @@ export class MeshPane {
     }).on('change', (ev) => {
       const compatibleMesh = getFirstCompatibleMesh(this.viewer);
       if (compatibleMesh) {
-        const color = this.hexToRgb(ev.value);
+        const color = hexToRgb(ev.value);
         this.viewer.setMeshProperty(compatibleMesh.mesh.id, 'rgba255', [
           color.r,
           color.g,
@@ -156,22 +159,12 @@ export class MeshPane {
     });
   }
 
-  hexToRgb(hex) {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  }
-
-  // Method to show/hide the pane based on mesh availability
+  /**
+   * Update pane visibility based on mesh availability
+   * @param {boolean} show - Whether to show the pane
+   */
   updateVisibility(show) {
-    if (show) {
-      this.pane.element.style.display = 'block';
-    } else {
-      this.pane.element.style.display = 'none';
-    }
+    updatePaneVisibility(this.pane, show);
   }
 }
 

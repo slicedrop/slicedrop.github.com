@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Main viewer component that handles 3D/2D visualization of medical images
+ * This file contains the core viewer functionality and coordinates data loading and UI components
+ */
+
 import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
 import { VolumePane } from "./volumePane.js";
 import { MeshPane } from "./meshPane.js";
@@ -5,7 +10,15 @@ import { FiberPane } from "./fiberPane.js";
 import { UtilitiesPane } from "./utilitiesPane.js";
 import { getFirstCompatibleFiber, getFirstCompatibleMesh } from "./utils.js";
 
+/**
+ * Main viewer class that manages the NiiVue rendering engine and coordinates UI components
+ * Responsible for loading data files, managing UI states, and connecting all components
+ */
 export class NiiVueViewer {
+  /**
+   * Creates a new NiiVueViewer instance
+   * @param {string} canvasId - The HTML canvas element ID where the viewer will render
+   */
   constructor(canvasId) {
     this.canvasId = canvasId;
 
@@ -14,6 +27,7 @@ export class NiiVueViewer {
     this.loadedMeshes = [];
     this.loadedFibers = [];
 
+    // Initialize slider references for multiplanar viewing
     this.sliders = {
       ax: document.getElementById('axSlider'),
       cor: document.getElementById('corSlider'),
@@ -153,9 +167,12 @@ export class NiiVueViewer {
     });
   }
 
+  /**
+   * Updates UI drawer visibility based on loaded data
+   * Shows/hides appropriate control panels based on what types of data are loaded
+   */
   updateDrawerStates() {
-    console.log("Updating drawer states...");
-  
+    // Get drawer elements
     const volumeDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(1)");
     const meshDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(2)");
     const fiberDrawerTrigger = document.querySelector(".drawer-trigger:nth-child(3)");
@@ -164,7 +181,7 @@ export class NiiVueViewer {
     const meshDrawer = meshDrawerTrigger?.querySelector(".drawer");
     const fiberDrawer = fiberDrawerTrigger?.querySelector(".drawer");
 
-    // Check for volumes
+    // Check for volumes and update volume drawer visibility
     if (this.viewer.volumes && this.viewer.volumes.length > 0) {
       volumeDrawer?.classList.add("active");
       volumeDrawer?.classList.remove("inactive");
@@ -175,31 +192,28 @@ export class NiiVueViewer {
       volumeDrawerTrigger?.classList.add("hidden");
     }
   
-    // Check for compatible meshes
+    // Check for compatible meshes and update mesh drawer visibility
     const compatibleMesh = getFirstCompatibleMesh(this.viewer);
     if (compatibleMesh) {
       meshDrawer?.classList.add("active");
       meshDrawer?.classList.remove("inactive");
       meshDrawerTrigger?.classList.remove("hidden");
-      console.log("Mesh drawer activated");
     } else {
       meshDrawer?.classList.remove("active");
       meshDrawer?.classList.add("inactive");
       meshDrawerTrigger?.classList.add("hidden");
     }
   
-    // Check for compatible fibers
+    // Check for compatible fibers and update fiber drawer visibility
     const compatibleFiber = getFirstCompatibleFiber(this.viewer);
     if (compatibleFiber) {
       fiberDrawer?.classList.add("active");
       fiberDrawer?.classList.remove("inactive");
       fiberDrawerTrigger?.classList.remove("hidden");
-      console.log("Fiber drawer activated, compatible fiber found:", compatibleFiber);
     } else {
       fiberDrawer?.classList.remove("active");
       fiberDrawer?.classList.add("inactive");
       fiberDrawerTrigger?.classList.add("hidden");
-      console.log("No compatible fiber found");
     }
   }
 
