@@ -97,12 +97,14 @@ export class NiiVueViewer {
   }
 
   resizeSliders() {
+
     if (!this.isMultiView()) {
       Object.values(this.sliders).forEach(slider => {
         slider.style.visibility = 'hidden';
       });
       return;
     }
+
 
     const dpr = 1/this.viewer.uiData.dpr;
     const container = document.getElementById('gl1');
@@ -113,7 +115,8 @@ export class NiiVueViewer {
       const ltwh = slice?.leftTopWidthHeight || [-1, 0, 0, 0];
 
       if (ltwh[0] < 0) {
-        slider.style.visibility = 'hidden';
+        // this seems to be unnecessary and breaks the doubleclick in 3D
+        // slider.style.visibility = 'hidden';
         return;
       }
 
@@ -219,8 +222,9 @@ export class NiiVueViewer {
 
   initialize() {
     this.viewer = new niivue.Niivue({
-      backColor: [0, 0, 0, 0],
-      show3Dcrosshair: true,
+      backColor: [0.1, 0.1, 0.1, 1],
+      // crosshairColor
+      show3Dcrosshair: false,
       onImageLoaded: () => {
         this.initializeVolumePane();
         this.updateDrawerStates();
@@ -263,11 +267,15 @@ export class NiiVueViewer {
     this.viewer.attachTo('gl1');
     this.viewer.setHeroImage(7 * 0.1);
     this.viewer.opts.textHeight = 0.02;
-    this.viewer.opts.crosshairWidth = 0.5;
+    // this.viewer.opts.isOrientCube = true;
+    this.viewer.opts.isAntiAlias = true;
+    this.viewer.opts.crosshairWidth = 0.1;
+    this.viewer.opts.crosshairColor = [1.0, 1.0, 1.0, 1.0];
+    this.viewer.opts.yoke3Dto2DZoom = true
     this.viewer.opts.multiplanarEqualSize = true;
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     this.viewer.setClipPlane([-0.12, 180, 40]);
-    this.viewer.opts.dragMode = this.viewer.dragModes.pan;
+    this.viewer.opts.dragMode = this.viewer.dragModes.slicer3D;
     this.viewer.setInterpolation(true);
 
     // Initialize empty arrays for panes
@@ -448,9 +456,9 @@ export class NiiVueViewer {
       };
 
       // Load and execute PowerBoost
-      loadBoostlet(baseurl + scriptName)
-        .then(compileAndExecuteBoostlet)
-        .catch((error) => console.error("Error loading PowerBoost:", error));
+      // loadBoostlet(baseurl + scriptName)
+      //   .then(compileAndExecuteBoostlet)
+      //   .catch((error) => console.error("Error loading PowerBoost:", error));
 
       return true;
     } catch (error) {

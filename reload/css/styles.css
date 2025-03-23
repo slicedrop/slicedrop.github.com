@@ -17,9 +17,10 @@
   --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.5);
   --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.4);
   --tp-input-foreground-color: hsla(0, 0%, 100%, 0.5);
-  --tp-label-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-label-foreground-color: hsla(0, 0%, 100%, 1.0);
   --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
   --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
+  --tp-base-font-family: "Manrope", sans-serif;
 
 
     /** Max height of dropdown panel. */
@@ -31,6 +32,7 @@
     /** Width/height of (square) thumbnail. */
     --tp-plugin-thumbnail-list-thumb-size: 20px;
 }
+
 
 body {
   margin: 0;
@@ -388,9 +390,10 @@ body {
 }
 
 .viewer-logo {
-  width: 80px; /* Adjust size as needed */
+/*  width: 120px;  Adjust size as needed */
   cursor: pointer;
   transition: opacity 0.2s ease;
+  margin-left: 10px;
 }
 
 .viewer-logo:hover {
