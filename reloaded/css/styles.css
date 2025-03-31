@@ -1,0 +1,786 @@
+:root {
+  --tp-base-background-color: hsla(0, 0%, 10%, 0.5);
+  --tp-base-shadow-color: hsla(0, 0%, 0%, 0.2);
+  --tp-button-background-color: hsla(0, 0%, 100%, 1.00);
+  --tp-button-background-color-active: hsla(0, 0%, 85%, 1.00);
+  --tp-button-background-color-focus: hsla(0, 0%, 90%, 1.00);
+  --tp-button-background-color-hover: hsla(0, 0%, 95%, 1.00);
+  --tp-button-foreground-color: hsla(0, 0%, 0%, 0.8);
+  --tp-container-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-container-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-container-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-container-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-container-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-groove-foreground-color: hsla(0, 0%, 0%, 0.2);
+  --tp-input-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-input-background-color-active: hsla(0, 0%, 0%, 0.6);
+  --tp-input-background-color-focus: hsla(0, 0%, 0%, 0.5);
+  --tp-input-background-color-hover: hsla(0, 0%, 0%, 0.4);
+  --tp-input-foreground-color: hsla(0, 0%, 100%, 0.5);
+  --tp-label-foreground-color: hsla(0, 0%, 100%, 1.0);
+  --tp-monitor-background-color: hsla(0, 0%, 0%, 0.3);
+  --tp-monitor-foreground-color: hsla(0, 0%, 100%, 0.3);
+  --tp-base-font-family: sans-serif;
+
+
+    /** Max height of dropdown panel. */
+    --tp-plugin-thumbnail-list-height: 400px;
+
+    /** Fixed width of dropdown panel. */
+    --tp-plugin-thumbnail-list-width: 200px;
+  
+    /** Width/height of (square) thumbnail. */
+    --tp-plugin-thumbnail-list-thumb-size: 20px;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+#gl1 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2vh 0; /* Use viewport height units for padding */
+  overflow: hidden;
+}
+
+.landing-container.hidden {
+  display: none;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  gap: 4vh; /* Use viewport height for spacing */
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  width: 97%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.logo {
+  width: 15%;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left:20px;
+}
+
+.header-text h1 {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.header-text p {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin: 10px 0 0;
+  color: #888;
+}
+
+/*****************************************************/
+.examples-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+}
+
+.examples-container h2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.examples-grid {
+  display: flex;
+  gap: 17px;
+  justify-content: center;
+}
+
+.example-card {
+  width: 100px;
+  cursor: pointer;
+  position: relative; /* Add this for pseudo-element positioning */
+}
+
+.example-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #555555;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.example-card:hover::before,
+.example-card.active::before {
+  opacity: 1;
+}
+
+.example-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+
+
+/* Caption container centered below the row of images */
+.caption-container {
+  margin-top: 5px;
+  width: calc(100px * 4 + 12px * 3);
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 4px;
+  color: #888;
+  text-align: center;
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.caption-container p {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+/*****************************************************/
+
+.format-info {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  gap: 30px;
+}
+
+.format-card {
+  flex: 0 200px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+
+.format-card img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  margin: 0 auto 15px;
+  display: block;
+  border-radius: 4px;
+}
+
+.format-card h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.format-card p {
+  color: #888;
+  margin: 0;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+.footer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  border-top: 1px solid #333;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-family: sans-serif;
+  font-weight: 400;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 20px 0
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .format-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .format-card {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-height: 800px) {
+  .header {
+      padding: 1vh 40px;
+  }
+
+  .main-content {
+      gap: 2vh;
+  }
+
+  .format-card img {
+      max-width: 120px; /* Smaller images on shorter screens */
+  }
+}
+
+
+@media (max-height: 600px) {
+  .dropzone-section {
+      transform: scale(0.9);
+  }
+
+  .format-info {
+      transform: scale(0.9);
+  }
+}
+
+.viewer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: 2000;
+}
+
+.viewer-container.hidden {
+  display: none;
+}
+
+/* Drop Zone Styles */
+#dropZoneOverlay {
+  width: 100%;
+  height: 100%;
+  
+/*  max-width: 600px;*/
+/*  background-color: #000;  Changed to black to blend with background */
+/*  border: 2px dashed #333; /* Added subtle border */*/
+/*  border-radius: 8px;*/
+/*  padding: 40px 20px;*/
+  text-align: center;
+  transition: border-color 0.3s ease;
+  z-index: 5000;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #222222;
+  opacity: 0.9;
+  display: none;
+}
+
+#dropZoneHint {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+/*  height: 200px;*/
+  padding: 50px;
+  top: 40%;
+  left: 30%;
+  width: 40%;
+  position: absolute;
+  background: black;
+  border: 2px solid white;
+  border-radius: 1em;
+}
+
+.dropzone-section {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop-zone.dragging {
+  background-color: #1c1c1c; /* Slightly lighter black when dragging */
+  border-color: #444;
+  border-style: solid;
+  max-width: 100%;
+  height: 100%;
+}
+
+.drop-zone.hidden {
+  display: none;
+}
+
+.drop-zone-overlay.hidden {
+  display: none;
+}
+
+.drop-zone__content {
+  text-align: center;
+}
+
+.drop-zone__text {
+  color: white;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.drop-zone__separator {
+  color: #666;
+  margin: 1rem 0;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+.drop-zone__button {
+/*  background-color: #414141;*/
+  background-image: -webkit-linear-gradient(top, #555555, #222222);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  vertical-align: super;
+}
+
+.drop-zone__button:hover {
+  /*  background-color: #505050;*/
+  background-image: -webkit-linear-gradient(top, #666666, #222222);
+}
+
+.viewer-header {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* Above drawers */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.viewer-logo {
+/*  width: 120px;  Adjust size as needed */
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-left: 10px;
+}
+
+.viewer-logo:hover {
+  opacity: 0.8;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.info-icon {
+  color: #fff;
+  font-size: 16px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.info-icon:hover {
+  opacity: 1;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  position: absolute;
+  left: -60px;
+  top: 30px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  width: 240px;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  z-index: 1002;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 70px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent;
+}
+
+.tooltip-content strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.tooltip-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tooltip-content li {
+  list-style: disc;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+/* Drawer Styles */
+
+.drawer-container {
+  position: fixed;
+  left: 0;
+  top: 110px;
+  bottom: 20px;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drawer-container.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.drawer-trigger {
+  position: relative;
+  width: 126px; /* 26px (drawer) + 100px (hover area) */
+  height: calc((100vh - 40px - 40px) / 3.5);
+  min-height: 200px;
+  padding: 0;
+  margin: 0;
+  transition: width 0.2s ease, opacity 0.3s ease; /* Add transition to match drawer */
+}
+
+.drawer-trigger.hidden {
+  display: none; /* Completely hide the drawer trigger when no data is available */
+}
+
+.drawer {
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 100%;
+  background-color: #161616;
+  border-radius: 0 8px 8px 0;
+  cursor: default;
+  transition: width 0.2s ease, background-color 0.2s ease;
+  overflow: hidden;
+}
+
+.drawer-tab-text {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  color: #fff;
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.drawer-content {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  height: 100%;
+  width: calc(100% - 32px);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  padding: 7px 5px 2px 0px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.pin-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: #666;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: rotate(-45deg);
+  cursor: pointer;
+  z-index: 3;
+}
+
+.drawer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: #00a8ff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Base states */
+.drawer:not(.active) {
+  width: 26px !important;
+}
+
+/* Active state hover effects */
+.drawer.active {
+  cursor: pointer;
+}
+.drawer-trigger:hover {
+  width: 440px; /* 340px (expanded drawer) + 100px (extra hover area) */
+}
+
+.drawer-trigger .drawer.pinned {
+  width: 340px !important;
+}
+
+.drawer-trigger .drawer.pinned + .drawer-trigger {
+  width: 440px;
+}
+
+.drawer-trigger:hover .drawer.active:not(.pinned),
+.drawer.active:hover:not(.pinned) {
+  width: 340px !important;
+}
+
+.drawer-trigger:hover .drawer.active .drawer-content,
+.drawer.active:hover .drawer-content {
+  opacity: 1;
+}
+
+.drawer-trigger:hover .drawer.active .drawer-tab-text,
+.drawer.active:hover .drawer-tab-text {
+  transform: translateY(-50%) rotate(180deg) translateX(0);
+}
+
+.drawer-trigger:hover .drawer.active .pin-icon,
+.drawer.active:hover .pin-icon {
+  opacity: 1;
+}
+
+.drawer-trigger:hover .drawer.active::before,
+.drawer.active:hover::before {
+  opacity: 1;
+}
+
+/* Pinned state styles */
+.drawer.pinned {
+  width: 340px !important;
+  cursor: pointer;
+}
+
+.drawer.pinned .drawer-content {
+  opacity: 1;
+}
+
+.drawer.pinned .drawer-tab-text {
+  transform: translateY(-50%) rotate(180deg) translateX(0);
+}
+
+.drawer.pinned .pin-icon {
+  opacity: 1;
+  color: #00a8ff;
+  transform: rotate(0deg);
+}
+
+/* Inactive state */
+.drawer.inactive {
+  pointer-events: none;
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+/* Scrollbar styles */
+.drawer-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.drawer-content::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+.drawer-content::-webkit-scrollbar-thumb:hover {
+  background: #505050;
+}
+
+.utilities-pane .tp-lblv_v {
+  width: 75%;
+}
+
+/* Shortcut tooltip styles moved to the tooltip-content class */
+
+
+input[type="range"] {
+  -webkit-appearance: none;
+  position: absolute;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1); /* fallback background if needed */
+  outline: none;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+  pointer-events: auto;
+  
+}
+
+/* Increase thumb size so they pop out more, then adjust their position */
+/* WebKit (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;  /* Increased width */
+  height: 14px; /* Increased height */
+  /* White background but with some shadow to make it pop */
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: grab;
+  /* Center the thumb relative to the track:
+     (thumb height - track height) / 2 = (18px - 10px) / 2 = 4px offset */
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 3px;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 14px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  cursor: grab;
+  transform: translateY(-4px);
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 3px;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+/* --- Custom slider track backgrounds per slider --- */
+
+/* Blue track for the first slider */
+#axSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+#axSlider::-moz-range-track {
+  background: rgba(0, 0, 255, 0.4);
+}
+
+/* Red track for the second slider */
+#corSlider::-webkit-slider-runnable-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+#corSlider::-moz-range-track {
+  background: rgba(255, 0, 0, 0.4);
+}
+
+/* Green track for the third slider */
+#sagSlider::-webkit-slider-runnable-track {
+  background: rgba(0, 255, 0, 0.4);
+}
+
+#sagSlider::-moz-range-track {
+  background: rgba(0, 255, 0, 0.4);
+}

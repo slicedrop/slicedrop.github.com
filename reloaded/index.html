@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./css/styles.css" />
+
+    <title>Slice:Drop</title>
+
+    <script type="module">
+      import { Pane } from "./js/tweakpane.min.js";
+      window.Pane = Pane;
+    </script>
+    <script type="module" src="./js/index.js"></script>
+
+    <link rel="icon" href="./gfx/slicedrop_logo.png" />
+  </head>
+  <body id='body'>
+
+    <div id='dropZoneOverlay'><div id='dropZoneHint'>Drop files anywhere...</div></div>
+
+    <!-- Landing page container -->
+    <div id="landingContainer" class="landing-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="header-text">
+            <img src='gfx/slicedrop_black.png'>
+            <p>Instantly view scientific and medical imaging data in 3D.</p>
+          </div>
+        </div>
+
+        <div class="examples-container">
+          <h2 style="align-self: baseline">Try the examples...</h2>
+
+          <!-- Row of example images -->
+          <div class="examples-grid">
+            <div
+              class="example-card"
+              data-example="1"
+              data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++"
+            >
+              <img src="./gfx/14yrold.png" alt="Brain MRI Example" />
+            </div>
+
+            <div
+              class="example-card"
+              data-caption="A contrast-enhanced 3D MR image showing an arteriovenous fistula, a bypass created by joining an artery and a vein, located in an arm. Loading time: +"
+              data-example="2"
+            >
+              <img src="./gfx/avf_small.png" alt="Arteriovenous Fistula" />
+            </div>
+
+            <div
+              class="example-card"
+              data-caption="The surface of the left hemisphere of a 2-year-old healthy brain. The scalar overlay shows the bending energy based on Curvedness. Loading time: ++"
+              data-example="3"
+            >
+              <img src="./gfx/2yrold_small.png" alt="Brain Surface" />
+            </div>
+
+            <div
+              class="example-card"
+              data-caption="A region of the brainstem of a human adult including an automatically generated segmentation as a label map colorized using an anatomical color table. Loading time: +"
+              data-example="4"
+            >
+              <img src="./gfx/brainstem_small.png" alt="Brainstem" />
+            </div>
+          </div>
+
+          <!-- Caption container -->
+          <div class="caption-container">
+            <p id="dynamic-caption">
+              A 14-year-old healthy male brain. The patient was scanned using a
+              structural MRI and a diffusion MRI to highlight connecting brain
+              fibers. Loading time: +++
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <!-- Drag & Drop Zone -->
+        <section class="dropzone-section">
+          <div id="dropZoneLabel" class="drop-zone-label">
+            <div class="drop-zone__content">
+              <span id="dropText" class="drop-zone__text">
+                Drop your files here or 
+              </span>
+              <label class="drop-zone__button">
+                Select files
+                <input type="file" id="fileInput" class="hidden" multiple />
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Format Info Section -->
+        <section class="format-info">
+          <div class="format-card">
+            <img src="./gfx/fibers.png" alt="Fibers Format" />
+            <h3>Fibers</h3>
+            <p>(.tck / .trk / .trx / .tsf / .tt /.vtk / .niml.tract)</p>
+          </div>
+          <div class="format-card">
+            <img src="./gfx/dicom.png" alt="Volumes Format" />
+            <h3>Volumes</h3>
+            <p>(.nii / .nii.gz / .nrrd / .mif / .mih / .head / .brick / .mgh / .mgz / .mhd / .v.gz / .src.gz / .sz / DICOM)</p>
+          </div>
+          <div class="format-card">
+            <img src="./gfx/surface.png" alt="Models Format" />
+            <h3>Models</h3>
+            <p>(.obj / .vtk / .stl / .ply / .gii / .x3d / .wrl / .mz3 / .off /FreeSurfer)</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a
+            href="https://github.com/slicedrop/slicedrop.github.com"
+            target="_blank"
+            >Source Code</a
+          >
+          <span class="separator">|</span>
+          <a href="https://mpsych.org/" target="_blank">Machine Psychology</a>
+          <span class="separator">|</span>
+          <a href="mailto:team@mpsych.org">Send Feedback</a>
+        </div>
+      </footer>
+    </div>
+
+    <div id="viewerContainer" class="viewer-container hidden">
+      <header class="viewer-header">
+        <div class="header-left">
+          <img 
+            src="./gfx/slicedrop_transparent.png" 
+            alt="Slice:Drop Logo" 
+            class="viewer-logo"
+            onclick="location.reload()"
+          />
+          <div class="tooltip-container">
+            <i class="fa-solid fa-circle-info info-icon"></i>
+            <div class="tooltip-content">
+              <strong>Hotkeys:</strong>
+              <ul>
+                <li>Key "u": Utility pane</li>
+                <li>Ctrl + Alt + a: Advanced pane modes</li>
+                <li>Space key: Toggle between views</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <ul class="drawer-container">
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <span class="drawer-tab-text">Volume</span>
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+            </div>
+            <div class="drawer-content"></div>
+          </div>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Mesh</span>
+            </div>
+            <div class="drawer-content"></div>
+          </div>
+        </li>
+    
+        <li class="drawer-trigger">
+          <div class="drawer">
+            <div class="drawer-header">
+              <i class="fa-solid fa-thumbtack pin-icon"></i>
+              <span class="drawer-tab-text">Fibers</span>
+            </div>
+            <div class="drawer-content"></div>
+          </div>
+        </li>
+      </ul>
+
+
+      <canvas id="gl1"></canvas>
+      <input
+        type="range"
+        id="axSlider"
+        min="0"
+        max="100"
+        data-axcorsag="0"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="corSlider"
+        min="0"
+        max="100"
+        data-axcorsag="1"
+        style="position: absolute; visibility: hidden"
+      />
+      <input
+        type="range"
+        id="sagSlider"
+        min="0"
+        max="100"
+        data-axcorsag="2"
+        style="position: absolute; visibility: hidden"
+      />
+
+      <!-- Tooltip moved to header area -->
+    </div>
+    
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".example-card");
+        const captionEl = document.getElementById("dynamic-caption");
+
+        // Set first card as active by default
+        cards[0].classList.add("active");
+        captionEl.innerText = cards[0].getAttribute("data-caption");
+
+        // Update active state and caption on hover
+        cards.forEach((card) => {
+          card.addEventListener("mouseenter", (event) => {
+            // Remove active class from all cards
+            cards.forEach((c) => c.classList.remove("active"));
+
+            // Add active class to hovered card
+            card.classList.add("active");
+
+            // Update caption
+            captionEl.innerText = card.getAttribute("data-caption");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
