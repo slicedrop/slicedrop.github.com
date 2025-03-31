@@ -167,7 +167,7 @@ export class FiberPane {
       expanded: true,
     });
 
-    console.log(this.viewer);
+    // console.log(this.viewer);
     // Coloration Mode
     visualFolder
       .addBinding(this.state, "colorationMode", {

@@ -22,73 +22,81 @@ export class NiiVueViewer {
   constructor(canvasId) {
     this.canvasId = canvasId;
 
-    // Initialize empty arrays for panes
-    this.loadedVolumes = [];
-    this.loadedMeshes = [];
-    this.loadedFibers = [];
+    // // Initialize empty arrays for panes
+    // this.loadedVolumes = [];
+    // this.loadedMeshes = [];
+    // this.loadedFibers = [];
 
-    // Initialize slider references for multiplanar viewing
-    this.sliders = {
-      ax: document.getElementById('axSlider'),
-      cor: document.getElementById('corSlider'),
-      sag: document.getElementById('sagSlider')
-    };
+    // // Initialize slider references for multiplanar viewing
+    // this.sliders = {
+    //   ax: document.getElementById('axSlider'),
+    //   cor: document.getElementById('corSlider'),
+    //   sag: document.getElementById('sagSlider')
+    // };
 
   
     this.initialize();
 
+    const landingContainer = document.getElementById("landingContainer");
+    const viewerContainer = document.getElementById("viewerContainer");
+
+
+    landingContainer.classList.add("hidden");
+    viewerContainer.classList.remove("hidden");
+
+
     window.nv = this.viewer;
-    this.setupPinControls();
+    // this.setupPinControls();
 
-    this.utilitiesPane = new UtilitiesPane(this);
+    // this.utilitiesPane = new UtilitiesPane(this);
 
-    this.exampleData = {
-      example1: [
-        "https://fly.cs.umb.edu/data/X/example1/streamlineres.small.trk",
-        "https://fly.cs.umb.edu/data/X/example1/T1sub.nii.gz",
-      ],
-      example2: [
-        "https://fly.cs.umb.edu/data/X/example2/avf.vtk",
-        "https://fly.cs.umb.edu/data/X/example2/avf.nii",
-      ],
-      example3: ["https://fly.cs.umb.edu/data/X/example3/lh.smoothwm"],
-      example4: [
-        "https://fly.cs.umb.edu/data/X/example4/seg.nii.gz",
-        "https://fly.cs.umb.edu/data/X/example4/vol.nii.gz",
-      ],
-    };
+    // this.exampleData = {
+    //   example1: [
+    //     "https://fly.cs.umb.edu/data/X/example1/streamlineres.small.trk",
+    //     "https://fly.cs.umb.edu/data/X/example1/T1sub.nii.gz",
+    //   ],
+    //   example2: [
+    //     "https://fly.cs.umb.edu/data/X/example2/avf.vtk",
+    //     "https://fly.cs.umb.edu/data/X/example2/avf.nii",
+    //   ],
+    //   example3: ["https://fly.cs.umb.edu/data/X/example3/lh.smoothwm"],
+    //   example4: [
+    //     "https://fly.cs.umb.edu/data/X/example4/seg.nii.gz",
+    //     "https://fly.cs.umb.edu/data/X/example4/vol.nii.gz",
+    //   ],
+    // };
 
-    this.setupExampleHandlers();
-    this.setupSliders();
-    window.addEventListener('resize', () => this.resizeSliders());
+    // this.setupExampleHandlers();
+    // this.setupSliders();
+    // window.addEventListener('resize', () => this.resizeSliders());
   }
 
   setupSliders() {
-    // Handle slider input
-    const moveSlider = () => {
-      this.viewer.scene.crosshairPos = [
-        this.sliders.sag.value / 100,
-        this.sliders.cor.value / 100,
-        this.sliders.ax.value / 100
-      ];
-      this.viewer.drawScene();
-    };
+    // // Handle slider input
+    // const moveSlider = () => {
+    //   this.viewer.scene.crosshairPos = [
+    //     this.sliders.sag.value / 100,
+    //     this.sliders.cor.value / 100,
+    //     this.sliders.ax.value / 100
+    //   ];
+    //   this.viewer.drawScene();
+    // };
 
-    // Add input listeners
-    Object.values(this.sliders).forEach(slider => {
-      slider.oninput = moveSlider;
-    });
+    // // Add input listeners
+    // Object.values(this.sliders).forEach(slider => {
+    //   slider.oninput = moveSlider;
+    // });
 
-    // Handle location changes
-    this.viewer.opts.onLocationChange = () => {
-      if (this.isMultiView()) {
-        const pos = this.viewer.scene.crosshairPos;
-        this.sliders.ax.value = Math.round(pos[2] * 100);
-        this.sliders.cor.value = Math.round(pos[1] * 100);
-        this.sliders.sag.value = Math.round(pos[0] * 100);
-        this.resizeSliders();
-      }
-    };
+    // // Handle location changes
+    // this.viewer.opts.onLocationChange = () => {
+    //   if (this.isMultiView()) {
+    //     const pos = this.viewer.scene.crosshairPos;
+    //     this.sliders.ax.value = Math.round(pos[2] * 100);
+    //     this.sliders.cor.value = Math.round(pos[1] * 100);
+    //     this.sliders.sag.value = Math.round(pos[0] * 100);
+    //     this.resizeSliders();
+    //   }
+    // };
   }
 
   isMultiView() {
@@ -98,33 +106,33 @@ export class NiiVueViewer {
 
   resizeSliders() {
 
-    if (!this.isMultiView()) {
-      Object.values(this.sliders).forEach(slider => {
-        slider.style.visibility = 'hidden';
-      });
-      return;
-    }
+    // if (!this.isMultiView()) {
+    //   Object.values(this.sliders).forEach(slider => {
+    //     slider.style.visibility = 'hidden';
+    //   });
+    //   return;
+    // }
 
 
-    const dpr = 1/this.viewer.uiData.dpr;
-    const container = document.getElementById('gl1');
-    const containerRect = container.getBoundingClientRect();
+    // const dpr = 1/this.viewer.uiData.dpr;
+    // const container = document.getElementById('gl1');
+    // const containerRect = container.getBoundingClientRect();
 
-    Object.entries(this.sliders).forEach(([type, slider], index) => {
-      const slice = this.viewer.screenSlices.find(s => s.axCorSag === index);
-      const ltwh = slice?.leftTopWidthHeight || [-1, 0, 0, 0];
+    // Object.entries(this.sliders).forEach(([type, slider], index) => {
+    //   const slice = this.viewer.screenSlices.find(s => s.axCorSag === index);
+    //   const ltwh = slice?.leftTopWidthHeight || [-1, 0, 0, 0];
 
-      if (ltwh[0] < 0) {
-        // this seems to be unnecessary and breaks the doubleclick in 3D
-        // slider.style.visibility = 'hidden';
-        return;
-      }
+    //   if (ltwh[0] < 0) {
+    //     // this seems to be unnecessary and breaks the doubleclick in 3D
+    //     // slider.style.visibility = 'hidden';
+    //     return;
+    //   }
 
-      slider.style.visibility = 'visible';
-      slider.style.left = `${Math.min(Math.max(ltwh[0] * dpr, 0), containerRect.width - 20)}px`;
-      slider.style.top = `${Math.min(Math.max((ltwh[1] - this.viewer.opts.tileMargin) * dpr, 0), containerRect.height - 20)}px`;
-      slider.style.width = `${Math.min(ltwh[2] * dpr, containerRect.width - parseFloat(slider.style.left))}px`;
-    });
+    //   slider.style.visibility = 'visible';
+    //   slider.style.left = `${Math.min(Math.max(ltwh[0] * dpr, 0), containerRect.width - 20)}px`;
+    //   slider.style.top = `${Math.min(Math.max((ltwh[1] - this.viewer.opts.tileMargin) * dpr, 0), containerRect.height - 20)}px`;
+    //   slider.style.width = `${Math.min(ltwh[2] * dpr, containerRect.width - parseFloat(slider.style.left))}px`;
+    // });
   }
 
   setupExampleHandlers() {
@@ -276,6 +284,7 @@ export class NiiVueViewer {
     this.viewer.setSliceType(this.viewer.sliceTypeMultiplanar);
     // this.viewer.setClipPlane([-0.12, 180, 40]);
     this.viewer.opts.dragMode = this.viewer.dragModes.slicer3D;
+    
     this.viewer.setInterpolation(true);
 
     // Initialize empty arrays for panes
@@ -297,6 +306,7 @@ export class NiiVueViewer {
     if (this.loadedVolumes.length === 0 && this.viewer.volumes && this.viewer.volumes.length > 0) {
       const volumePane = new VolumePane(this);
       this.loadedVolumes.push({ pane: volumePane });
+      this.viewer.setVolumeRenderIllumination(-1); // no 3D from start
     }
   }
   
@@ -394,10 +404,22 @@ export class NiiVueViewer {
 
   async loadFile(file) {
     try {
-      await this.viewer.loadFromFile(file);
+
+      
 
       // Determine file type and initialize appropriate pane
       const filename = file.name.toLowerCase();
+
+      if (filename.endsWith('.nvd')) {
+        //this is a saved scene
+        this.viewer.loadDocument(file);
+        console.log('a')
+      }
+
+
+
+      await this.viewer.loadFromFile(file);
+
       if (filename.endsWith('.nii') || filename.endsWith('.nii.gz')) {
         this.initializeVolumePane();
       } else if (filename.endsWith('.trk') || filename.endsWith('.tko') || 
@@ -408,6 +430,9 @@ export class NiiVueViewer {
                 filename.endsWith('.smoothwm')) {
         this.initializeMeshPane();
       }
+
+
+
 
       // Set initial states
       if (this.viewer.volumes && this.viewer.volumes.length > 0) {
