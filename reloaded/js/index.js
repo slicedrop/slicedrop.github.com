@@ -1,5 +1,7 @@
 import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
 
+window.niivue = niivue;
+
 //
 // FILE SELECT / DROP
 //
@@ -32,18 +34,44 @@ window.addEventListener("drop", (e) => {
 
     console.log('files dropped', e.dataTransfer.files);
 
-    start(e.dataTransfer.files);
+    var de = new DragEvent(e.type, e);
+
+    document.getElementById('gl1').dispatchEvent(de);
+
+    // load(e.dataTransfer.files);
 
 });
-selectbutton.addEventListener("change", (e) => {
+// selectbutton.addEventListener("change", (e) => {
 
-    console.log('files selected', e.target.files);
+//     console.log('files selected', e.target.files);
 
-    start(e.target.files);
+//     window.eee = e;
 
-});
+//     var dataTransfer = new DataTransfer();
 
-async function start(files) {
+//     const mockDropEvent = {
+//         preventDefault: () => {},
+//         dataTransfer: {
+//           files: e.target.files,
+//         },
+//     };
+
+//     var de = new DragEvent('drop', mockDropEvent);
+
+//     // var de = new DragEvent(e.type, e);
+//     // // de.dataTransfer = {};
+//     // window.ddd = de;
+//     // de.dataTransfer.files = e.target.files;
+
+//     document.getElementById('gl1').dispatchEvent(mockDropEvent);
+
+//     // load(e.target.files);
+
+// });
+
+start();
+
+function start() {
     //
     // START NIIVUE
     //
@@ -52,11 +80,24 @@ async function start(files) {
       show3Dcrosshair: false,
       onImageLoaded: () => {
 
+        setupUi();
+        nv.setVolumeRenderIllumination(-1);
+        nv.volumes[0].fgcolor = {r:1,g:1,b:1};
+        nv.volumes[0].bgcolor = {r:0,g:0,b:0};
+
+        showViewer();
+
       },
       onOverlayLoaded: () => {
 
+        console.log('load overlay')
+
       },
       onMeshLoaded: (data) => {
+
+        setupUi();
+
+        showViewer();
 
       },
       onLocationChange: (data) => {
@@ -73,7 +114,9 @@ async function start(files) {
     nv.opts.crosshairColor = [1.0, 1.0, 1.0, 1.0];
     nv.opts.yoke3Dto2DZoom = true
     nv.opts.multiplanarEqualSize = true;
+    // nv.opts.gradientOrder = 2;
     nv.setSliceType(nv.sliceTypeMultiplanar);
+    nv.opts.clipPlaneColor = [180/255, 180/255, 180/255, 0.1];
     // nv.setClipPlane([-0.12, 180, 40]);
     nv.opts.dragMode = nv.dragModes.slicer3D;
 
@@ -81,14 +124,110 @@ async function start(files) {
 
     window.nv = nv;
 
-    //
-    // LOAD DATA
-    //
-    await Promise.all( Array.from(files).map(file => nv.loadFromFile(file)) );
+}
+
+function loadExample(which) {
+
+    loadUrl('https://fly.cs.umb.edu/data/X/example'+which+'.nvd');
+
+}
+
+async function loadUrl(url) {
+
+    if (url.endsWith('.nvd')) {
+
+        niivue.NVDocument.loadFromUrl(url).then((doc) => {
+            nv.loadDocument(doc);
+            window.doc = doc;
+        });
+        
+    } else {
+        nv.loadFromUrl(url);
+    }
+
+    showViewer();
+
+}
+
+// async function load(files) {
+
+//     var nv = window.nv;
+
+//     console.log(files);
+
+//     // SORT DATA BY SIZE, LARGE FILES FIRST
+//     files = Array.from(files);
+
+//     const sortedFiles = files.sort((a, b) => b.size - a.size);
+
+
+//     var VOLUMELOADED = false;
+//     var MESHLOADED = false;
+
+//     var nvdoc = null;
+
+//     //
+//     // LOAD DATA
+//     //
+//     await Promise.all( sortedFiles.map(file => {
+
+//       const filename = file.name.toLowerCase();
+
+//       if (filename.endsWith('.nvd')) {
+        
+
+//         // this is a saved scene
+//         nvdoc = niivue.NVDocument.loadFromFile(file);
+
+
+//       } else {
+
+
+
+
+//         // check if there is already a volume in the scene,
+//         // then this is likely an overlay
+//         if (VOLUMELOADED) {
+
+//             console.log('2nd volume', filename);
+
+//         }
+
+//         if (nv.isMeshExt(filename)) {
+//             MESHLOADED = true;
+//         } else {
+//             VOLUMELOADED = true;
+//         }
+
+//         // any other file
+//         nv.loadFromFile(file); 
+//       }
+        
+//     }));
+
+
+//     if (nvdoc) {
+
+//         await nv.loadDocument(nvdoc);
+//         console.log('Loaded scene!');
+//     }
+        
+
+
+//     showViewer();
     
+// }
+
+function showViewer() {
     //
     // SHOW VIEWER
     //
     landingpage.classList.add("hidden");
     viewer.classList.remove("hidden");
+
 }
+
+
+
+window.loadUrl = loadUrl;
+window.loadExample = loadExample;

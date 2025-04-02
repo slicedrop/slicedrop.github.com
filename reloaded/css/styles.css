@@ -33,11 +33,17 @@
     --tp-plugin-thumbnail-list-thumb-size: 20px;
 }
 
+* {
+  user-select: none;
+  -webkit-user-select: none; /* For Safari */
+  -ms-user-select: none;     /* For IE/Edge */
+}
 
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  color: #fff;
   background-color: #000;
   overflow: hidden;
   font-family: sans-serif;

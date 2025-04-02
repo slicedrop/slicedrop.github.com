@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="./css/styles.css" />
+    <link type='text/css' rel='stylesheet' href='css/xtheme/jquery.ui.css' />
+    <link type='text/css' rel='stylesheet' href='css/jquery.miniColors.css' />
+    <link type='text/css' rel='stylesheet' href='css/jquery.sidebar.css' />
 
     <title>Slice:Drop</title>
 
-    <script type="module">
-      import { Pane } from "./js/tweakpane.min.js";
-      window.Pane = Pane;
-    </script>
+    <script type='text/javascript' src='js/lib/jquery.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.ui.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.ui.slider.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.miniColors.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.filestyle.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.idTabs.js'></script>
+    <script type='text/javascript' src='js/jquery.sidebar.js'></script>
+    <script type='text/javascript' src='js/jquery.sidebar.volume.js'></script>
+    <script type='text/javascript' src='js/jquery.sidebar.mesh.js'></script>
+    <script type='text/javascript' src='js/jquery.sidebar.fibers.js'></script>
+    <script type='text/javascript' src='js/jquery.viewer.js'></script>
+    <script type='text/javascript' src='js/x.controller.js'></script>
+
     <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/util.js"></script>
 
     <link rel="icon" href="./gfx/slicedrop_logo.png" />
   </head>
@@ -41,7 +54,7 @@
               data-example="1"
               data-caption="A 14-year-old healthy male brain. The patient was scanned using a structural MRI and a diffusion MRI to highlight connecting brain fibers. Loading time: +++"
             >
-              <img src="./gfx/14yrold.png" alt="Brain MRI Example" />
+              <img src="./gfx/example1.png" alt="Brain MRI Example" onclick='javascript:loadExample(1);'>
             </div>
 
             <div
@@ -49,7 +62,7 @@
               data-caption="A contrast-enhanced 3D MR image showing an arteriovenous fistula, a bypass created by joining an artery and a vein, located in an arm. Loading time: +"
               data-example="2"
             >
-              <img src="./gfx/avf_small.png" alt="Arteriovenous Fistula" />
+              <img src="./gfx/example2.png" alt="Arteriovenous Fistula" onclick='javascript:loadExample(2);'>
             </div>
 
             <div
@@ -86,12 +99,13 @@
           <div id="dropZoneLabel" class="drop-zone-label">
             <div class="drop-zone__content">
               <span id="dropText" class="drop-zone__text">
-                Drop your files here or 
+                Drop your files here! 
+                <!-- or  -->
               </span>
-              <label class="drop-zone__button">
+<!--               <label class="drop-zone__button">
                 Select files
                 <input type="file" id="fileInput" class="hidden" multiple />
-              </label>
+              </label> -->
             </div>
           </div>
         </section>
@@ -101,7 +115,7 @@
           <div class="format-card">
             <img src="./gfx/fibers.png" alt="Fibers Format" />
             <h3>Fibers</h3>
-            <p>(.tck / .trk / .trx / .tsf / .tt.gz /.vtk / .niml.tract)</p>
+            <p>(.tck / .trk / .trx / .tsf / .tt.gz / .vtk / .niml.tract)</p>
           </div>
           <div class="format-card">
             <img src="./gfx/dicom.png" alt="Volumes Format" />
@@ -111,7 +125,7 @@
           <div class="format-card">
             <img src="./gfx/surface.png" alt="Models Format" />
             <h3>Models</h3>
-            <p>(.obj / .vtk / .stl / .ply / .gii / .x3d / .wrl / .mz3 / .off /FreeSurfer)</p>
+            <p>(.obj / .vtk / .stl / .ply / .gii / .x3d / .wrl / .mz3 / .off / FreeSurfer)</p>
           </div>
         </section>
       </div>
@@ -125,13 +139,18 @@
             >Source Code</a
           >
           <span class="separator">|</span>
-          <a href="https://mpsych.org/" target="_blank">Machine Psychology</a>
+          <a href="https://mpsych.org/" target="_blank">Machine Psychology at UMass Boston</a>
+          <span class="separator">|</span>
+          <a href="https://github.com/niivue/niivue" target="_blank">NiiVue</a>
           <span class="separator">|</span>
           <a href="mailto:team@mpsych.org">Send Feedback</a>
         </div>
       </footer>
     </div>
 
+    <!--                    -->
+    <!-- VIEWER             -->
+    <!--                    -->
     <div id="viewerContainer" class="viewer-container hidden">
       <header class="viewer-header">
         <div class="header-left">
@@ -141,55 +160,176 @@
             class="viewer-logo"
             onclick="location.reload()"
           />
-          <div class="tooltip-container">
-            <i class="fa-solid fa-circle-info info-icon"></i>
-            <div class="tooltip-content">
-              <strong>Hotkeys:</strong>
-              <ul>
-                <li>Key "u": Utility pane</li>
-                <li>Ctrl + Alt + a: Advanced pane modes</li>
-                <li>Space key: Toggle between views</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </header>
       
-      <ul class="drawer-container">
-        <li class="drawer-trigger">
-          <div class="drawer">
-            <div class="drawer-header">
-              <span class="drawer-tab-text">Volume</span>
-              <i class="fa-solid fa-thumbtack pin-icon"></i>
-            </div>
-            <div class="drawer-content"></div>
+
+
+
+
+    <ul class='navigation'>
+      <li id='volume' class='navigationLi'><div class='menu menuDisabled'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
           </div>
-        </li>
-    
-        <li class="drawer-trigger">
-          <div class="drawer">
-            <div class="drawer-header">
-              <i class="fa-solid fa-thumbtack pin-icon"></i>
-              <span class="drawer-tab-text">Mesh</span>
+
+          <div class='tabbox idTabs' id='volumetabs'>
+            <div class='caption'>VOLUME</div>
+
+            <a href='#volumeTab' class='selected'>Volume</a> <a
+              href='#labelmapTab' id='labelmapSwitch'
+              style='margin-left: 50px;'>Labelmap</a>
+            <div id='volumeTab' class='tabContent'>
+
+
+              <div id='modes' style='width: 130px; float: left;'>
+                <div id='volumerendering'>
+                  <img src='gfx/3d.png' />
+                </div>
+                <div id='slicing'>
+                  <img src='gfx/2d.png' />
+                </div>
+              </div>
+
+              <div id='colors'
+                style='width: 26px; margin-left: 6px; float: left;'>
+
+                <input id='fgColorVolume' type='hidden'
+                  class='color-picker black' size='6' value='#ffffff' /> <input
+                  id='bgColorVolume' type='hidden' class='color-picker black'
+                  size='6' value='#000000' />
+              </div>
+
+              <div id='opacity-label' class='menuLabel'
+                style='margin-top: 4px; float: left;'>Opacity</div>
+              <div id='opacity-volume'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+              <div id='windowlevel-label' class='menuLabel'
+                style='margin-top: 4px; float: left;'>Window/Level</div>
+              <div id='windowlevel-volume'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+<!--               <div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>
+              <div id='threshold-volume'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+ -->
+
             </div>
-            <div class="drawer-content"></div>
-          </div>
-        </li>
-    
-        <li class="drawer-trigger">
-          <div class="drawer">
-            <div class="drawer-header">
-              <i class="fa-solid fa-thumbtack pin-icon"></i>
-              <span class="drawer-tab-text">Fibers</span>
+            <div id='labelmapTab' class='tabContent' style='display: none'>
+
+
+              <div id='visibility-labelmap' style='width: 130px; float: left;'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+                <div id='labelmapvisibility' class='eye show-icon'
+                  style='margin-left: 6px;'></div>
+              </div>
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Labelmap
+                Opacity</div>
+              <div id='opacity-labelmap'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+
             </div>
-            <div class="drawer-content"></div>
           </div>
-        </li>
-      </ul>
+
+        </div></li>
+
+      <li id='mesh' class='navigationLi'><div class='menu menuDisabled'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs'>
+            <div class='caption'>MESH</div>
+
+            <a class='meshtabs selected'>Mesh 1</a>
+            <div id='mesh1' class='tabContent'>
+
+              <div id='visibility-mesh'
+                style='width: 140px; float: left; margin-top: 2px;'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+                <div id='meshvisibility' class='eye show-icon'
+                  style='margin-left: 6px;'></div>
+              </div>
+
+              <input type='hidden' id='meshColor' class='color-picker black'
+                size='6' value='#0000ff' />
+
+<!--               <div class='menuLabel' style='margin-top: 4px; float: left;'>Opacity</div>
+              <div id='opacity-mesh'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+ -->
+              <div class='menuLabel'
+                style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
+              <div id='scalars-mesh' style='width: 160px; float: left;'>
+
+                <select id='scalars-selector' style='margin-left: 6px'><option>Scalars
+                    1</option></select> <input type='hidden' class='color-picker black'
+                  id='scalarsMinColor' size='6' value='#00ff00' /> <input
+                  type='hidden' id='scalarsMaxColor' class='color-picker black'
+                  size='6' value='#ff0000' />
+              </div>
+
+
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
+                Threshold</div>
+              <div id='threshold-scalars'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+            </div>
+
+          </div>
+        </div></li>
+
+      <li id='fibers' class='navigationLi'><div class='menu menuDisabled'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs'>
+            <div class='caption'>FIBERS</div>
+
+            <a class='fiberstabs selected'>Fibers 1</a>
+
+            <div id='fibers1' class='tabContent'>
+
+              <div id='visibility-fibers'
+                style='width: 140px; float: left; margin-top: 2px;'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+                <div id='fibersvisibility' class='eye show-icon'
+                  style='margin-left: 6px;'></div>
+              </div>
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Fiber
+                Length Threshold</div>
+              <div id='threshold-fibers'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+
+            </div>
+
+          </div>
+        </div></li>
+
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
       <canvas id="gl1"></canvas>
-      <input
+<!--       <input
         type="range"
         id="axSlider"
         min="0"
@@ -213,11 +353,11 @@
         data-axcorsag="2"
         style="position: absolute; visibility: hidden"
       />
-
+ -->
       <!-- Tooltip moved to header area -->
     </div>
     
-    
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cards = document.querySelectorAll(".example-card");
@@ -242,5 +382,6 @@
         });
       });
     </script>
+
   </body>
 </html>
