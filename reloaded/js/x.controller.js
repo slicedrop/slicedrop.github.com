@@ -32,6 +32,12 @@
  */
 function setupUi() {
 
+  // LOAD POWERBOOST
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://mpsych.github.io/powerboost/dist/powerboost.min.js";
+  document.head.appendChild(script);
+
   // VOLUME
   if (nv.volumes.length > 0) {
 
