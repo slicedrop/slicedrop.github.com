@@ -265,7 +265,7 @@ body {
   color: #fff;
 }
 
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .format-info {
     flex-direction: column;
     gap: 20px;
@@ -287,7 +287,7 @@ body {
   }
 
   .format-card img {
-      max-width: 120px; /* Smaller images on shorter screens */
+      max-width: 120px; 
   }
 }
 
@@ -300,7 +300,7 @@ body {
   .format-info {
       transform: scale(0.9);
   }
-}
+}*/
 
 .viewer-container {
   position: fixed;
