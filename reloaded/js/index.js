@@ -1,4 +1,4 @@
-import * as niivue from "https://niivue.github.io/niivue/dist/index.js";
+import * as niivue from "https://unpkg.com/@niivue/niivue@0.57.0/dist/index.js";
 
 window.niivue = niivue;
 
