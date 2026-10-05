@@ -71,6 +71,11 @@ window.addEventListener("drop", (e) => {
 
 start();
 
+// reopen whatever the link points at, so shared links (and boostlet sync) land on the same data
+const params = new URLSearchParams(location.search);
+if (params.has('example')) loadExample(params.get('example'));
+else if (params.has('url')) loadUrl(params.get('url'));
+
 function start() {
     //
     // START NIIVUE
@@ -128,11 +133,14 @@ function start() {
 
 function loadExample(which) {
 
-    loadUrl('https://fly.cs.umb.edu/data/X/example'+which+'.nvd');
+    loadUrl('https://fly.cs.umb.edu/data/X/example'+which+'.nvd', false);
+    setParam('example', which);
 
 }
 
-async function loadUrl(url) {
+async function loadUrl(url, remember = true) {
+
+    if (remember) setParam('url', url);
 
     if (url.endsWith('.nvd')) {
 
@@ -217,6 +225,13 @@ async function loadUrl(url) {
 //     showViewer();
     
 // }
+
+// replaceState keeps other params like ?sync and doesn't add a history entry
+function setParam(key, value) {
+    const params = new URLSearchParams(location.search);
+    params.set(key, value);
+    history.replaceState(null, '', `${location.pathname}?${params}${location.hash}`);
+}
 
 function showViewer() {
     //
